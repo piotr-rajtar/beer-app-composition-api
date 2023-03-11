@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 
-import BeerAppHeader from './components/BeerAppHeader.vue';
+import BeerAppHeader from './components/layout/BeerAppHeader.vue';
 </script>
 
 <template>
