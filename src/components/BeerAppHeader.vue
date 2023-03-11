@@ -5,14 +5,18 @@
 </template>
 
 <style lang="scss" module="style">
+@use '@/styles/colors.scss';
+@use '@/styles/fonts.scss';
+@use '@/styles/spacings.scss';
+
 .headerContainer {
   margin: 0;
-  padding: 10px;
-  background: linear-gradient(#FFFFB7, #FFD400);
+  padding: 2 * spacings.$spacing-unit;
+  background: linear-gradient(colors.$yellow-light, colors.$yellow-dark);
   text-align: center;
 }
 
 .header {
-  font-size: 30px;
+  font-size: fonts.$font-size-xl;
 }
 </style>

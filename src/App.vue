@@ -10,7 +10,9 @@ import BeerAppHeader from './components/BeerAppHeader.vue';
 </template>
 
 <style lang="scss" module="style">
+@use '@/styles/fonts.scss';
+
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: fonts.$font-default;
 }
 </style>
