@@ -1,0 +1,1 @@
+export const API_ADDRESS: string = 'https://api.punkapi.com/v2/beers';
