@@ -59,7 +59,7 @@ interface Fermentation {
     volume: Volume;
   }
   
-  export interface BeerSimplified {
+  export interface SimplifiedBeer {
     id: number;
     name: string;
     first_brewed: string;
