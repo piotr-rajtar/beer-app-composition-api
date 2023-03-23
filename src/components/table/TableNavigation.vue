@@ -1,6 +1,6 @@
 <template>
   <fieldset :class="style.container">
-    <legend>Choose navigation type</legend>
+    <legend :class="style.legend">Choose navigation type</legend>
     <span 
       v-for="(navigationType, index) in navigationTypes" 
       :key="`navigation-item-${index}`" 
@@ -11,10 +11,11 @@
         v-model="activeTableNavigator"
         :data-test-id="navigationType.id"
         :value="navigationType.value"
+        :class="style.radioInput"
         type="radio"
         @change="onNavigationTypeChange"
       />
-      <label :for="navigationType.id">{{ navigationType.label }}</label>
+      <label :for="navigationType.id" :class="style.label">{{ navigationType.label }}</label>
     </span>
   </fieldset>
 </template>
@@ -40,15 +41,75 @@ const onNavigationTypeChange = (): void => {
 </script>
 
 <style lang="scss" module="style">
+@use '@/styles/colors.scss';
+@use '@/styles/fonts.scss';
 @use '@/styles/spacings.scss';
 
+$radio-border-width: 2px;
+
 .container {
-  margin: 0 0 4 * spacings.$spacing-unit 0;
-  padding: 0;
-  border: 0;
+  display: flex;
+  justify-content: space-around;
+  width: 600px;
+
+  border: $radio-border-width solid colors.$yellow-dark;
+  border-radius: spacings.$spacing-unit;
+}
+
+.legend {
+  font-size: fonts.$font-size-l;
 }
 
 .singleRadioContainer {
-  margin-right: 2 * spacings.$spacing-unit;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 1em;
+
+  &:focus-within {
+    color: colors.$yellow-dark;
+  }
+}
+
+.radioInput {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+
+  width: 1.15em;
+  height: 1.15em;
+  border: $radio-border-width solid colors.$yellow-dark;
+  border-radius: 50%;
+  transform: translateY(calc($radio-border-width / 2));
+
+  display: grid;
+  place-content: center;
+
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em colors.$yellow-dark;
+  }
+
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &:focus {
+    outline: $radio-border-width solid colors.$yellow-dark;
+    outline-offset: $radio-border-width;
+  }
+}
+
+.label {
+  font-size: fonts.$font-size-m;
+  font-weight: fonts.$font-bold;
+
+  cursor: pointer;
 }
 </style>

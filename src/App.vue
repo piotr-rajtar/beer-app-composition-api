@@ -12,7 +12,10 @@ import BeerAppHeader from './components/layout/BeerAppHeader.vue';
 <style lang="scss" module="style">
 @use '@/styles/fonts.scss';
 
-* {
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
   font-family: fonts.$font-default;
 }
 </style>
