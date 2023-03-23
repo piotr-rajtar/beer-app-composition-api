@@ -58,5 +58,5 @@ export const useBeerStore = defineStore('beer', () => {
     areDataLoading.value = false;
   }
 
-  return { areDataLoading, loadInitialBeersData, simplifiedBeersData }
+  return { areAllDataFetched, areDataLoading, loadInitialBeersData, simplifiedBeersData }
 })

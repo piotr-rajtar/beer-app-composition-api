@@ -1,7 +1,7 @@
 <template>
   <h2 :class="style.header">Beer catalogue browser</h2>
   <div :class="style.sectionContainer">
-    <BeerAppButton @click="debouncedOnLoadInitialData">{{ beerButtonCaption }}</BeerAppButton>
+    <BeerAppButton @click="mainBeerButtonClickHandler">{{ beerButtonLabel }}</BeerAppButton>
   </div>
   <div v-if="store.areDataLoading" :class="style.sectionContainer">
     <BeerAppLoader />
@@ -33,7 +33,7 @@ const sortBy: Ref<SortBy | null> = ref(null);
 const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 const wasBeerButtonEverClicked = ref(false);
 
-const beerButtonCaption = computed(() => {
+const beerButtonLabel = computed(() => {
   return wasBeerButtonEverClicked.value
     ? 'Reset to initial state'
     : 'Start browsing'
@@ -51,18 +51,35 @@ const setTableInitialState = (): void => {
 };
 
 const onLoadInitialData = async (): Promise<void> => {
-  await store.loadInitialBeersData(queryParams)
-  wasBeerButtonEverClicked.value = !wasBeerButtonEverClicked.value;
+  await store.loadInitialBeersData(queryParams);
+  wasBeerButtonEverClicked.value = true;
 };
 
 const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
+
+const onTableReset = async (): Promise<void> => {
+  setTableInitialState();
+  store.areAllDataFetched = false;
+  await store.loadInitialBeersData(queryParams);
+  wasBeerButtonEverClicked.value = false;
+}
+
+const debouncedOnTableReset = debounce(onTableReset, 300);
+
+const mainBeerButtonClickHandler = computed(() => {
+  return wasBeerButtonEverClicked.value
+    ? debouncedOnTableReset
+    : debouncedOnLoadInitialData
+});
 
 const areAnyBeersFetched = computed(() => !!store.simplifiedBeersData.length);
 
 const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
 
-const onNavigationTypeChange = (navigationType: Ref<TableNavigator>) => {
+const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
   activeTableNavigator.value = navigationType.value;
+  setTableInitialState();
+  await store.loadInitialBeersData(queryParams);
 }
 </script>
 
