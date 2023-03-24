@@ -28,6 +28,11 @@ export const useBeerStore = defineStore('beer', () => {
     })
   })
 
+  const clearStore = (): void => {
+    areAllDataFetched.value = false;
+    beers.value = [];
+  }
+
   const fetchBeerData = async (queryParams: QueryParams): Promise<Beer[] | Error> => {
     const url: string = getUrlAddress(API_ADDRESS, queryParams);
     try {
@@ -58,5 +63,5 @@ export const useBeerStore = defineStore('beer', () => {
     areDataLoading.value = false;
   }
 
-  return { areAllDataFetched, areDataLoading, loadInitialBeersData, simplifiedBeersData }
+  return { areDataLoading, clearStore, loadInitialBeersData, simplifiedBeersData }
 })

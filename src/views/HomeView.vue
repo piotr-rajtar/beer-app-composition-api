@@ -59,8 +59,7 @@ const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
 
 const onTableReset = async (): Promise<void> => {
   setTableInitialState();
-  store.areAllDataFetched = false;
-  await store.loadInitialBeersData(queryParams);
+  store.clearStore();
   wasBeerButtonEverClicked.value = false;
 }
 
