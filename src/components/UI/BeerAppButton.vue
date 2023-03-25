@@ -20,6 +20,7 @@
   font-weight: fonts.$font-bold;
   cursor: pointer;
   transition: 0.2s all;
+  line-height: 1.5em;
             
   &:hover {
     border: 1px solid colors.$black;

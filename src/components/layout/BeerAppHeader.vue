@@ -1,8 +1,14 @@
 <template>
   <header :class="style.headerContainer">
-    <h1 :class="style.header">BEER APP</h1>
+    <h1 :class="style.header">{{ t('GENERAL.APP_TITLE') }}</h1>
   </header>
 </template>
+
+<script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+</script>
 
 <style lang="scss" module="style">
 @use '@/styles/colors.scss';

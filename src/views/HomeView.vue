@@ -1,5 +1,5 @@
 <template>
-  <h2 :class="style.header">Beer catalogue browser</h2>
+  <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
   <div :class="style.sectionContainer">
     <BeerAppButton @click="mainBeerButtonClickHandler">{{ beerButtonLabel }}</BeerAppButton>
   </div>
@@ -14,17 +14,20 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { debounce } from 'lodash';
 
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
 import TableNavigation from '../components/table/TableNavigation.vue';
 
-import { useBeerStore } from '../stores/beer-store';
+import { useBeerStore } from '../stores/beer.store';
 
-import { SortDirection } from '../typings/global-types';
-import type { SortBy, QueryParams } from '../typings/global-types';
-import { TableNavigator } from '../typings/table-types';
+import { SortDirection } from '../typings/global.types';
+import type { SortBy, QueryParams } from '../typings/global.types';
+import { TableNavigator } from '../typings/table.types';
+
+const { t } = useI18n();
 
 const store = useBeerStore();
 
@@ -35,14 +38,13 @@ const wasBeerButtonEverClicked = ref(false);
 
 const beerButtonLabel = computed(() => {
   return wasBeerButtonEverClicked.value
-    ? 'Reset to initial state'
-    : 'Start browsing'
+    ? t('GENERAL.RESET_TABLE_BUTTON_LABEL')
+    : t('GENERAL.START_BROWSING_BUTTON_LABEL')
 });
 
 const queryParams: ComputedRef<QueryParams> = computed(() => ({
   page: pageNumber
 }));
-
 
 const setTableInitialState = (): void => {
   sortBy.value = null

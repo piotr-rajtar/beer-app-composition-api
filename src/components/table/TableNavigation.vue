@@ -1,6 +1,8 @@
 <template>
   <fieldset :class="style.container">
-    <legend :class="style.legend">Choose navigation type</legend>
+    <legend :class="style.legend">
+      {{ t('TABLE_NAVIGATION.LEGEND') }}
+    </legend>
     <span 
       v-for="(navigationType, index) in navigationTypes" 
       :key="`navigation-item-${index}`" 
@@ -15,7 +17,9 @@
         type="radio"
         @change="onNavigationTypeChange"
       />
-      <label :for="navigationType.id" :class="style.label">{{ navigationType.label }}</label>
+      <label :for="navigationType.id" :class="style.label">
+        {{ t(navigationType.label) }}
+      </label>
     </span>
   </fieldset>
 </template>
@@ -23,15 +27,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import type { Ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
-import { navigationTypes } from '../../const/table-const';
-import { TableNavigator } from '../../typings/table-types';
+import { navigationTypes } from '../../const/table.const';
+import { TableNavigator } from '../../typings/table.types';
 
 interface NavigationTypeEmits {
   (event: 'navigation-type-change', tableNavigator: Ref<TableNavigator>): void,
 }
 
 const emit = defineEmits<NavigationTypeEmits>();
+
+const { t } = useI18n();
 
 const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
 

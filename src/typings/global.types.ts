@@ -12,3 +12,8 @@ export enum SortDirection {
   DESC = 'desc',
   NONE = 'none',
 }
+
+export enum Locale {
+  EN = 'en',
+  PL = 'pl',
+}
