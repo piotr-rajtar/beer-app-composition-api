@@ -4,13 +4,13 @@ import { defineStore } from 'pinia'
 import axios from 'axios';
 import { isArray } from 'lodash';
 
-import { API_ADDRESS } from '../const/beer-store-const';
-import { tableHeaders } from '../const/global-const';
-import type { QueryParams } from '../typings/global-types';
+import { API_ADDRESS } from '../const/beer-store.const';
+import { tableHeaders } from '../const/global.const';
+import type { QueryParams } from '../typings/globals.types';
 import { getErrorMessage, getQueryString, getUrlAddress } from '../utils';
 
 
-import type { Beer, SimplifiedBeer } from '../typings/beer-store-types'
+import type { Beer, SimplifiedBeer } from '../typings/beer-store.types'
 
 export const useBeerStore = defineStore('beer', () => {
   const areAllDataFetched = ref(false);

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import type { SimplifiedBeer } from './beer-store-types';
+import type { SimplifiedBeer } from './beer-store.types';
 
 export interface QueryParams {
   page: Ref<number>;
