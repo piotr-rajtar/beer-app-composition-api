@@ -13,7 +13,7 @@ export enum SortDirection {
   NONE = 'none',
 }
 
-export enum Locale {
+export enum Language {
   EN = 'en',
   PL = 'pl',
 }
