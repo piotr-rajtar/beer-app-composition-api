@@ -3,7 +3,7 @@
   <div :class="style.sectionContainer">
     <BeerAppButton @click="mainBeerButtonClickHandler">{{ beerButtonLabel }}</BeerAppButton>
   </div>
-  <div v-if="store.areDataLoading" :class="style.sectionContainer">
+  <div v-if="areDataLoading" :class="style.sectionContainer">
     <BeerAppLoader />
   </div>
   <div v-else-if="areAnyBeersFetched" :class="style.sectionContainer">
@@ -14,6 +14,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { debounce } from 'lodash';
 
@@ -29,7 +30,8 @@ import { TableNavigator } from '../typings/table.types';
 
 const { t } = useI18n();
 
-const store = useBeerStore();
+const { areDataLoading, simplifiedBeersData } = storeToRefs(useBeerStore());
+const { clearStore, loadInitialBeersData } = useBeerStore();
 
 const pageNumber = ref(1);
 const sortBy: Ref<SortBy | null> = ref(null);
@@ -53,7 +55,7 @@ const setTableInitialState = (): void => {
 };
 
 const onLoadInitialData = async (): Promise<void> => {
-  await store.loadInitialBeersData(queryParams);
+  await loadInitialBeersData(queryParams);
   wasBeerButtonEverClicked.value = true;
 };
 
@@ -61,7 +63,7 @@ const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
 
 const onTableReset = async (): Promise<void> => {
   setTableInitialState();
-  store.clearStore();
+  clearStore();
   wasBeerButtonEverClicked.value = false;
 }
 
@@ -73,14 +75,14 @@ const mainBeerButtonClickHandler = computed(() => {
     : debouncedOnLoadInitialData
 });
 
-const areAnyBeersFetched = computed(() => !!store.simplifiedBeersData.length);
+const areAnyBeersFetched = computed(() => !!simplifiedBeersData.value.length);
 
 const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
 
 const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
   activeTableNavigator.value = navigationType.value;
   setTableInitialState();
-  await store.loadInitialBeersData(queryParams);
+  await loadInitialBeersData(queryParams);
 }
 </script>
 

@@ -7,10 +7,8 @@ import { isArray } from 'lodash';
 import { API_ADDRESS } from '../const/beer-store.const';
 import { tableHeaders } from '../const/global.const';
 import type { QueryParams } from '../typings/global.types';
-import { getErrorMessage, getQueryString, getUrlAddress } from '../utils';
-
-
 import type { Beer, SimplifiedBeer } from '../typings/beer-store.types'
+import { getErrorMessage, getQueryString, getUrlAddress } from '../utils';
 
 export const useBeerStore = defineStore('beer', () => {
   const areAllDataFetched = ref(false);
