@@ -1,7 +1,10 @@
 <template>
   <header :class="style.headerContainer">
     <h1 :class="style.header">{{ t('HEADER.APP_TITLE') }}</h1>
-    <LanguageSwitch @language-switch="onLanguageSwitch" />
+    <LanguageSwitch 
+      :class="style.languageSwitch" 
+      @language-switch="onLanguageSwitch" 
+    />
   </header>
 </template>
 
@@ -26,13 +29,21 @@ const onLanguageSwitch = (activeLanguage: Ref<Language>): void => {
 @use '@/styles/spacings.scss';
 
 .headerContainer {
-  margin: 0;
-  padding: 2 * spacings.$spacing-unit;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+
+  padding: 2 * spacings.$spacing-unit 10 * spacings.$spacing-unit;
   background: linear-gradient(colors.$yellow-light, colors.$yellow-dark);
-  text-align: center;
 }
 
 .header {
+  grid-column: 2;
+  place-self: center;
+
   font-size: fonts.$font-size-xl;
+}
+
+.languageSwitch {
+  place-self: center self-end;
 }
 </style>
