@@ -1,0 +1,19 @@
+{
+  "GENERAL": {
+    "APP_HEADER": "Przeglądarka katalogu piw",
+    "RESET_TABLE_BUTTON_LABEL": "Resetuj do stanu początkowego",
+    "START_BROWSING_BUTTON_LABEL": "Zacznij przeglądanie"
+  },
+  "HEADER": {
+    "APP_TITLE": "APKA PIWNA",
+    "LANGUAGE_EN": "EN",
+    "LANGUAGE_PL": "PL",
+    "LANGUAGE_SWITCH_LABEL": "Przełącz język"
+  },
+  "TABLE_NAVIGATION": {
+    "INFINITE_SCROLL": "Wieczne przewijanie",
+    "LEGEND": "Wybierz typ nawigacji",
+    "LOAD_MORE": "Załaduj więcej",
+    "PAGINATION": "Paginacja"
+  }
+}
