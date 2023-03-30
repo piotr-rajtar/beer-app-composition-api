@@ -32,7 +32,7 @@ const onLanguageSwitch = (activeLanguage: Ref<Language>): void => {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
 
-  padding: 2 * spacings.$spacing-unit 10 * spacings.$spacing-unit;
+  padding: 3 * spacings.$spacing-unit 10 * spacings.$spacing-unit;
   background: linear-gradient(colors.$yellow-light, colors.$yellow-dark);
 }
 

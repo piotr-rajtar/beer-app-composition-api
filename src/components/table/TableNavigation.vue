@@ -52,14 +52,12 @@ const onNavigationTypeChange = (): void => {
 @use '@/styles/fonts.scss';
 @use '@/styles/spacings.scss';
 
-$radio-border-width: 2px;
-
 .container {
   display: flex;
   justify-content: space-around;
   width: 600px;
 
-  border: $radio-border-width solid colors.$yellow-dark;
+  border: spacings.$border-width solid colors.$yellow-dark;
   border-radius: spacings.$spacing-unit;
 }
 
@@ -84,9 +82,9 @@ $radio-border-width: 2px;
 
   width: 1.15em;
   height: 1.15em;
-  border: $radio-border-width solid colors.$yellow-dark;
+  border: spacings.$border-width solid colors.$yellow-dark;
   border-radius: 50%;
-  transform: translateY(calc($radio-border-width / 2));
+  transform: translateY(calc(spacings.$border-width / 2));
 
   display: grid;
   place-content: center;
@@ -108,8 +106,8 @@ $radio-border-width: 2px;
   }
 
   &:focus {
-    outline: $radio-border-width solid colors.$yellow-dark;
-    outline-offset: $radio-border-width;
+    outline: spacings.$border-width solid colors.$yellow-dark;
+    outline-offset: spacings.$border-width;
   }
 }
 
