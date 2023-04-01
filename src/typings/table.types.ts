@@ -1,3 +1,14 @@
+export enum TableHeaderKey {
+  ABV,
+  EBC,
+  FIRST_BREWED,
+  IBU,
+  ID,
+  MORE,
+  NAME,
+  PH,
+}
+
 export enum TableNavigator {
   LOAD_MORE,
   PAGINATION,
@@ -7,5 +18,10 @@ export enum TableNavigator {
 export interface NavigationType {
   id: string;
   value: TableNavigator;
+  label: string;
+}
+
+export interface TableHeader {
+  key: TableHeaderKey;
   label: string;
 }

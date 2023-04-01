@@ -10,6 +10,16 @@
     "LANGUAGE_PL": "PL",
     "LANGUAGE_SWITCH_LABEL": "Switch language"
   },
+  "TABLE_HEADER": {
+    "ID": "ID",
+    "NAME": "NAME",
+    "FIRST_BREWED": "FIRST BREWED",
+    "ABV": "ALCOHOL BY VOLUME (ABV)",
+    "IBU": "INTERNATIONAL BITTERING UNIT (IBU)",
+    "EBC": "COLOR UNITS (EBC)",
+    "PH": "PH",
+    "MORE": "MORE"
+  },
   "TABLE_NAVIGATION": {
     "INFINITE_SCROLL": "Infinite Scroll",
     "LEGEND": "Choose navigation type",

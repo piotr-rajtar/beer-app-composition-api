@@ -4,14 +4,13 @@
       {{ t('TABLE_NAVIGATION.LEGEND') }}
     </legend>
     <span 
-      v-for="(navigationType, index) in navigationTypes" 
+      v-for="(navigationType, index) in NAVIGATION_TYPES" 
       :key="`navigation-item-${index}`" 
       :class="style.singleRadioContainer"
     >
       <input
         :id="navigationType.id"
         v-model="activeTableNavigator"
-        :data-test-id="navigationType.id"
         :value="navigationType.value"
         :class="style.radioInput"
         type="radio"
@@ -29,7 +28,7 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { navigationTypes } from '../../const/table.const';
+import { NAVIGATION_TYPES } from '../../const/table.const';
 import { TableNavigator } from '../../typings/table.types';
 
 interface NavigationTypeEmits {

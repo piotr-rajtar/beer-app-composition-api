@@ -14,7 +14,7 @@
         @change="onLanguageSwitch"
       >
         <option 
-          v-for="language in languageOptions" 
+          v-for="language in LANGUAGE_OPTIONS" 
           :key="language.id"
           :value="language.id"
         >
@@ -30,7 +30,7 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { languageOptions } from '../../const/global.const';
+import { LANGUAGE_OPTIONS } from '../../const/global.const';
 import { Language } from '../../typings/global.types';
 
 interface LanguageSwitchEmits {

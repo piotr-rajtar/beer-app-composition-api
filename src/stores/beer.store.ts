@@ -4,8 +4,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios';
 import { isArray } from 'lodash';
 
-import { API_ADDRESS } from '../const/beer-store.const';
-import { tableHeaders } from '../const/global.const';
+import { API_ADDRESS, TABLE_HEADERS } from '../const/beer-store.const';
 import type { QueryParams } from '../typings/global.types';
 import type { Beer, SimplifiedBeer } from '../typings/beer-store.types'
 import { getErrorMessage, getQueryString, getUrlAddress } from '../utils';
@@ -19,7 +18,7 @@ export const useBeerStore = defineStore('beer', () => {
   const simplifiedBeersData: ComputedRef<SimplifiedBeer[]> = computed(() => {
     return beers.value.map((beer) => {
       const simplifiedBeer: Record<keyof SimplifiedBeer, unknown> = {} as SimplifiedBeer;
-      tableHeaders.forEach((header) => {
+      TABLE_HEADERS.forEach((header) => {
         simplifiedBeer[header] = beer[header];
      });
       return simplifiedBeer as SimplifiedBeer;

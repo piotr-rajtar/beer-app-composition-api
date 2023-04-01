@@ -10,6 +10,16 @@
     "LANGUAGE_PL": "PL",
     "LANGUAGE_SWITCH_LABEL": "Przełącz język"
   },
+  "TABLE_HEADER": {
+    "ID": "ID",
+    "NAME": "NAZWA",
+    "FIRST_BREWED": "PIERWSZE WARZENIE",
+    "ABV": "OBJĘTOŚĆ ALKOHOLU (ABV)",
+    "IBU": "JEDNOSTKI GORYCZY (IBU)",
+    "EBC": "JEDNOSTKI KOLORU (EBC)",
+    "PH": "PH",
+    "MORE": "WIĘCEJ"
+  },
   "TABLE_NAVIGATION": {
     "INFINITE_SCROLL": "Wieczne przewijanie",
     "LEGEND": "Wybierz typ nawigacji",
