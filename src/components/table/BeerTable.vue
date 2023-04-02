@@ -13,10 +13,11 @@
     </thead>
 
     <tbody>
-      <tr>
-        <td>
-          <!-- CELL CONTENT -->
+      <tr v-for="beer in beers" :key="beer.id">
+        <td v-for="key in Object.keys(beer)" :key="`${key}_${beer.id}`">
+          {{ beer[key as keyof SimplifiedBeer] || '-' }}
         </td>
+        <td>{{ t('TABLE_BODY.MORE') }}</td>
       </tr>
     </tbody>
   </table>
@@ -26,6 +27,11 @@
 import { useI18n } from 'vue-i18n';
 
 import { TABLE_HEADERS } from '../../const/table.const';
+import type { SimplifiedBeer } from '../../typings/beer-store.types';
+
+defineProps<{
+  beers: SimplifiedBeer[];
+}>();
 
 const { t } = useI18n();
 </script>

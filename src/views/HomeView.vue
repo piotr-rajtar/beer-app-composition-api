@@ -8,6 +8,7 @@
   </div>
   <div v-else-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+    <BeerTable :beers="simplifiedBeersData" />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import { debounce } from 'lodash';
 
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
+import BeerTable from '../components/table/BeerTable.vue';
 import TableNavigation from '../components/table/TableNavigation.vue';
 
 import { useBeerStore } from '../stores/beer.store';

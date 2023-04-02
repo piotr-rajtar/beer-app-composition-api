@@ -10,6 +10,9 @@
     "LANGUAGE_PL": "PL",
     "LANGUAGE_SWITCH_LABEL": "Switch language"
   },
+  "TABLE_BODY": {
+    "MORE": "More"
+  },
   "TABLE_HEADER": {
     "ID": "ID",
     "NAME": "NAME",
