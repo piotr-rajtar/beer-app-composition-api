@@ -92,15 +92,18 @@ const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
 @use '@/styles/spacings.scss';
 
 .header {
+  margin-top: 10 * spacings.$spacing-unit;
+
   text-align: center;
   text-decoration: underline;
-  margin-top: 10 * spacings.$spacing-unit;
 }
 
 .sectionContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   margin-top: 10 * spacings.$spacing-unit;
+  padding: 0 8 * spacings.$spacing-unit;
 }
 </style>

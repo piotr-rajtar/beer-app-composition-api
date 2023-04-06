@@ -13,6 +13,9 @@
   "TABLE_BODY": {
     "MORE": "Więcej"
   },
+  "TABLE_GENERAL": {
+    "CAPTION": "Zestawienie piw z PUNK API"
+  },
   "TABLE_HEADER": {
     "ID": "ID",
     "NAME": "NAZWA",
