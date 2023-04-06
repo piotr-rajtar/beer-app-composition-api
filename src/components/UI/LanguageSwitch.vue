@@ -65,24 +65,27 @@ const onLanguageSwitch = (): void => {
 }
 
 .selectContainer {
+  background: linear-gradient(to top, colors.$white-dark, colors.$white 33%);
+
   display: grid;
   grid-template-areas: "select";
   align-items: center;
-
   min-width: 150px;
+  
+  padding: spacings.$spacing-unit 2 * spacings.$spacing-unit;
+  
   border: spacings.$border-width solid colors.$black;
   border-radius: spacings.$spacing-unit;
-  padding: spacings.$spacing-unit 2 * spacings.$spacing-unit;
-  background: linear-gradient(to top, colors.$white-dark, colors.$white 33%);
-
+  
   &::after {
     grid-area: select;
     justify-self: end;
 
     content: "";
+    background-color: colors.$black;
+
     width: 1.2em;
     height: 0.6em;
-    background-color: colors.$black;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
   }
 
@@ -93,17 +96,18 @@ const onLanguageSwitch = (): void => {
 }
 
 .select {
-  grid-area: select;
+  background-color: transparent;
 
+  grid-area: select;
   -webkit-appearance: none;
   appearance: none;
+  width: 100%;
+
   margin: 0;
   padding: 0 1.2em 0 0;
 
-  width: 100%;
   border: none;
   outline: none;
-  background-color: transparent;
   
   cursor: pointer;
 }

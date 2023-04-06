@@ -10,18 +10,23 @@
 @use '@/styles/spacings.scss';
 
 .button {
-  background: radial-gradient(colors.$yellow-light, colors.$yellow-dark);
+  background: radial-gradient(colors.$yellow-light-02, colors.$yellow-dark);
+
   width: 200px;
   height: 60px;
+
   border-radius: spacings.$spacing-unit;
   border: 0;
   outline: none;
   box-shadow: 7px 6px 28px 1px colors.$button-shadow;
+
   font-weight: fonts.$font-bold;
-  cursor: pointer;
-  transition: 0.2s all;
   line-height: 1.5em;
-            
+
+  transition: 0.2s all;
+
+  cursor: pointer;
+       
   &:hover {
     border: 1px solid colors.$black;
   }

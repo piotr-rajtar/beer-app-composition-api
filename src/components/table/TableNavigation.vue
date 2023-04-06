@@ -77,16 +77,16 @@ const onNavigationTypeChange = (): void => {
 .radioInput {
   -webkit-appearance: none;
   appearance: none;
-  margin: 0;
-
-  width: 1.15em;
-  height: 1.15em;
-  border: spacings.$border-width solid colors.$yellow-dark;
-  border-radius: 50%;
-  transform: translateY(calc(spacings.$border-width / 2));
-
   display: grid;
   place-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  
+  margin: 0;
+  border: spacings.$border-width solid colors.$yellow-dark;
+  border-radius: 50%;
+
+  transform: translateY(calc(spacings.$border-width / 2));
 
   cursor: pointer;
 
@@ -94,10 +94,12 @@ const onNavigationTypeChange = (): void => {
     content: "";
     width: 0.65em;
     height: 0.65em;
+
     border-radius: 50%;
+    box-shadow: inset 1em 1em colors.$yellow-dark;
+
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em colors.$yellow-dark;
   }
 
   &:checked::before {

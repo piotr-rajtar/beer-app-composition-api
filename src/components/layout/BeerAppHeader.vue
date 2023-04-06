@@ -29,11 +29,12 @@ const onLanguageSwitch = (activeLanguage: Ref<Language>): void => {
 @use '@/styles/spacings.scss';
 
 .headerContainer {
+  background: linear-gradient(colors.$yellow-light-02, colors.$yellow-dark);
+
   display: grid;
   grid-template-columns: 1fr auto 1fr;
 
   padding: 3 * spacings.$spacing-unit 10 * spacings.$spacing-unit;
-  background: linear-gradient(colors.$yellow-light, colors.$yellow-dark);
 }
 
 .header {
