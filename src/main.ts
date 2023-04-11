@@ -1,6 +1,8 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createI18n } from 'vue-i18n';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 import './assets/normalize.css';
 import { Language } from './typings/global.types';
@@ -16,6 +18,8 @@ const i18n = createI18n({
   fallbackLocale: Language.PL,
   messages: { en, pl },
 });
+
+library.add(faArrowUp);
 
 const app = createApp(App);
 

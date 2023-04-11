@@ -9,8 +9,15 @@
           :class="[style.cell, style.headerCell]"
           scope="col"
         >
-          {{ t(header.label) }}
-          <!--SORT BUTTON-->
+          <div :class="style.headerCellGrid">
+            <p :class="style.headerLabel">{{ t(header.label) }}</p>
+            <FontAwesomeIcon 
+              :class="style.sortIcon"
+              :icon="['fas', 'arrow-up']" 
+              size="lg" 
+              @click="onSortClick"
+            />
+          </div>
         </th>
       </tr>
     </thead>
@@ -32,6 +39,7 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { TABLE_HEADERS } from '../../const/table.const';
 import type { SimplifiedBeer } from '../../typings/beer-store.types';
@@ -41,6 +49,10 @@ defineProps<{
 }>();
 
 const { t } = useI18n();
+
+const onSortClick = () => {
+  console.log('click');
+}
 </script>
 
 <style lang="scss" module="style">
@@ -75,6 +87,7 @@ const { t } = useI18n();
 
   text-align: center;
   line-height: 1.5em;
+  word-break: break-word;
 }
 
 .headerCell {
@@ -83,6 +96,21 @@ const { t } = useI18n();
   border: spacings.$table-border solid colors.$yellow-dark;
 
   letter-spacing: 2px;
+}
+
+.headerCellGrid {
+  display: grid;
+  grid-template-columns: 3.5fr 0.5fr;
+}
+
+.headerLabel {
+  place-self: center;
+}
+
+.sortIcon {
+  place-self: center;
+
+  cursor: pointer;
 }
 
 .bodyCell {
