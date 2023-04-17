@@ -14,6 +14,11 @@ export enum TableHeaderKey {
   PH,
 }
 
+export interface TableHeader {
+  key: TableHeaderKey;
+  label: string;
+}
+
 export enum TableNavigator {
   LOAD_MORE,
   PAGINATION,
@@ -26,7 +31,15 @@ export interface NavigationType {
   label: string;
 }
 
-export interface TableHeader {
-  key: TableHeaderKey;
-  label: string;
+export type SortBy = Exclude<TableHeaderKey, TableHeaderKey.MORE>;
+
+export enum SortDirection {
+  ASC,
+  DESC,
+  NONE,
+}
+
+export interface SortOption {
+  sortDirection: SortDirection;
+  sortBy: SortBy | null;
 }

@@ -17,10 +17,8 @@
 import { computed, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 
-import { SortDirection } from '../../typings/global.types';
-import type { SortBy } from '../../typings/global.types';
-import { ArrowIconType } from '../../typings/table.types';
-import type { TableHeaderKey } from '../../typings/table.types';
+import { ArrowIconType, SortDirection } from '../../typings/table.types';
+import type { SortBy, TableHeaderKey } from '../../typings/table.types';
 
 import ArrowIcon from './ArrowIcon.vue';
 

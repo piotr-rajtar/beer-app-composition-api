@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import { createI18n } from 'vue-i18n';
 
 import './assets/normalize.css';
-import { Language } from './typings/global.types';
+import { Language } from './typings/language.types';
 import en from './translations/en.json';
 import pl from './translations/pl.json';
 

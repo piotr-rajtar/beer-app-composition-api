@@ -1,4 +1,3 @@
-//BEER DATA TYPES
 interface Fermentation {
     temp: Volume;
   }

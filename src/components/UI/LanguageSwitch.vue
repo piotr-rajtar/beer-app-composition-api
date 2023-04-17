@@ -30,8 +30,8 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { LANGUAGE_OPTIONS } from '../../const/global.const';
-import { Language } from '../../typings/global.types';
+import { LANGUAGE_OPTIONS } from '../../const/language.const';
+import { Language } from '../../typings/language.types';
 
 interface LanguageSwitchEmits {
   (event: 'language-switch', activeLanguage: Ref<Language>): void,
@@ -57,7 +57,7 @@ const onLanguageSwitch = (): void => {
   display: flex;
   flex-direction: column;
   gap: 2 * spacings.$spacing-unit;
-  
+
   font-size: fonts.$font-size-l;
 }
 
