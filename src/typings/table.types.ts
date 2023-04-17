@@ -1,3 +1,8 @@
+export enum ArrowIconType {
+  UP,
+  DOWN,
+}
+
 export enum TableHeaderKey {
   ABV,
   EBC,
