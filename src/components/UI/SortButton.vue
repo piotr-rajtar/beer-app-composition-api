@@ -27,6 +27,7 @@ interface SortButtonEmits {
 }
 
 const emit = defineEmits<SortButtonEmits>();
+
 const props = defineProps<{
   headerKey: TableHeaderKey,
   sortBy: SortBy | null,

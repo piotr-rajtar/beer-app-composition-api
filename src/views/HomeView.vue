@@ -26,9 +26,9 @@ import TableNavigation from '../components/table/TableNavigation.vue';
 
 import { useBeerStore } from '../stores/beer.store';
 
-import { SortDirection } from '../typings/global.types';
-import type { SortBy, QueryParams } from '../typings/global.types';
-import { TableNavigator } from '../typings/table.types';
+import type { QueryParams } from '../typings/global.types';
+import { SortDirection, TableNavigator } from '../typings/table.types';
+import type { SortBy } from '../typings/table.types';
 
 const { t } = useI18n();
 
