@@ -1,16 +1,17 @@
 import type { Ref } from 'vue';
-import type { SimplifiedBeer } from './beer-store.types';
+
+import type { TableHeaderKey } from './table.types';
 
 export interface QueryParams {
   page: Ref<number>;
 }
 
-export type SortBy = keyof SimplifiedBeer;
+export type SortBy = Exclude<TableHeaderKey, TableHeaderKey.MORE>;
 
 export enum SortDirection {
-  ASC = 'asc',
-  DESC = 'desc',
-  NONE = 'none',
+  ASC,
+  DESC,
+  NONE,
 }
 
 export enum Language {

@@ -57,6 +57,7 @@ const onLanguageSwitch = (): void => {
   display: flex;
   flex-direction: column;
   gap: 2 * spacings.$spacing-unit;
+  
   font-size: fonts.$font-size-l;
 }
 

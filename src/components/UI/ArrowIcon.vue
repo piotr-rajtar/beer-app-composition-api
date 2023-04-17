@@ -51,10 +51,12 @@ $icon-size: 4px;
 }
 
 .sortIcon {
+  display: inline-block;
+
+  padding: $icon-size;
+
   border: solid colors.$gray;
   border-width: 0 $icon-thickness $icon-thickness 0;
-  display: inline-block;
-  padding: $icon-size;
 }
 
 .active {
