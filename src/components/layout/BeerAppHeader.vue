@@ -12,7 +12,7 @@
 import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import type { Language } from '../../typings/global.types';
+import type { Language } from '../../typings/language.types';
 
 import LanguageSwitch from '../UI/LanguageSwitch.vue';
 

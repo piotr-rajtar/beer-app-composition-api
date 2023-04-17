@@ -4,8 +4,8 @@
       {{ t('TABLE_NAVIGATION.LEGEND') }}
     </legend>
     <span 
-      v-for="(navigationType, index) in NAVIGATION_TYPES" 
-      :key="`navigation-item-${index}`" 
+      v-for="navigationType in NAVIGATION_TYPES" 
+      :key="`navigation-item-${navigationType.id}`" 
       :class="style.singleRadioContainer"
     >
       <input
