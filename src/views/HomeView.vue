@@ -8,7 +8,11 @@
   </div>
   <div v-else-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
-    <BeerTable :beers="simplifiedBeersData" />
+    <BeerTable 
+      :beers="simplifiedBeersData"
+      :sort-by="sortBy"
+      @sort="onSort($event)" 
+    />
   </div>
 </template>
 
@@ -27,7 +31,7 @@ import TableNavigation from '../components/table/TableNavigation.vue';
 import { useBeerStore } from '../stores/beer.store';
 
 import type { QueryParams } from '../typings/global.types';
-import { SortDirection, TableNavigator } from '../typings/table.types';
+import { SortDirection, TableNavigator, type SortOption } from '../typings/table.types';
 import type { SortBy } from '../typings/table.types';
 
 const { t } = useI18n();
@@ -85,6 +89,15 @@ const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
   activeTableNavigator.value = navigationType.value;
   setTableInitialState();
   await loadInitialBeersData(queryParams);
+}
+
+const onSort = (sortOption: SortOption) => {
+  if (activeTableNavigator.value === TableNavigator.PAGINATION) {
+    pageNumber.value = 1;
+  }
+  
+  sortBy.value = sortOption.sortBy;
+  sortDirection.value = sortOption.sortDirection;
 }
 </script>
 

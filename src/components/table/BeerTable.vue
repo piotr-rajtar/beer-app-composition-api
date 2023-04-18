@@ -11,12 +11,14 @@
         >
           <div :class="style.headerCellGrid">
             <p :class="style.headerLabel">{{ t(header.label) }}</p>
-            <FontAwesomeIcon 
-              :class="style.sortIcon"
-              :icon="['fas', 'arrow-up']" 
-              size="lg" 
-              @click="onSortClick"
-            />
+            <div :class="style.sortButton">
+              <SortButton 
+                v-if="header.key !== TableHeaderKey.MORE"
+                :header-key="header.key"
+                :sort-by="sortBy"
+                @sort="onSortClick($event, header.key)"
+              />
+            </div>
           </div>
         </th>
       </tr>
@@ -39,19 +41,41 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { TABLE_HEADERS } from '../../const/table.const';
 import type { SimplifiedBeer } from '../../typings/beer-store.types';
+import { SortDirection, TableHeaderKey } from '../../typings/table.types';
+import type { SortBy, SortOption } from '../../typings/table.types';
+
+import SortButton from '../UI/SortButton.vue';
+
+interface SortButtonEmits {
+  (event: 'sort', sortOption: SortOption): void,
+}
+
+const emit = defineEmits<SortButtonEmits>();
 
 defineProps<{
   beers: SimplifiedBeer[];
+  sortBy: SortBy | null;
 }>();
 
 const { t } = useI18n();
 
-const onSortClick = () => {
-  console.log('click');
+const onSortClick = (
+  sortDirection: SortDirection, 
+  headerKey: TableHeaderKey
+) => {
+  const sortBy: SortBy | null = sortDirection === SortDirection.NONE
+    ? null
+    : headerKey as SortBy;
+
+  const sortOption: SortOption = {
+    sortBy,
+    sortDirection,
+  };
+  
+  emit('sort', sortOption);
 }
 </script>
 
@@ -103,14 +127,9 @@ const onSortClick = () => {
   grid-template-columns: 3.5fr 0.5fr;
 }
 
-.headerLabel {
+.headerLabel,
+.sortButton {
   place-self: center;
-}
-
-.sortIcon {
-  place-self: center;
-
-  cursor: pointer;
 }
 
 .bodyCell {

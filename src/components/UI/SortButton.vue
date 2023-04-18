@@ -60,7 +60,7 @@ const onSortClick = (newSortDirection: SortDirection): void => {
     sortDirection.value = newSortDirection;
   }
   
-  emit('sort', newSortDirection);
+  emit('sort', sortDirection.value);
 }
 </script>
 
