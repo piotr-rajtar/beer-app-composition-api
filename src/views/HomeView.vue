@@ -9,7 +9,7 @@
   <div v-else-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
     <BeerTable 
-      :beers="simplifiedBeersData"
+      :beers="beerTableDataSource"
       :sort-by="sortBy"
       @sort="onSort($event)" 
     />
@@ -34,14 +34,22 @@ import type { QueryParams } from '../typings/global.types';
 import { SortDirection, TableNavigator, type SortOption } from '../typings/table.types';
 import type { SortBy } from '../typings/table.types';
 
+import { getBeerTableDataSource } from '../utils';
+
 const { t } = useI18n();
 
 const { areDataLoading, simplifiedBeersData } = storeToRefs(useBeerStore());
 const { clearStore, loadInitialBeersData } = useBeerStore();
 
+const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
+const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
+
+const beerTableDataSource = computed(() => {
+  return getBeerTableDataSource(sortDirection.value, activeTableNavigator.value);
+});
+
 const pageNumber = ref(1);
 const sortBy: Ref<SortBy | null> = ref(null);
-const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 const wasBeerButtonEverClicked = ref(false);
 
 const beerButtonLabel = computed(() => {
@@ -83,8 +91,6 @@ const mainBeerButtonClickHandler = computed(() => {
 
 const areAnyBeersFetched = computed(() => !!simplifiedBeersData.value.length);
 
-const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
-
 const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
   activeTableNavigator.value = navigationType.value;
   setTableInitialState();
@@ -95,7 +101,7 @@ const onSort = (sortOption: SortOption) => {
   if (activeTableNavigator.value === TableNavigator.PAGINATION) {
     pageNumber.value = 1;
   }
-  
+
   sortBy.value = sortOption.sortBy;
   sortDirection.value = sortOption.sortDirection;
 }
