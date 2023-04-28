@@ -31,25 +31,26 @@ import TableNavigation from '../components/table/TableNavigation.vue';
 import { useBeerStore } from '../stores/beer.store';
 
 import type { QueryParams } from '../typings/global.types';
-import { SortDirection, TableNavigator, type SortOption } from '../typings/table.types';
-import type { SortBy } from '../typings/table.types';
+import { SortDirection, TableNavigator } from '../typings/table.types';
+import type { SortOption } from '../typings/table.types';
 
 import { getBeerTableDataSource } from '../utils';
 
 const { t } = useI18n();
 
-const { areDataLoading, simplifiedBeersData } = storeToRefs(useBeerStore());
+const { 
+  activeTableNavigator, 
+  areDataLoading,
+  pageNumber,
+  sortBy,
+  sortDirection,
+} = storeToRefs(useBeerStore());
 const { clearStore, loadInitialBeersData } = useBeerStore();
-
-const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
-const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 
 const beerTableDataSource = computed(() => {
   return getBeerTableDataSource(sortDirection.value, activeTableNavigator.value);
 });
 
-const pageNumber = ref(1);
-const sortBy: Ref<SortBy | null> = ref(null);
 const wasBeerButtonEverClicked = ref(false);
 
 const beerButtonLabel = computed(() => {
@@ -89,7 +90,7 @@ const mainBeerButtonClickHandler = computed(() => {
     : debouncedOnLoadInitialData
 });
 
-const areAnyBeersFetched = computed(() => !!simplifiedBeersData.value.length);
+const areAnyBeersFetched = computed(() => beerTableDataSource.value.length);
 
 const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
   activeTableNavigator.value = navigationType.value;

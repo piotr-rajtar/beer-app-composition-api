@@ -25,13 +25,18 @@ export const getBeerTableDataSource = (
   sortDirection: SortDirection, 
   activeTableNavigator: TableNavigator
 ) => {
-  const { simplifiedBeersData } = storeToRefs(useBeerStore());
+  const { 
+    simplifiedBeersDataWithNoPagination,
+    simplifiedBeersDataWithPagination,
+    sortedSimplifiedBeersDataWithNoPagination,
+    sortedSimplifiedBeersDataWithPagination,
+  } = storeToRefs(useBeerStore());
 
   const storeDataSource: { [key in TABLE_STATES]: SimplifiedBeer[] } = {
-    [TABLE_STATES.NO_SORT_NO_PAGINATION]: simplifiedBeersData.value,
-    [TABLE_STATES.SORT_NO_PAGINATION]: simplifiedBeersData.value, //TO IMPLEMENT SORTED DATA
-    [TABLE_STATES.NO_SORT_PAGINATION]: simplifiedBeersData.value, //TO IMPLEMENT PAGINED BEERS DATA
-    [TABLE_STATES.SORT_PAGINATION]: simplifiedBeersData.value, //TO IMPLEMENT PAGINED SORT BEERS DATA
+    [TABLE_STATES.NO_SORT_NO_PAGINATION]: simplifiedBeersDataWithNoPagination.value,
+    [TABLE_STATES.SORT_NO_PAGINATION]: sortedSimplifiedBeersDataWithNoPagination.value,
+    [TABLE_STATES.NO_SORT_PAGINATION]: simplifiedBeersDataWithPagination.value,
+    [TABLE_STATES.SORT_PAGINATION]: sortedSimplifiedBeersDataWithPagination.value,
   };
 
   const sortState = sortDirection === SortDirection.NONE 

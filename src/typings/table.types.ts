@@ -4,14 +4,14 @@ export enum ArrowIconType {
 }
 
 export enum TableHeaderKey {
-  ABV,
-  EBC,
-  FIRST_BREWED,
-  IBU,
-  ID,
-  MORE,
-  NAME,
-  PH,
+  ABV = 'abv',
+  EBC = 'ebc',
+  FIRST_BREWED = 'first_brewed',
+  IBU = 'ibu',
+  ID = 'id',
+  MORE = 'more',
+  NAME = 'name',
+  PH = 'ph',
 }
 
 export interface TableHeader {
