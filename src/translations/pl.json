@@ -1,6 +1,7 @@
 {
   "GENERAL": {
     "APP_HEADER": "Przeglądarka katalogu piw",
+    "NO_DATA": "Brak danych",
     "RESET_TABLE_BUTTON_LABEL": "Resetuj do stanu początkowego",
     "START_BROWSING_BUTTON_LABEL": "Zacznij przeglądanie"
   },

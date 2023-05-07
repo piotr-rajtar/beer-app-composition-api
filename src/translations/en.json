@@ -1,6 +1,7 @@
 {
   "GENERAL": {
     "APP_HEADER": "Beer catalogue browser",
+    "NO_DATA": "No data",
     "RESET_TABLE_BUTTON_LABEL": "Reset to initial state",
     "START_BROWSING_BUTTON_LABEL": "Start browsing"
   },

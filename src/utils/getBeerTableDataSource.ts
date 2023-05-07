@@ -1,5 +1,3 @@
-import { storeToRefs } from 'pinia';
-
 import { useBeerStore } from '../stores/beer.store';
 import { SortDirection, TableNavigator } from '../typings/table.types';
 import type { SimplifiedBeer } from '../typings/beer-store.types';
@@ -30,13 +28,13 @@ export const getBeerTableDataSource = (
     simplifiedBeersDataWithPagination,
     sortedSimplifiedBeersDataWithNoPagination,
     sortedSimplifiedBeersDataWithPagination,
-  } = storeToRefs(useBeerStore());
+  } = useBeerStore();
 
   const storeDataSource: { [key in TABLE_STATES]: SimplifiedBeer[] } = {
-    [TABLE_STATES.NO_SORT_NO_PAGINATION]: simplifiedBeersDataWithNoPagination.value,
-    [TABLE_STATES.SORT_NO_PAGINATION]: sortedSimplifiedBeersDataWithNoPagination.value,
-    [TABLE_STATES.NO_SORT_PAGINATION]: simplifiedBeersDataWithPagination.value,
-    [TABLE_STATES.SORT_PAGINATION]: sortedSimplifiedBeersDataWithPagination.value,
+    [TABLE_STATES.NO_SORT_NO_PAGINATION]: simplifiedBeersDataWithNoPagination,
+    [TABLE_STATES.SORT_NO_PAGINATION]: sortedSimplifiedBeersDataWithNoPagination,
+    [TABLE_STATES.NO_SORT_PAGINATION]: simplifiedBeersDataWithPagination,
+    [TABLE_STATES.SORT_PAGINATION]: sortedSimplifiedBeersDataWithPagination,
   };
 
   const sortState = sortDirection === SortDirection.NONE 

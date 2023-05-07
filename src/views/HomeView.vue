@@ -14,6 +14,9 @@
       @sort="onSort($event)" 
     />
   </div>
+  <div v-else-if="wasBeerButtonEverClicked" :class="style.sectionContainer">
+    <NoData />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -26,6 +29,7 @@ import { debounce } from 'lodash';
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
 import BeerTable from '../components/table/BeerTable.vue';
+import NoData from '../components/UI/NoData.vue';
 import TableNavigation from '../components/table/TableNavigation.vue';
 
 import { useBeerStore } from '../stores/beer.store';
