@@ -1,5 +1,16 @@
-import type { Ref } from 'vue';
+export interface Filters {
+  abv_gt?: number;
+  abv_lt?: number;
+  beer_name?: string;
+  brewed_after?: string;
+  brewed_before?: string;
+  ebc_gt?: number;
+  ebc_lt?: number;
+  ibu_gt?: number;
+  ibu_lt?: number;
+}
 
-export interface QueryParams {
-  page: Ref<number>;
+export interface QueryParams extends Filters {
+  page: number;
+  per_page: number;
 }

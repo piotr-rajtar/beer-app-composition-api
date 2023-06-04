@@ -4,20 +4,24 @@ import { defineStore } from 'pinia'
 import axios from 'axios';
 
 import { API_ADDRESS, SIMPLIFIED_BEER_KEYS } from '../const/beer-store.const';
-import type { QueryParams } from '../typings/global.types';
+import type { Filters, QueryParams } from '../typings/global.types';
 import type { Beer, SimplifiedBeer } from '../typings/beer-store.types';
 import { TableNavigator, SortDirection } from '../typings/table.types';
 import type { SortBy, SortOption } from '../typings/table.types';
 import { compareSimplifiedBeers, getErrorMessage, getQueryString, getUrlAddress } from '../utils';
 
 export const useBeerStore = defineStore('beer', () => {
-  const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
-  const areAllDataFetched = ref(false);
-  const areDataLoading = ref(false);
   const beers: Ref<Beer[]> = ref([]);
   const cachedBeers: Ref<{ [key: string]: Beer[] }> = ref({});
+
+  const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
   const itemsPerPage = 25;
   const pageNumber = ref(1);
+
+  const areDataLoading = ref(false);
+  
+  const isNextPageAvailable = ref(true);
+  
   const sortBy: Ref<SortBy | null> = ref(null);
   const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 
@@ -29,18 +33,18 @@ export const useBeerStore = defineStore('beer', () => {
       });
       return simplifiedBeer as SimplifiedBeer;
     });
-  }
-);
+  });
 
   const sortedSimplifiedBeersDataWithNoPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
     const clonedBeersData: SimplifiedBeer[] = structuredClone(simplifiedBeersDataWithNoPagination.value);
+
     const sortOption: SortOption = {
       sortBy: sortBy.value,
       sortDirection: sortDirection.value,
     }
-      return clonedBeersData.sort(compareSimplifiedBeers(sortOption));
-    }
-  );
+
+    return clonedBeersData.sort(compareSimplifiedBeers(sortOption));
+  });
 
   const simplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
     const endIndex = itemsPerPage * pageNumber.value;
@@ -67,7 +71,6 @@ export const useBeerStore = defineStore('beer', () => {
 );
 
   const clearStore = (): void => {
-    areAllDataFetched.value = false;
     beers.value = [];
   };
 
@@ -81,30 +84,101 @@ export const useBeerStore = defineStore('beer', () => {
     }
   };
 
-  const loadInitialBeersData = async (queryParams: ComputedRef<QueryParams>): Promise<void> => {
-    const queryKey: string = getQueryString(queryParams.value);
+  const checkIfNextPageIsAvailable = async (queryParams: QueryParams): Promise<void> => {
+    const nextPageQueryParams: QueryParams = {
+      ...queryParams,
+      page: pageNumber.value + 1,
+    }
+    
+    const queryKey: string = getQueryString(nextPageQueryParams);
     const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
+
+    if(cachedPage) {
+      isNextPageAvailable.value = true;
+      return;
+    }
+
+    const result: Beer[] | Error = await fetchBeerData(nextPageQueryParams);
+    if (Array.isArray(result) && result.length) {
+      cachedBeers.value[queryKey] = result;
+      isNextPageAvailable.value = true;
+      return;
+    }
+
+    isNextPageAvailable.value = false;
+  };
+
+  const loadInitialBeerData = async (): Promise<void> => {
+    const queryParams: QueryParams = {
+      page: pageNumber.value,
+      per_page: itemsPerPage,
+    };
+    const queryKey: string = getQueryString(queryParams);
+
+    const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
+
     areDataLoading.value = true;
 
     if (cachedPage) {
-      beers.value = structuredClone(cachedPage)
+      checkIfNextPageIsAvailable(queryParams);
+
+      beers.value = structuredClone(cachedPage);
+
       areDataLoading.value = false;
       return;
     }    
        
-    const result: Beer[] | Error = await fetchBeerData(queryParams.value);    
+    const result: Beer[] | Error = await fetchBeerData(queryParams);    
     if (Array.isArray(result) && result.length) {
+      checkIfNextPageIsAvailable(queryParams);
+
       cachedBeers.value[queryKey] = result;
       beers.value = result;
     }
+
+    areDataLoading.value = false;
+  };
+
+  const loadMoreBeerData = async (filters: Filters): Promise<void> => {
+    const queryParams: QueryParams = {
+      page: pageNumber.value,
+      per_page: itemsPerPage,
+      ...filters,
+    };
+    const queryKey: string = getQueryString(queryParams);
+
+    const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
+
+    areDataLoading.value = true;
+
+    if (cachedPage) {
+      checkIfNextPageIsAvailable(queryParams);
+
+      beers.value = structuredClone(cachedPage)
+      
+      areDataLoading.value = false;
+      return;
+    }    
+       
+    const result: Beer[] | Error = await fetchBeerData(queryParams);    
+    if (Array.isArray(result) && result.length) {
+      checkIfNextPageIsAvailable(queryParams);
+
+      cachedBeers.value[queryKey] = result;
+      beers.value = result;
+    }
+
     areDataLoading.value = false;
   };
 
   return { 
     activeTableNavigator,
-    areDataLoading, 
+    areDataLoading,
+    checkIfNextPageIsAvailable,
     clearStore, 
-    loadInitialBeersData, 
+    isNextPageAvailable,
+    loadInitialBeerData, 
+    loadMoreBeerData,
     pageNumber,
     simplifiedBeersDataWithNoPagination,
     simplifiedBeersDataWithPagination,

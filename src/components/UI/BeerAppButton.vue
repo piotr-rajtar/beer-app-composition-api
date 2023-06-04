@@ -1,8 +1,14 @@
 <template>
-  <button :class="style.button">
+  <button :class="style.button" :disabled="disabled">
     <slot />
   </button>
 </template>
+
+<script lang="ts" setup>
+defineProps<{
+  disabled?: boolean,
+}>();
+</script>
 
 <style lang="scss" module="style">
 @use '@/styles/colors.scss';
@@ -39,6 +45,14 @@
   &:focus-within {
     outline: spacings.$border-width solid colors.$black;
     outline-offset: spacings.$border-width;
+  }
+
+  &:disabled {
+    background: radial-gradient(colors.$gray-light-01, colors.$gray);
+
+    color: colors.$black;
+
+    cursor: not-allowed;
   }
 }
 </style>

@@ -13,6 +13,10 @@
       :sort-by="sortBy"
       @sort="onSort($event)" 
     />
+    <LoadMore 
+      v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
+      @load-more="onLoadMore" 
+    />
   </div>
   <div v-else-if="wasBeerButtonEverClicked" :class="style.sectionContainer">
     <NoData />
@@ -21,7 +25,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import type { ComputedRef, Ref } from 'vue';
+import type { Ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { debounce } from 'lodash';
@@ -29,12 +33,13 @@ import { debounce } from 'lodash';
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
 import BeerTable from '../components/table/BeerTable.vue';
+import LoadMore from '../components/table/LoadMore.vue';
 import NoData from '../components/UI/NoData.vue';
 import TableNavigation from '../components/table/TableNavigation.vue';
 
 import { useBeerStore } from '../stores/beer.store';
 
-import type { QueryParams } from '../typings/global.types';
+import type { Filters } from '../typings/global.types';
 import { SortDirection, TableNavigator } from '../typings/table.types';
 import type { SortOption } from '../typings/table.types';
 
@@ -49,7 +54,9 @@ const {
   sortBy,
   sortDirection,
 } = storeToRefs(useBeerStore());
-const { clearStore, loadInitialBeersData } = useBeerStore();
+const { clearStore, loadInitialBeerData, loadMoreBeerData } = useBeerStore();
+
+const filters: Ref<Filters> = ref({});
 
 const beerTableDataSource = computed(() => {
   return getBeerTableDataSource(sortDirection.value, activeTableNavigator.value);
@@ -63,10 +70,6 @@ const beerButtonLabel = computed(() => {
     : t('GENERAL.START_BROWSING_BUTTON_LABEL')
 });
 
-const queryParams: ComputedRef<QueryParams> = computed(() => ({
-  page: pageNumber
-}));
-
 const setTableInitialState = (): void => {
   sortBy.value = null
   sortDirection.value = SortDirection.NONE
@@ -74,23 +77,27 @@ const setTableInitialState = (): void => {
 };
 
 const onLoadInitialData = async (): Promise<void> => {
-  await loadInitialBeersData(queryParams);
+  await loadInitialBeerData();
   wasBeerButtonEverClicked.value = true;
 };
 
+const onLoadMore = async (): Promise<void> => {
+  pageNumber.value++;
+  await loadMoreBeerData(filters.value);
+  window.scrollTo(0, 0);
+}
+
 const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
 
-const onTableReset = async (): Promise<void> => {
+const onTableReset = (): void => {
   setTableInitialState();
   clearStore();
   wasBeerButtonEverClicked.value = false;
 }
 
-const debouncedOnTableReset = debounce(onTableReset, 300);
-
 const mainBeerButtonClickHandler = computed(() => {
   return wasBeerButtonEverClicked.value
-    ? debouncedOnTableReset
+    ? onTableReset
     : debouncedOnLoadInitialData
 });
 
@@ -99,7 +106,7 @@ const areAnyBeersFetched = computed(() => beerTableDataSource.value.length);
 const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
   activeTableNavigator.value = navigationType.value;
   setTableInitialState();
-  await loadInitialBeersData(queryParams);
+  await loadInitialBeerData();
 }
 
 const onSort = (sortOption: SortOption) => {
@@ -116,7 +123,7 @@ const onSort = (sortOption: SortOption) => {
 @use '@/styles/spacings.scss';
 
 .header {
-  margin-top: 10 * spacings.$spacing-unit;
+  margin: 10 * spacings.$spacing-unit 0;
 
   text-align: center;
   text-decoration: underline;
@@ -127,7 +134,7 @@ const onSort = (sortOption: SortOption) => {
   flex-direction: column;
   align-items: center;
 
-  margin-top: 10 * spacings.$spacing-unit;
+  margin-bottom: 10 * spacings.$spacing-unit;
   padding: 0 8 * spacings.$spacing-unit;
 }
 </style>

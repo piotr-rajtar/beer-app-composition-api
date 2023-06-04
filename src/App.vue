@@ -17,5 +17,6 @@ import BeerAppHeader from './components/layout/BeerAppHeader.vue';
 *:after {
   box-sizing: border-box;
   font-family: fonts.$font-default;
+  scroll-behavior: smooth;
 }
 </style>
