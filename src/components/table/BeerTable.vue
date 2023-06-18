@@ -1,6 +1,6 @@
 <template>
-  <table :class="style.table">
-    <caption :class="style.caption">{{ t('TABLE_GENERAL.CAPTION') }}</caption>
+  <table :id="BEER_TABLE_ID" :class="style.table">
+    <caption :id="BEER_TABLE_CAPTION_ID" :class="style.caption">{{ t('TABLE_GENERAL.CAPTION') }}</caption>
     <thead :class="style.tableHeader">
       <tr>
         <th
@@ -42,7 +42,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 
-import { TABLE_HEADERS } from '../../const/table.const';
+import { BEER_TABLE_CAPTION_ID, BEER_TABLE_ID, TABLE_HEADERS } from '../../const/table.const';
 import type { SimplifiedBeer } from '../../typings/beer-store.types';
 import { SortDirection, TableHeaderKey } from '../../typings/table.types';
 import type { SortBy, SortOption } from '../../typings/table.types';

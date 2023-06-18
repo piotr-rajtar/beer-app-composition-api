@@ -29,6 +29,7 @@
   },
   "TABLE_NAVIGATION": {
     "INFINITE_SCROLL": "Wieczne przewijanie",
+    "INFINITE_SCROLL_BUTTON_LABEL": "Do dna!",
     "LEGEND": "Wybierz typ nawigacji",
     "LOAD_MORE": "Załaduj więcej",
     "PAGINATION": "Paginacja"

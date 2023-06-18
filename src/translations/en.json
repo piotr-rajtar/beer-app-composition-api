@@ -29,6 +29,7 @@
   },
   "TABLE_NAVIGATION": {
     "INFINITE_SCROLL": "Infinite Scroll",
+    "INFINITE_SCROLL_BUTTON_LABEL": "Bottoms up!",
     "LEGEND": "Choose navigation type",
     "LOAD_MORE": "Load more",
     "PAGINATION": "Pagination"

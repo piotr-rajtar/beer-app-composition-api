@@ -3,12 +3,9 @@
   <div :class="style.sectionContainer">
     <BeerAppButton @click="mainBeerButtonClickHandler">{{ beerButtonLabel }}</BeerAppButton>
   </div>
-  <div v-if="areDataLoading" :class="style.sectionContainer">
-    <BeerAppLoader />
-  </div>
-  <div v-else-if="areAnyBeersFetched" :class="style.sectionContainer">
+  <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
-    <BeerTable 
+    <BeerTable
       :beers="beerTableDataSource"
       :sort-by="sortBy"
       @sort="onSort($event)" 
@@ -17,8 +14,16 @@
       v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
       @load-more="onLoadMore" 
     />
+    <InfiniteScroll 
+      v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
+      @load-more="onLoadMore" 
+      @make-initial-fetches="makeInfiniteScrollInitialFetches"
+    />
   </div>
-  <div v-else-if="wasBeerButtonEverClicked" :class="style.sectionContainer">
+  <div v-if="areDataLoading" :class="style.sectionContainer">
+    <BeerAppLoader />
+  </div>
+  <div v-if="isNoDataVisible" :class="style.sectionContainer">
     <NoData />
   </div>
 </template>
@@ -33,6 +38,7 @@ import { debounce } from 'lodash';
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
 import BeerTable from '../components/table/BeerTable.vue';
+import InfiniteScroll from '../components/table/InfiniteScroll.vue';
 import LoadMore from '../components/table/LoadMore.vue';
 import NoData from '../components/UI/NoData.vue';
 import TableNavigation from '../components/table/TableNavigation.vue';
@@ -48,7 +54,6 @@ import { getBeerTableDataSource } from '../utils';
 const { t } = useI18n();
 
 const { 
-  activeTableNavigator, 
   areDataLoading,
   pageNumber,
   sortBy,
@@ -56,6 +61,7 @@ const {
 } = storeToRefs(useBeerStore());
 const { clearStore, loadInitialBeerData, loadMoreBeerData } = useBeerStore();
 
+const activeTableNavigator: Ref<TableNavigator> = ref(TableNavigator.LOAD_MORE);
 const filters: Ref<Filters> = ref({});
 
 const beerTableDataSource = computed(() => {
@@ -84,7 +90,12 @@ const onLoadInitialData = async (): Promise<void> => {
 const onLoadMore = async (): Promise<void> => {
   pageNumber.value++;
   await loadMoreBeerData(filters.value);
-  window.scrollTo(0, 0);
+}
+
+const makeInfiniteScrollInitialFetches = async (quantity: number): Promise<void> => {
+  for(let counter = 0; counter < quantity; counter++) {
+    await onLoadMore();
+  }
 }
 
 const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
@@ -103,8 +114,8 @@ const mainBeerButtonClickHandler = computed(() => {
 
 const areAnyBeersFetched = computed(() => beerTableDataSource.value.length);
 
-const onNavigationTypeChange = async (navigationType: Ref<TableNavigator>) => {
-  activeTableNavigator.value = navigationType.value;
+const onNavigationTypeChange = async (navigationType: TableNavigator) => {
+  activeTableNavigator.value = navigationType;
   setTableInitialState();
   await loadInitialBeerData();
 }
@@ -117,6 +128,10 @@ const onSort = (sortOption: SortOption) => {
   sortBy.value = sortOption.sortBy;
   sortDirection.value = sortOption.sortDirection;
 }
+
+const isNoDataVisible = computed(() => 
+  wasBeerButtonEverClicked.value && !areAnyBeersFetched.value
+);
 </script>
 
 <style lang="scss" module="style">

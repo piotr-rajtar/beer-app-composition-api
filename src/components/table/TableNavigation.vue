@@ -25,14 +25,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { NAVIGATION_TYPES } from '../../const/table.const';
 import { TableNavigator } from '../../typings/table.types';
 
 interface NavigationTypeEmits {
-  (event: 'navigation-type-change', tableNavigator: Ref<TableNavigator>): void,
+  (event: 'navigation-type-change', tableNavigator: TableNavigator): void,
 }
 
 const emit = defineEmits<NavigationTypeEmits>();
@@ -42,7 +41,7 @@ const { t } = useI18n();
 const activeTableNavigator = ref(TableNavigator.LOAD_MORE);
 
 const onNavigationTypeChange = (): void => {
-  emit('navigation-type-change', activeTableNavigator);
+  emit('navigation-type-change', activeTableNavigator.value);
 };
 </script>
 

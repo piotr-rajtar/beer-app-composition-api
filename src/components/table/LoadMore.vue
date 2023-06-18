@@ -16,11 +16,11 @@ import { useBeerStore } from '../../stores/beer.store';
 
 import BeerAppButton from '../UI/BeerAppButton.vue';
 
-interface Emits {
+interface LoadMoreEmits {
   (event: 'load-more'): void;
 }
 
-const emit = defineEmits<Emits>();
+const emit = defineEmits<LoadMoreEmits>();
 
 const { isNextPageAvailable } = storeToRefs(useBeerStore());
 

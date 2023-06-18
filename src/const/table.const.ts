@@ -53,3 +53,6 @@ export const TABLE_HEADERS: TableHeader[] = [
     label: 'TABLE_HEADER.MORE',
   },
 ];
+
+export const BEER_TABLE_CAPTION_ID = 'beerTableCaptionId';
+export const BEER_TABLE_ID = 'beerTableId';
