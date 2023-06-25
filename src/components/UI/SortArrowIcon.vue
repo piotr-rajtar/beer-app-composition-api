@@ -4,9 +4,9 @@
   >
     <i
       :class="[
-        style.sortIcon,
+        style.icon,
         {[style.active]: isActive},
-        style[arrowTypeClass]
+        style[arrowDirectionClass]
       ]"
     />
   </div>
@@ -21,13 +21,13 @@ const props = defineProps<{
   type: SortArrowDirection,
 }>()
 
-const arrowTypeClass = computed(() => {
-  const arrowTypeClass: {[key in SortArrowDirection]: string} = {
+const arrowDirectionClass = computed(() => {
+  const arrowDirectionClass: {[key in SortArrowDirection]: string} = {
     [SortArrowDirection.UP]: 'arrowUp',
     [SortArrowDirection.DOWN]: 'arrowDown',
   };
 
-  return arrowTypeClass[props.type];
+  return arrowDirectionClass[props.type];
 });
 
 </script>
@@ -48,7 +48,7 @@ $icon-size: 4px;
   cursor: pointer;
 }
 
-.sortIcon {
+.icon {
   display: inline-block;
 
   padding: $icon-size;
