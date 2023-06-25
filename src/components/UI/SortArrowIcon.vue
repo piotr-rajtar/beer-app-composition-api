@@ -14,17 +14,17 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { SortArrowIconType } from '../../typings/table.types';
+import { SortArrowDirection } from '../../typings/table.types';
 
 const props = defineProps<{
   isActive: boolean;
-  type: SortArrowIconType,
+  type: SortArrowDirection,
 }>()
 
 const arrowTypeClass = computed(() => {
-  const arrowTypeClass: {[key in SortArrowIconType]: string} = {
-    [SortArrowIconType.UP]: 'arrowUp',
-    [SortArrowIconType.DOWN]: 'arrowDown',
+  const arrowTypeClass: {[key in SortArrowDirection]: string} = {
+    [SortArrowDirection.UP]: 'arrowUp',
+    [SortArrowDirection.DOWN]: 'arrowDown',
   };
 
   return arrowTypeClass[props.type];
