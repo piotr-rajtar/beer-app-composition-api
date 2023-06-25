@@ -1,13 +1,32 @@
 <template>
-  <button :class="style.button" :disabled="disabled">
+  <button 
+    :class="[style.button, style[buttonSizeClassName]]" 
+    :disabled="disabled"
+  >
     <slot />
   </button>
 </template>
 
 <script lang="ts" setup>
-defineProps<{
+import { computed } from 'vue';
+
+import { ButtonType } from '../../typings/global.types';
+
+const props = withDefaults(defineProps<{
+  buttonType?: ButtonType
   disabled?: boolean,
-}>();
+}>(), {
+  buttonType: ButtonType.DEFAULT,
+});
+
+const buttonSizeClassName = computed(() => {
+  const buttonSizeClassName: {[key in ButtonType]: string} = {
+    [ButtonType.DEFAULT]: 'button__size-default',
+    [ButtonType.PAGINATION]: 'button__size-pagination',
+  };
+
+  return buttonSizeClassName[props.buttonType];
+})
 </script>
 
 <style lang="scss" module="style">
@@ -54,5 +73,15 @@ defineProps<{
 
     cursor: not-allowed;
   }
+}
+
+.button__size-default {
+  width: 200px;
+  height: 60px;
+}
+
+.button__size-pagination {
+  width: 60px;
+  height: 60px;
 }
 </style>
