@@ -1,13 +1,13 @@
 <template>
   <div :class="style.container">
-    <ArrowIcon
+    <SortArrowIcon
       :is-active="isSortAscendingActive"
-      :type="ArrowIconType.UP"
+      :type="SortArrowIconType.UP"
       @click="onSortClick(SortDirection.ASC)"
     />
-    <ArrowIcon
+    <SortArrowIcon
       :is-active="isSortDescendingActive"
-      :type="ArrowIconType.DOWN"
+      :type="SortArrowIconType.DOWN"
       @click="onSortClick(SortDirection.DESC)"
     />
   </div>
@@ -17,10 +17,10 @@
 import { computed, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 
-import { ArrowIconType, SortDirection } from '../../typings/table.types';
+import { SortArrowIconType, SortDirection } from '../../typings/table.types';
 import type { SortBy, TableHeaderKey } from '../../typings/table.types';
 
-import ArrowIcon from './ArrowIcon.vue';
+import SortArrowIcon from './SortArrowIcon.vue';
 
 interface SortButtonEmits {
   (event: 'sort', sortDirection: SortDirection): void,

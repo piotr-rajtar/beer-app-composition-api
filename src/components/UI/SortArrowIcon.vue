@@ -6,30 +6,28 @@
       :class="[
         style.sortIcon,
         {[style.active]: isActive},
-        arrowTypeStyle
+        style[arrowTypeClass]
       ]"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, useCssModule } from 'vue';
-import { ArrowIconType } from '../../typings/table.types';
+import { computed } from 'vue';
+import { SortArrowIconType } from '../../typings/table.types';
 
 const props = defineProps<{
   isActive: boolean;
-  type: ArrowIconType,
+  type: SortArrowIconType,
 }>()
 
-const style = useCssModule('style');
-
-const arrowTypeStyle = computed(() => {
-  const arrowStyle = {
-    [ArrowIconType.UP]: style.arrowUp,
-    [ArrowIconType.DOWN]: style.arrowDown,
+const arrowTypeClass = computed(() => {
+  const arrowTypeClass: {[key in SortArrowIconType]: string} = {
+    [SortArrowIconType.UP]: 'arrowUp',
+    [SortArrowIconType.DOWN]: 'arrowDown',
   };
 
-  return arrowStyle[props.type];
+  return arrowTypeClass[props.type];
 });
 
 </script>

@@ -1,4 +1,4 @@
-export enum ArrowIconType {
+export enum SortArrowIconType {
   UP,
   DOWN,
 }
