@@ -24,6 +24,8 @@ export const useBeerStore = defineStore('beer', () => {
   const sortBy: Ref<SortBy | null> = ref(null);
   const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 
+  const areAnyBeersFetched = computed(() => !!beers.value.length);
+
   const simplifiedBeersDataWithNoPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
     return beers.value.map((beer) => {
       const simplifiedBeer: Record<keyof SimplifiedBeer, unknown> = {} as SimplifiedBeer;
@@ -69,7 +71,7 @@ export const useBeerStore = defineStore('beer', () => {
   }
 );
 
-  const clearStore = (): void => {
+  const clearBeersState = (): void => {
     beers.value = [];
   };
 
@@ -149,8 +151,9 @@ export const useBeerStore = defineStore('beer', () => {
 
     await checkIfNextPageIsAvailable(queryParams);
 
+    //Duplicates appears when trying to pagined sorted data
     if (cachedPage) {
-      beers.value = [...beers.value, ...structuredClone(cachedPage)];
+      beers.value = [...beers.value, ...structuredClone(removeDuplicates(cachedPage))];
       areDataLoading.value = false;
       return;
     }    
@@ -159,19 +162,32 @@ export const useBeerStore = defineStore('beer', () => {
 
     if (Array.isArray(result) && result.length) {
       cachedBeers.value[queryKey] = result;
-      beers.value = [...beers.value, ...result];
+      beers.value = [...beers.value, ...removeDuplicates(result)];
     }
 
     areDataLoading.value = false;
   };
 
+  const removeDuplicates = (beersPayload: Beer[]): Beer[] =>
+    beersPayload.filter(
+      beerInPayload => !beers.value.some(beerInState => beerInState.id === beerInPayload.id)
+    );
+
+  const setTableInitialState = (): void => {
+    sortBy.value = null
+    sortDirection.value = SortDirection.NONE
+    pageNumber.value = 1
+  };
+
   return {
     areDataLoading,
-    clearStore, 
+    areAnyBeersFetched,
+    clearBeersState, 
     isNextPageAvailable,
     loadInitialBeerData, 
     loadMoreBeerData,
     pageNumber,
+    setTableInitialState,
     simplifiedBeersDataWithNoPagination,
     simplifiedBeersDataWithPagination,
     sortBy,

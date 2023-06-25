@@ -19,13 +19,11 @@ enum TABLE_STATES {
   SORT_PAGINATION = 101,
 };
 
-export const getBeerTableDataSource = (
-  sortDirection: SortDirection, 
-  activeTableNavigator: TableNavigator
-) => {
+export const getBeerTableDataSource = (activeTableNavigator: TableNavigator) => {
   const { 
     simplifiedBeersDataWithNoPagination,
     simplifiedBeersDataWithPagination,
+    sortDirection,
     sortedSimplifiedBeersDataWithNoPagination,
     sortedSimplifiedBeersDataWithPagination,
   } = useBeerStore();

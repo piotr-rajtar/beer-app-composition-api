@@ -1,3 +1,13 @@
+export enum ButtonType {
+  DEFAULT,
+  PAGINATION
+}
+
+export enum PaginationArrowDirection {
+  LEFT,
+  RIGHT,
+}
+
 export interface Filters {
   abv_gt?: number;
   abv_lt?: number;

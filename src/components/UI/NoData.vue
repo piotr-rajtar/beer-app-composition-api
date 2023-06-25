@@ -29,7 +29,7 @@ const { t } = useI18n();
 .text {
   margin: 0;
   
-  font-size: fonts.$font-size-xl;
+  font-size: fonts.$font-size-xxl;
   font-weight: fonts.$font-bold;
 }
 </style>

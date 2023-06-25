@@ -13,10 +13,10 @@ import { computed } from 'vue';
 import { ButtonType } from '../../typings/global.types';
 
 const props = withDefaults(defineProps<{
-  buttonType?: ButtonType
   disabled?: boolean,
+  type?: ButtonType
 }>(), {
-  buttonType: ButtonType.DEFAULT,
+  type: ButtonType.DEFAULT,
 });
 
 const buttonSizeClassName = computed(() => {
@@ -25,7 +25,7 @@ const buttonSizeClassName = computed(() => {
     [ButtonType.PAGINATION]: 'button__size-pagination',
   };
 
-  return buttonSizeClassName[props.buttonType];
+  return buttonSizeClassName[props.type];
 })
 </script>
 
@@ -36,10 +36,7 @@ const buttonSizeClassName = computed(() => {
 
 .button {
   background: radial-gradient(colors.$yellow-light-02, colors.$yellow-dark);
-
-  width: 200px;
-  height: 60px;
-
+  
   border-radius: spacings.$spacing-unit;
   border: 0;
   outline: none;

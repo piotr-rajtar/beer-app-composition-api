@@ -41,7 +41,7 @@ const onLanguageSwitch = (activeLanguage: Ref<Language>): void => {
   grid-column: 2;
   place-self: center;
 
-  font-size: fonts.$font-size-xl;
+  font-size: fonts.$font-size-xxl;
 }
 
 .languageSwitch {
