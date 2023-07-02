@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import type { Language } from '../../typings/language.types';
@@ -18,8 +17,8 @@ import LanguageSwitch from '../UI/LanguageSwitch.vue';
 
 const { locale, t } = useI18n();
 
-const onLanguageSwitch = (activeLanguage: Ref<Language>): void => {
-  locale.value = activeLanguage.value;
+const onLanguageSwitch = (activeLanguage: Language): void => {
+  locale.value = activeLanguage;
 }
 </script>
 

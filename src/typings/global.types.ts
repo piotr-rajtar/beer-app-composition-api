@@ -8,6 +8,11 @@ export enum PaginationArrowDirection {
   RIGHT,
 }
 
+export enum SelectOrientation {
+  HORIZONTAL,
+  VERTICAL
+}
+
 export interface Filters {
   abv_gt?: number;
   abv_lt?: number;
@@ -23,4 +28,10 @@ export interface Filters {
 export interface QueryParams extends Filters {
   page: number;
   per_page: number;
+}
+
+export interface SelectOption {
+  id: string;
+  label: string;
+  value: unknown;
 }
