@@ -129,9 +129,9 @@ const mainBeerButtonClickHandler = computed(() => {
 });
 
 const onNavigationTypeChange = async (navigationType: TableNavigator) => {
-  activeTableNavigator.value = navigationType;
   setTableInitialState();
   await loadInitialBeerData();
+  activeTableNavigator.value = navigationType;
 }
 
 const onSort = (sortOption: SortOption) => {

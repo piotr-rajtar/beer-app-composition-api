@@ -133,6 +133,8 @@ const onSortClick = (
 }
 
 .bodyCell {
+  height: 70px;
+  
   border: 3px solid colors.$yellow-dark;
 
   letter-spacing: 1px;
