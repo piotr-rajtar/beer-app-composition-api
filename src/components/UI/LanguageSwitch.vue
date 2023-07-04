@@ -1,8 +1,8 @@
 <template>
   <BeerAppSelect
-    :id="languageSelectId"
+    :id="LANGUAGE_SELECT_ID"
     :default-value="Language.EN"
-    :label="languageSelectLabel"
+    :label="LANGUAGE_SELECT_LABEL"
     :options="LANGUAGE_OPTIONS"
     :orientation="SelectOrientation.VERTICAL"
     @select="onLanguageSwitch"
@@ -22,8 +22,8 @@ interface LanguageSwitchEmits {
 
 const emit = defineEmits<LanguageSwitchEmits>();
 
-const languageSelectId = 'languageSwitch';
-const languageSelectLabel = 'HEADER.LANGUAGE_SWITCH_LABEL';
+const LANGUAGE_SELECT_ID = 'languageSelect';
+const LANGUAGE_SELECT_LABEL = 'HEADER.LANGUAGE_SWITCH_LABEL';
 
 const onLanguageSwitch = (activeLanguage: unknown): void => {
   emit('language-switch', activeLanguage as Language);
