@@ -3,7 +3,7 @@ import type { ComputedRef, Ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios';
 
-import { API_ADDRESS, SIMPLIFIED_BEER_KEYS } from '../const/beer-store.const';
+import { API_ADDRESS, DEFAULT_ITEMS_PER_PAGE, SIMPLIFIED_BEER_KEYS } from '../const/beer-store.const';
 import type { Filters, QueryParams } from '../typings/global.types';
 import type { Beer, SimplifiedBeer } from '../typings/beer-store.types';
 import { SortDirection } from '../typings/table.types';
@@ -14,7 +14,7 @@ export const useBeerStore = defineStore('beer', () => {
   const beers: Ref<Beer[]> = ref([]);
   const cachedBeers: Ref<{ [key: string]: Beer[] }> = ref({});
 
-  const itemsPerPage = 25;
+  const itemsPerPage = ref(DEFAULT_ITEMS_PER_PAGE);
   const pageNumber = ref(1);
 
   const areDataLoading = ref(false);
@@ -48,8 +48,8 @@ export const useBeerStore = defineStore('beer', () => {
   });
 
   const simplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
-    const endIndex = itemsPerPage * pageNumber.value;
-    const startIndex = endIndex - itemsPerPage;
+    const endIndex = itemsPerPage.value * pageNumber.value;
+    const startIndex = endIndex - itemsPerPage.value;
 
     const clonedBeersData: SimplifiedBeer[] = structuredClone(simplifiedBeersDataWithNoPagination.value);
 
@@ -57,8 +57,8 @@ export const useBeerStore = defineStore('beer', () => {
   });
 
   const sortedSimplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
-    const endIndex = itemsPerPage * pageNumber.value;
-    const startIndex = endIndex - itemsPerPage;
+    const endIndex = itemsPerPage.value * pageNumber.value;
+    const startIndex = endIndex - itemsPerPage.value;
 
     const clonedBeersData: SimplifiedBeer[] = structuredClone(simplifiedBeersDataWithNoPagination.value);
 
@@ -113,7 +113,7 @@ export const useBeerStore = defineStore('beer', () => {
   const loadInitialBeerData = async (): Promise<void> => {
     const queryParams: QueryParams = {
       page: pageNumber.value,
-      per_page: itemsPerPage,
+      per_page: itemsPerPage.value,
     };
     const queryKey: string = getQueryString(queryParams);
     const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
@@ -141,7 +141,7 @@ export const useBeerStore = defineStore('beer', () => {
   const loadMoreBeerData = async (filters: Filters): Promise<void> => {
     const queryParams: QueryParams = {
       page: pageNumber.value,
-      per_page: itemsPerPage,
+      per_page: itemsPerPage.value,
       ...filters,
     };
     const queryKey: string = getQueryString(queryParams);
@@ -174,9 +174,10 @@ export const useBeerStore = defineStore('beer', () => {
     );
 
   const setTableInitialState = (): void => {
-    sortBy.value = null
-    sortDirection.value = SortDirection.NONE
-    pageNumber.value = 1
+    sortBy.value = null;
+    sortDirection.value = SortDirection.NONE;
+    pageNumber.value = 1;
+    itemsPerPage.value = DEFAULT_ITEMS_PER_PAGE;
   };
 
   return {
@@ -184,6 +185,7 @@ export const useBeerStore = defineStore('beer', () => {
     areAnyBeersFetched,
     clearBeersState, 
     isNextPageAvailable,
+    itemsPerPage,
     loadInitialBeerData, 
     loadMoreBeerData,
     pageNumber,

@@ -32,6 +32,6 @@ export interface QueryParams extends Filters {
 
 export interface SelectOption {
   id: string;
-  label: string;
+  label: string | number;
   value: unknown;
 }

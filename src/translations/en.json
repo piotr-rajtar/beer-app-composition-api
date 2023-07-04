@@ -15,7 +15,8 @@
     "MORE": "More"
   },
   "TABLE_GENERAL": {
-    "CAPTION": "A summary of PUNK API beers"
+    "CAPTION": "A summary of PUNK API beers",
+    "ROWS_NUMBER": "Rows number"
   },
   "TABLE_HEADER": {
     "ID": "ID",

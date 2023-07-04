@@ -25,14 +25,14 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { debounce } from 'lodash';
 
-import BeerAppButton from '../UI/BeerAppButton.vue';
-import PaginationArrowIcon from '../UI/PaginationArrowIcon.vue';
-
 import { useBeerStore } from '../../stores/beer.store';
 import { 
   ButtonType, 
   PaginationArrowDirection 
 } from '../../typings/global.types';
+
+import BeerAppButton from '../UI/BeerAppButton.vue';
+import PaginationArrowIcon from '../UI/PaginationArrowIcon.vue';
 
 interface PaginationEmits {
   (event: 'next-click'): void;

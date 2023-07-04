@@ -19,6 +19,12 @@
       @load-more="onLoadMore" 
       @make-initial-fetches="makeInfiniteScrollInitialFetches"
     />
+    <div
+      v-if="activeTableNavigator === TableNavigator.PAGINATION"
+      :class="style.itemsPerPageContainer"
+    >
+      <ItemsPerPageSelect @items-number-change="onItemsNumberChange" />
+    </div>
     <TablePagination 
       v-if="activeTableNavigator === TableNavigator.PAGINATION"
       @next-click="onNextClick"
@@ -44,6 +50,7 @@ import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
 import BeerTable from '../components/table/BeerTable.vue';
 import InfiniteScroll from '../components/table/InfiniteScroll.vue';
+import ItemsPerPageSelect from '../components/table/ItemsPerPageSelect.vue';
 import LoadMore from '../components/table/LoadMore.vue';
 import NoData from '../components/UI/NoData.vue';
 import TableNavigation from '../components/table/TableNavigation.vue';
@@ -62,6 +69,7 @@ const { t } = useI18n();
 const { 
   areAnyBeersFetched,
   areDataLoading,
+  itemsPerPage,
   pageNumber,
   sortBy,
   sortDirection,
@@ -92,6 +100,12 @@ const onLoadInitialData = async (): Promise<void> => {
   await loadInitialBeerData();
   wasBeerButtonEverClicked.value = true;
 };
+
+const onItemsNumberChange = async (newItemsNumber: number) => {
+  setTableInitialState();
+  itemsPerPage.value = newItemsNumber;
+  await loadInitialBeerData();
+}
 
 const onLoadMore = async (): Promise<void> => {
   pageNumber.value++;
@@ -165,5 +179,15 @@ const isNoDataVisible = computed(() =>
 
   margin-bottom: 10 * spacings.$spacing-unit;
   padding: 0 8 * spacings.$spacing-unit;
+}
+
+.itemsPerPageContainer {
+  $offset-caption-padding: -53px;
+
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+
+  margin-top: $offset-caption-padding;
 }
 </style>

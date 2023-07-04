@@ -23,7 +23,7 @@
           :key="option.id"
           :value="option.value"
         >
-          {{ t(option.label) }}
+          {{ getTranslatedOptionLabel(option.label) }}
         </option>
       </select>
     </div>
@@ -56,6 +56,12 @@ const style = useCssModule('style');
 const { t } = useI18n();
 
 const activeItem: Ref<unknown> = ref(props.defaultValue);
+
+const getTranslatedOptionLabel = (optionLabel: string | number): string | number => {
+  return typeof optionLabel === 'string'
+    ? t(optionLabel)
+    : optionLabel;
+};
 
 const selectOrientationClass = computed(() => {
   const selectOrientationClass: {[key in SelectOrientation]: string} = {

@@ -15,7 +15,8 @@
     "MORE": "Więcej"
   },
   "TABLE_GENERAL": {
-    "CAPTION": "Zestawienie piw z PUNK API"
+    "CAPTION": "Zestawienie piw z PUNK API",
+    "ROWS_NUMBER": "Liczba wierszy"
   },
   "TABLE_HEADER": {
     "ID": "ID",

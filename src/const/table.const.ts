@@ -1,3 +1,4 @@
+import type { SelectOption } from '../typings/global.types';
 import type { NavigationType, TableHeader } from '../typings/table.types';
 import { TableHeaderKey, TableNavigator } from '../typings/table.types';
 
@@ -56,3 +57,31 @@ export const TABLE_HEADERS: TableHeader[] = [
 
 export const BEER_TABLE_CAPTION_ID = 'beerTableCaptionId';
 export const BEER_TABLE_ID = 'beerTableId';
+
+export const ITEMS_PER_PAGE_OPTIONS: SelectOption[] = [
+  {
+    id: 'items_number_option_1',
+    label: 5,
+    value: 5,
+  },
+  {
+    id: 'items_number_option_2',
+    label: 10,
+    value: 10,
+  },
+  {
+    id: 'items_number_option_3',
+    label: 20,
+    value: 20,
+  },
+  {
+    id: 'items_number_option_4',
+    label: 40,
+    value: 40,
+  },
+  {
+    id: 'items_number_option_5',
+    label: 80,
+    value: 80,
+  },
+];
