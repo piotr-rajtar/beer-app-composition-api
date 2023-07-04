@@ -23,14 +23,14 @@ import type { SortBy, TableHeaderKey } from '../../typings/table.types';
 import SortArrowIcon from './SortArrowIcon.vue';
 
 interface SortButtonEmits {
-  (event: 'sort', sortDirection: SortDirection): void,
+  (event: 'sort', sortDirection: SortDirection): void;
 }
 
 const emit = defineEmits<SortButtonEmits>();
 
 const props = defineProps<{
-  headerKey: TableHeaderKey,
-  sortBy: SortBy | null,
+  headerKey: TableHeaderKey;
+  sortBy: SortBy | null;
 }>();
 
 const { sortBy } = toRefs(props);
@@ -38,11 +38,11 @@ const { sortBy } = toRefs(props);
 const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 
 watch(sortBy, (currentColumn) => {
-  if(currentColumn === props.headerKey) {
+  if (currentColumn === props.headerKey) {
     return;
   }
 
-  sortDirection.value = SortDirection.NONE;  
+  sortDirection.value = SortDirection.NONE;
 });
 
 const isSortAscendingActive = computed(() => {
@@ -54,14 +54,14 @@ const isSortDescendingActive = computed(() => {
 });
 
 const onSortClick = (newSortDirection: SortDirection): void => {
-  if(newSortDirection === sortDirection.value) {
+  if (newSortDirection === sortDirection.value) {
     sortDirection.value = SortDirection.NONE;
   } else {
     sortDirection.value = newSortDirection;
   }
-  
+
   emit('sort', sortDirection.value);
-}
+};
 </script>
 
 <style lang="scss" module="style">

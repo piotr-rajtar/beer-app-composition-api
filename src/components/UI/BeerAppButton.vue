@@ -1,6 +1,6 @@
 <template>
-  <button 
-    :class="[style.button, style[buttonSizeClassName]]" 
+  <button
+    :class="[style.button, style[buttonSizeClassName]]"
     :disabled="disabled"
   >
     <slot />
@@ -12,21 +12,24 @@ import { computed } from 'vue';
 
 import { ButtonType } from '../../typings/global.types';
 
-const props = withDefaults(defineProps<{
-  disabled?: boolean,
-  type?: ButtonType
-}>(), {
-  type: ButtonType.DEFAULT,
-});
+const props = withDefaults(
+  defineProps<{
+    disabled?: boolean;
+    type?: ButtonType;
+  }>(),
+  {
+    type: ButtonType.DEFAULT,
+  }
+);
 
 const buttonSizeClassName = computed(() => {
-  const buttonSizeClassName: {[key in ButtonType]: string} = {
+  const buttonSizeClassName: { [key in ButtonType]: string } = {
     [ButtonType.DEFAULT]: 'button__size-default',
     [ButtonType.PAGINATION]: 'button__size-pagination',
   };
 
   return buttonSizeClassName[props.type];
-})
+});
 </script>
 
 <style lang="scss" module="style">
@@ -36,7 +39,7 @@ const buttonSizeClassName = computed(() => {
 
 .button {
   background: radial-gradient(colors.$yellow-light-02, colors.$yellow-dark);
-  
+
   border-radius: spacings.$spacing-unit;
   border: 0;
   outline: none;
@@ -48,7 +51,7 @@ const buttonSizeClassName = computed(() => {
   transition: 0.2s all;
 
   cursor: pointer;
-       
+
   &:hover {
     border: 1px solid colors.$black;
   }

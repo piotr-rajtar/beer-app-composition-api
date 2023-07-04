@@ -1,6 +1,6 @@
 export enum ButtonType {
   DEFAULT,
-  PAGINATION
+  PAGINATION,
 }
 
 export enum PaginationArrowDirection {
@@ -10,7 +10,7 @@ export enum PaginationArrowDirection {
 
 export enum SelectOrientation {
   HORIZONTAL,
-  VERTICAL
+  VERTICAL,
 }
 
 export interface Filters {

@@ -1,8 +1,5 @@
 <template>
-  <BeerAppButton 
-    :disabled="!isNextPageAvailable" 
-    @click="debouncedOnLoadMore"
-  >
+  <BeerAppButton :disabled="!isNextPageAvailable" @click="debouncedOnLoadMore">
     {{ t('TABLE_NAVIGATION.LOAD_MORE') }}
   </BeerAppButton>
 </template>
@@ -27,7 +24,7 @@ const { isNextPageAvailable } = storeToRefs(useBeerStore());
 const { t } = useI18n();
 
 const onLoadMore = () => {
-  if(!isNextPageAvailable.value) {
+  if (!isNextPageAvailable.value) {
     return;
   }
   emit('load-more');

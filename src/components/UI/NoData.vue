@@ -1,7 +1,7 @@
 <template>
   <div :class="style.container">
     <div :class="style.imageContainer">
-      <img src="../../assets/empty-beer.svg" :alt="t('GENERAL.NO_DATA')"/>
+      <img src="../../assets/empty-beer.svg" :alt="t('GENERAL.NO_DATA')" />
     </div>
     <p :class="style.text">{{ t('GENERAL.NO_DATA') }}</p>
   </div>
@@ -28,7 +28,7 @@ const { t } = useI18n();
 
 .text {
   margin: 0;
-  
+
   font-size: fonts.$font-size-xxl;
   font-weight: fonts.$font-bold;
 }

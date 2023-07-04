@@ -17,7 +17,7 @@ import { Language } from '../../typings/language.types';
 import BeerAppSelect from './BeerAppSelect.vue';
 
 interface LanguageSwitchEmits {
-  (event: 'language-switch', activeLanguage: Language): void,
+  (event: 'language-switch', activeLanguage: Language): void;
 }
 
 const emit = defineEmits<LanguageSwitchEmits>();
@@ -27,5 +27,5 @@ const LANGUAGE_SELECT_LABEL = 'HEADER.LANGUAGE_SWITCH_LABEL';
 
 const onLanguageSwitch = (activeLanguage: unknown): void => {
   emit('language-switch', activeLanguage as Language);
-}
+};
 </script>

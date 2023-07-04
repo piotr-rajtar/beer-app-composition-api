@@ -1,14 +1,23 @@
-import { ref, computed, toRaw } from 'vue'
-import type { ComputedRef, Ref } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, computed, toRaw } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
+import { defineStore } from 'pinia';
 import axios from 'axios';
 
-import { API_ADDRESS, DEFAULT_ITEMS_PER_PAGE, SIMPLIFIED_BEER_KEYS } from '../const/beer-store.const';
+import {
+  API_ADDRESS,
+  DEFAULT_ITEMS_PER_PAGE,
+  SIMPLIFIED_BEER_KEYS,
+} from '../const/beer-store.const';
 import type { Filters, QueryParams } from '../typings/global.types';
 import type { Beer, SimplifiedBeer } from '../typings/beer-store.types';
 import { SortDirection } from '../typings/table.types';
 import type { SortBy, SortOption } from '../typings/table.types';
-import { compareSimplifiedBeers, getErrorMessage, getQueryString, getUrlAddress } from '../utils';
+import {
+  compareSimplifiedBeers,
+  getErrorMessage,
+  getQueryString,
+  getUrlAddress,
+} from '../utils';
 
 export const useBeerStore = defineStore('beer', () => {
   const beers: Ref<Beer[]> = ref([]);
@@ -18,66 +27,81 @@ export const useBeerStore = defineStore('beer', () => {
   const pageNumber = ref(1);
 
   const areDataLoading = ref(false);
-  
+
   const isNextPageAvailable = ref(true);
-  
+
   const sortBy: Ref<SortBy | null> = ref(null);
   const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 
   const areAnyBeersFetched = computed(() => !!beers.value.length);
 
-  const simplifiedBeersDataWithNoPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
-    return beers.value.map((beer) => {
-      const simplifiedBeer: Record<keyof SimplifiedBeer, unknown> = {} as SimplifiedBeer;
-      SIMPLIFIED_BEER_KEYS.forEach((header) => {
-        simplifiedBeer[header] = beer[header];
+  const simplifiedBeersDataWithNoPagination: ComputedRef<SimplifiedBeer[]> =
+    computed(() => {
+      return beers.value.map((beer) => {
+        const simplifiedBeer: Record<keyof SimplifiedBeer, unknown> =
+          {} as SimplifiedBeer;
+        SIMPLIFIED_BEER_KEYS.forEach((header) => {
+          simplifiedBeer[header] = beer[header];
+        });
+        return simplifiedBeer as SimplifiedBeer;
       });
-      return simplifiedBeer as SimplifiedBeer;
     });
-  });
 
-  const sortedSimplifiedBeersDataWithNoPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
-    const clonedBeersData: SimplifiedBeer[] = structuredClone(simplifiedBeersDataWithNoPagination.value);
+  const sortedSimplifiedBeersDataWithNoPagination: ComputedRef<
+    SimplifiedBeer[]
+  > = computed(() => {
+    const clonedBeersData: SimplifiedBeer[] = structuredClone(
+      simplifiedBeersDataWithNoPagination.value
+    );
 
     const sortOption: SortOption = {
       sortBy: sortBy.value,
       sortDirection: sortDirection.value,
-    }
+    };
 
     return clonedBeersData.sort(compareSimplifiedBeers(sortOption));
   });
 
-  const simplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
-    const endIndex = itemsPerPage.value * pageNumber.value;
-    const startIndex = endIndex - itemsPerPage.value;
+  const simplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> =
+    computed(() => {
+      const endIndex = itemsPerPage.value * pageNumber.value;
+      const startIndex = endIndex - itemsPerPage.value;
 
-    const clonedBeersData: SimplifiedBeer[] = structuredClone(simplifiedBeersDataWithNoPagination.value);
+      const clonedBeersData: SimplifiedBeer[] = structuredClone(
+        simplifiedBeersDataWithNoPagination.value
+      );
 
-    return clonedBeersData.slice(startIndex, endIndex);
-  });
+      return clonedBeersData.slice(startIndex, endIndex);
+    });
 
-  const sortedSimplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> = computed(() => {
-    const endIndex = itemsPerPage.value * pageNumber.value;
-    const startIndex = endIndex - itemsPerPage.value;
+  const sortedSimplifiedBeersDataWithPagination: ComputedRef<SimplifiedBeer[]> =
+    computed(() => {
+      const endIndex = itemsPerPage.value * pageNumber.value;
+      const startIndex = endIndex - itemsPerPage.value;
 
-    const clonedBeersData: SimplifiedBeer[] = structuredClone(simplifiedBeersDataWithNoPagination.value);
+      const clonedBeersData: SimplifiedBeer[] = structuredClone(
+        simplifiedBeersDataWithNoPagination.value
+      );
 
-    const sortOption: SortOption = {
-      sortBy: sortBy.value,
-      sortDirection: sortDirection.value,
-    }
+      const sortOption: SortOption = {
+        sortBy: sortBy.value,
+        sortDirection: sortDirection.value,
+      };
 
-    return clonedBeersData.sort(compareSimplifiedBeers(sortOption)).slice(startIndex, endIndex);;
-  }
-);
+      return clonedBeersData
+        .sort(compareSimplifiedBeers(sortOption))
+        .slice(startIndex, endIndex);
+    });
 
   const clearBeersState = (): void => {
     beers.value = [];
   };
 
-  const fetchBeerData = async (queryParams: QueryParams): Promise<Beer[] | Error> => {
+  const fetchBeerData = async (
+    queryParams: QueryParams
+  ): Promise<Beer[] | Error> => {
     const url: string = getUrlAddress(API_ADDRESS, queryParams);
-    
+
     try {
       const res = await axios.get(url);
       return res.data;
@@ -86,15 +110,17 @@ export const useBeerStore = defineStore('beer', () => {
     }
   };
 
-  const checkIfNextPageIsAvailable = async (queryParams: QueryParams): Promise<void> => {
+  const checkIfNextPageIsAvailable = async (
+    queryParams: QueryParams
+  ): Promise<void> => {
     const nextPageQueryParams: QueryParams = {
       ...queryParams,
       page: pageNumber.value + 1,
-    }
+    };
     const queryKey: string = getQueryString(nextPageQueryParams);
     const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
 
-    if(cachedPage) {
+    if (cachedPage) {
       isNextPageAvailable.value = true;
       return;
     }
@@ -126,7 +152,7 @@ export const useBeerStore = defineStore('beer', () => {
       beers.value = structuredClone(cachedPage);
       areDataLoading.value = false;
       return;
-    }    
+    }
 
     const result: Beer[] | Error = await fetchBeerData(queryParams);
 
@@ -153,11 +179,14 @@ export const useBeerStore = defineStore('beer', () => {
 
     //Duplicates appears when trying to pagined sorted data
     if (cachedPage) {
-      beers.value = [...beers.value, ...structuredClone(removeDuplicates(cachedPage))];
+      beers.value = [
+        ...beers.value,
+        ...structuredClone(removeDuplicates(cachedPage)),
+      ];
       areDataLoading.value = false;
       return;
-    }    
- 
+    }
+
     const result: Beer[] | Error = await fetchBeerData(queryParams);
 
     if (Array.isArray(result) && result.length) {
@@ -170,7 +199,8 @@ export const useBeerStore = defineStore('beer', () => {
 
   const removeDuplicates = (beersPayload: Beer[]): Beer[] =>
     beersPayload.filter(
-      beerInPayload => !beers.value.some(beerInState => beerInState.id === beerInPayload.id)
+      (beerInPayload) =>
+        !beers.value.some((beerInState) => beerInState.id === beerInPayload.id)
     );
 
   const setTableInitialState = (): void => {
@@ -183,10 +213,10 @@ export const useBeerStore = defineStore('beer', () => {
   return {
     areDataLoading,
     areAnyBeersFetched,
-    clearBeersState, 
+    clearBeersState,
     isNextPageAvailable,
     itemsPerPage,
-    loadInitialBeerData, 
+    loadInitialBeerData,
     loadMoreBeerData,
     pageNumber,
     setTableInitialState,
@@ -196,5 +226,5 @@ export const useBeerStore = defineStore('beer', () => {
     sortDirection,
     sortedSimplifiedBeersDataWithNoPagination,
     sortedSimplifiedBeersDataWithPagination,
-  }
+  };
 });

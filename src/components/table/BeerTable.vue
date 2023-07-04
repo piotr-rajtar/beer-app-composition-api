@@ -1,6 +1,8 @@
 <template>
   <table :id="BEER_TABLE_ID" :class="style.table">
-    <caption :id="BEER_TABLE_CAPTION_ID" :class="style.caption">{{ t('TABLE_GENERAL.CAPTION') }}</caption>
+    <caption :id="BEER_TABLE_CAPTION_ID" :class="style.caption">
+      {{ t('TABLE_GENERAL.CAPTION') }}
+    </caption>
     <thead :class="style.tableHeader">
       <tr>
         <th
@@ -12,7 +14,7 @@
           <div :class="style.headerCellGrid">
             <p :class="style.headerLabel">{{ t(header.label) }}</p>
             <div :class="style.sortButton">
-              <SortButton 
+              <SortButton
                 v-if="header.key !== TableHeaderKey.MORE"
                 :header-key="header.key"
                 :sort-by="sortBy"
@@ -26,14 +28,16 @@
 
     <tbody>
       <tr v-for="beer in beers" :key="beer.id">
-        <td 
+        <td
           v-for="key in Object.keys(beer)"
           :key="`${key}_${beer.id}`"
           :class="[style.cell, style.bodyCell]"
         >
           {{ beer[key as keyof SimplifiedBeer] || '-' }}
         </td>
-        <td :class="[style.cell, style.bodyCell]">{{ t('TABLE_BODY.MORE') }}</td>
+        <td :class="[style.cell, style.bodyCell]">
+          {{ t('TABLE_BODY.MORE') }}
+        </td>
       </tr>
     </tbody>
   </table>
@@ -42,7 +46,11 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 
-import { BEER_TABLE_CAPTION_ID, BEER_TABLE_ID, TABLE_HEADERS } from '../../const/table.const';
+import {
+  BEER_TABLE_CAPTION_ID,
+  BEER_TABLE_ID,
+  TABLE_HEADERS,
+} from '../../const/table.const';
 import type { SimplifiedBeer } from '../../typings/beer-store.types';
 import { SortDirection, TableHeaderKey } from '../../typings/table.types';
 import type { SortBy, SortOption } from '../../typings/table.types';
@@ -50,7 +58,7 @@ import type { SortBy, SortOption } from '../../typings/table.types';
 import SortButton from '../UI/SortButton.vue';
 
 interface SortButtonEmits {
-  (event: 'sort', sortOption: SortOption): void,
+  (event: 'sort', sortOption: SortOption): void;
 }
 
 const emit = defineEmits<SortButtonEmits>();
@@ -63,20 +71,19 @@ defineProps<{
 const { t } = useI18n();
 
 const onSortClick = (
-  sortDirection: SortDirection, 
+  sortDirection: SortDirection,
   headerKey: TableHeaderKey
 ) => {
-  const sortBy: SortBy | null = sortDirection === SortDirection.NONE
-    ? null
-    : headerKey as SortBy;
+  const sortBy: SortBy | null =
+    sortDirection === SortDirection.NONE ? null : (headerKey as SortBy);
 
   const sortOption: SortOption = {
     sortBy,
     sortDirection,
   };
-  
+
   emit('sort', sortOption);
-}
+};
 </script>
 
 <style lang="scss" module="style">
@@ -134,7 +141,7 @@ const onSortClick = (
 
 .bodyCell {
   height: 70px;
-  
+
   border: 3px solid colors.$yellow-dark;
 
   letter-spacing: 1px;

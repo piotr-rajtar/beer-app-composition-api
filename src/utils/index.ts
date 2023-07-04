@@ -12,4 +12,4 @@ export {
   getErrorMessage,
   getQueryString,
   getUrlAddress,
-}
+};

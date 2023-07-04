@@ -1,25 +1,17 @@
 <template>
-  <div
-    :class="[
-      style.container,
-      style[selectOrientationClass],
-    ]"
-  >
-    <label 
-      :class="style.label" 
-      :for="id"
-    >
-    {{ t(label) }}
+  <div :class="[style.container, style[selectOrientationClass]]">
+    <label :class="style.label" :for="id">
+      {{ t(label) }}
     </label>
     <div :class="style.selectContainer">
-      <select 
-        :id="id" 
+      <select
+        :id="id"
         v-model="activeItem"
         :class="style.select"
         @change="onSelect"
       >
-        <option 
-          v-for="option in options" 
+        <option
+          v-for="option in options"
           :key="option.id"
           :value="option.value"
         >
@@ -39,15 +31,15 @@ import { SelectOrientation } from '../../typings/global.types';
 import type { SelectOption } from '../../typings/global.types';
 
 const props = defineProps<{
-  id: string,
-  defaultValue: unknown,
-  label: string,
-  options: SelectOption[],
-  orientation: SelectOrientation,
+  id: string;
+  defaultValue: unknown;
+  label: string;
+  options: SelectOption[];
+  orientation: SelectOrientation;
 }>();
 
 interface SelectEmits {
-  (event: 'select', activeItem: unknown): void,
+  (event: 'select', activeItem: unknown): void;
 }
 
 const emit = defineEmits<SelectEmits>();
@@ -57,14 +49,14 @@ const { t } = useI18n();
 
 const activeItem: Ref<unknown> = ref(props.defaultValue);
 
-const getTranslatedOptionLabel = (optionLabel: string | number): string | number => {
-  return typeof optionLabel === 'string'
-    ? t(optionLabel)
-    : optionLabel;
+const getTranslatedOptionLabel = (
+  optionLabel: string | number
+): string | number => {
+  return typeof optionLabel === 'string' ? t(optionLabel) : optionLabel;
 };
 
 const selectOrientationClass = computed(() => {
-  const selectOrientationClass: {[key in SelectOrientation]: string} = {
+  const selectOrientationClass: { [key in SelectOrientation]: string } = {
     [SelectOrientation.HORIZONTAL]: 'horizontal',
     [SelectOrientation.VERTICAL]: 'vertical',
   };
@@ -74,7 +66,7 @@ const selectOrientationClass = computed(() => {
 
 const onSelect = (): void => {
   emit('select', activeItem.value);
-}
+};
 </script>
 
 <style lang="scss" module="style">
@@ -105,20 +97,20 @@ const onSelect = (): void => {
   background: linear-gradient(to top, colors.$white-dark, colors.$white 33%);
 
   display: grid;
-  grid-template-areas: "select";
+  grid-template-areas: 'select';
   align-items: center;
   min-width: 150px;
-  
+
   padding: spacings.$spacing-unit 2 * spacings.$spacing-unit;
-  
+
   border: spacings.$border-width solid colors.$black;
   border-radius: spacings.$spacing-unit;
-  
+
   &::after {
     grid-area: select;
     justify-self: end;
 
-    content: "";
+    content: '';
     background-color: colors.$black;
 
     width: 1.2em;
@@ -145,7 +137,7 @@ const onSelect = (): void => {
 
   border: none;
   outline: none;
-  
+
   cursor: pointer;
 }
 </style>

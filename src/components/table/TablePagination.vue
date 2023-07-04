@@ -1,22 +1,22 @@
 <template>
   <nav :class="style.container">
-      <BeerAppButton 
-        :disabled="isPrevButtonDisabled" 
-        :type="ButtonType.PAGINATION"
-        @click="debouncedOnPrevClick"
-      >
-        <PaginationArrowIcon :type="PaginationArrowDirection.LEFT" />
-      </BeerAppButton>
+    <BeerAppButton
+      :disabled="isPrevButtonDisabled"
+      :type="ButtonType.PAGINATION"
+      @click="debouncedOnPrevClick"
+    >
+      <PaginationArrowIcon :type="PaginationArrowDirection.LEFT" />
+    </BeerAppButton>
 
-      <p :class="style.pageNumber">{{ pageNumber }}</p>
+    <p :class="style.pageNumber">{{ pageNumber }}</p>
 
-      <BeerAppButton 
-        :disabled="!isNextPageAvailable" 
-        :type="ButtonType.PAGINATION"
-        @click="debouncedOnNextClick"
-      >
+    <BeerAppButton
+      :disabled="!isNextPageAvailable"
+      :type="ButtonType.PAGINATION"
+      @click="debouncedOnNextClick"
+    >
       <PaginationArrowIcon :type="PaginationArrowDirection.RIGHT" />
-      </BeerAppButton>
+    </BeerAppButton>
   </nav>
 </template>
 
@@ -26,9 +26,9 @@ import { storeToRefs } from 'pinia';
 import { debounce } from 'lodash';
 
 import { useBeerStore } from '../../stores/beer.store';
-import { 
-  ButtonType, 
-  PaginationArrowDirection 
+import {
+  ButtonType,
+  PaginationArrowDirection,
 } from '../../typings/global.types';
 
 import BeerAppButton from '../UI/BeerAppButton.vue';
@@ -41,30 +41,27 @@ interface PaginationEmits {
 
 const emit = defineEmits<PaginationEmits>();
 
-const { 
-  isNextPageAvailable,
-  pageNumber,
-} = storeToRefs(useBeerStore());
+const { isNextPageAvailable, pageNumber } = storeToRefs(useBeerStore());
 
 const onNextClick = (): void => {
-  if(!isNextPageAvailable.value) {
+  if (!isNextPageAvailable.value) {
     return;
   }
 
   emit('next-click');
   window.scrollTo(0, 0);
-}
+};
 
 const debouncedOnNextClick = debounce(onNextClick, 300);
 
 const isPrevButtonDisabled = computed(() => pageNumber.value === 1);
 
 const onPrevClick = (): void => {
-  if(isPrevButtonDisabled.value) {
+  if (isPrevButtonDisabled.value) {
     return;
   }
 
-  emit('prev-click')
+  emit('prev-click');
   window.scrollTo(0, 0);
 };
 

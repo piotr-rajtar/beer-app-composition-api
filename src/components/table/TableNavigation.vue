@@ -3,9 +3,9 @@
     <legend :class="style.legend">
       {{ t('TABLE_NAVIGATION.LEGEND') }}
     </legend>
-    <span 
-      v-for="navigationType in NAVIGATION_TYPES" 
-      :key="`navigation-item-${navigationType.id}`" 
+    <span
+      v-for="navigationType in NAVIGATION_TYPES"
+      :key="`navigation-item-${navigationType.id}`"
       :class="style.singleRadioContainer"
     >
       <input
@@ -31,7 +31,7 @@ import { NAVIGATION_TYPES } from '../../const/table.const';
 import { TableNavigator } from '../../typings/table.types';
 
 interface NavigationTypeEmits {
-  (event: 'navigation-type-change', tableNavigator: TableNavigator): void,
+  (event: 'navigation-type-change', tableNavigator: TableNavigator): void;
 }
 
 const emit = defineEmits<NavigationTypeEmits>();
@@ -80,7 +80,7 @@ const onNavigationTypeChange = (): void => {
   place-content: center;
   width: 1.15em;
   height: 1.15em;
-  
+
   margin: 0;
   border: spacings.$border-width solid colors.$yellow-dark;
   border-radius: 50%;
@@ -90,7 +90,7 @@ const onNavigationTypeChange = (): void => {
   cursor: pointer;
 
   &::before {
-    content: "";
+    content: '';
     width: 0.65em;
     height: 0.65em;
 

@@ -1,8 +1,8 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,12 +11,12 @@ export default defineConfig({
     alias: [
       {
         find: '@',
-        replacement: fileURLToPath(new URL('./src', import.meta.url))
+        replacement: fileURLToPath(new URL('./src', import.meta.url)),
       },
       {
         find: 'vue-i18n',
         replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
-      }
-    ]
-  }
-})
+      },
+    ],
+  },
+});

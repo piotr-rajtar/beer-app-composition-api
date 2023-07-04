@@ -1,9 +1,9 @@
 <template>
   <header :class="style.headerContainer">
     <h1 :class="style.header">{{ t('HEADER.APP_TITLE') }}</h1>
-    <LanguageSwitch 
-      :class="style.languageSwitch" 
-      @language-switch="onLanguageSwitch" 
+    <LanguageSwitch
+      :class="style.languageSwitch"
+      @language-switch="onLanguageSwitch"
     />
   </header>
 </template>
@@ -19,7 +19,7 @@ const { locale, t } = useI18n();
 
 const onLanguageSwitch = (activeLanguage: Language): void => {
   locale.value = activeLanguage;
-}
+};
 </script>
 
 <style lang="scss" module="style">

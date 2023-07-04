@@ -1,22 +1,24 @@
 <template>
   <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
   <div :class="style.sectionContainer">
-    <BeerAppButton @click="mainBeerButtonClickHandler">{{ beerButtonLabel }}</BeerAppButton>
+    <BeerAppButton @click="mainBeerButtonClickHandler">{{
+      beerButtonLabel
+    }}</BeerAppButton>
   </div>
   <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
     <BeerTable
       :beers="beerTableDataSource"
       :sort-by="sortBy"
-      @sort="onSort($event)" 
+      @sort="onSort($event)"
     />
-    <LoadMore 
+    <LoadMore
       v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
-      @load-more="onLoadMore" 
+      @load-more="onLoadMore"
     />
-    <InfiniteScroll 
+    <InfiniteScroll
       v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
-      @load-more="onLoadMore" 
+      @load-more="onLoadMore"
       @make-initial-fetches="makeInfiniteScrollInitialFetches"
     />
     <div
@@ -25,7 +27,7 @@
     >
       <ItemsPerPageSelect @items-number-change="onItemsNumberChange" />
     </div>
-    <TablePagination 
+    <TablePagination
       v-if="activeTableNavigator === TableNavigator.PAGINATION"
       @next-click="onNextClick"
       @prev-click="onPrevClick"
@@ -66,7 +68,7 @@ import { getBeerTableDataSource } from '../utils';
 
 const { t } = useI18n();
 
-const { 
+const {
   areAnyBeersFetched,
   areDataLoading,
   itemsPerPage,
@@ -74,12 +76,12 @@ const {
   sortBy,
   sortDirection,
 } = storeToRefs(useBeerStore());
-const { 
-  clearBeersState, 
-  loadInitialBeerData, 
+const {
+  clearBeersState,
+  loadInitialBeerData,
   loadMoreBeerData,
   setTableInitialState,
- } = useBeerStore();
+} = useBeerStore();
 
 const activeTableNavigator: Ref<TableNavigator> = ref(TableNavigator.LOAD_MORE);
 const filters: Ref<Filters> = ref({});
@@ -93,7 +95,7 @@ const wasBeerButtonEverClicked = ref(false);
 const beerButtonLabel = computed(() => {
   return wasBeerButtonEverClicked.value
     ? t('GENERAL.RESET_TABLE_BUTTON_LABEL')
-    : t('GENERAL.START_BROWSING_BUTTON_LABEL')
+    : t('GENERAL.START_BROWSING_BUTTON_LABEL');
 });
 
 const onLoadInitialData = async (): Promise<void> => {
@@ -105,28 +107,30 @@ const onItemsNumberChange = async (newItemsNumber: number) => {
   setTableInitialState();
   itemsPerPage.value = newItemsNumber;
   await loadInitialBeerData();
-}
+};
 
 const onLoadMore = async (): Promise<void> => {
   pageNumber.value++;
   await loadMoreBeerData(filters.value);
-}
+};
 
-const makeInfiniteScrollInitialFetches = async (quantity: number): Promise<void> => {
-  for(let counter = 0; counter < quantity; counter++) {
+const makeInfiniteScrollInitialFetches = async (
+  quantity: number
+): Promise<void> => {
+  for (let counter = 0; counter < quantity; counter++) {
     await onLoadMore();
   }
-}
+};
 
 const onNextClick = async (): Promise<void> => {
   pageNumber.value++;
   await loadMoreBeerData(filters.value);
-}
+};
 
 const onPrevClick = async (): Promise<void> => {
   pageNumber.value--;
   await loadMoreBeerData(filters.value);
-}
+};
 
 const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
 
@@ -134,19 +138,19 @@ const onTableReset = (): void => {
   setTableInitialState();
   clearBeersState();
   wasBeerButtonEverClicked.value = false;
-}
+};
 
 const mainBeerButtonClickHandler = computed(() => {
   return wasBeerButtonEverClicked.value
     ? onTableReset
-    : debouncedOnLoadInitialData
+    : debouncedOnLoadInitialData;
 });
 
 const onNavigationTypeChange = async (navigationType: TableNavigator) => {
   setTableInitialState();
   await loadInitialBeerData();
   activeTableNavigator.value = navigationType;
-}
+};
 
 const onSort = (sortOption: SortOption) => {
   if (activeTableNavigator.value === TableNavigator.PAGINATION) {
@@ -155,10 +159,10 @@ const onSort = (sortOption: SortOption) => {
 
   sortBy.value = sortOption.sortBy;
   sortDirection.value = sortOption.sortDirection;
-}
+};
 
-const isNoDataVisible = computed(() => 
-  wasBeerButtonEverClicked.value && !areAnyBeersFetched.value
+const isNoDataVisible = computed(
+  () => wasBeerButtonEverClicked.value && !areAnyBeersFetched.value
 );
 </script>
 

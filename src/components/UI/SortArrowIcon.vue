@@ -1,12 +1,10 @@
 <template>
-  <div 
-    :class="style.iconContainer" 
-  >
+  <div :class="style.iconContainer">
     <i
       :class="[
         style.icon,
-        {[style.active]: isActive},
-        style[arrowDirectionClass]
+        { [style.active]: isActive },
+        style[arrowDirectionClass],
       ]"
     />
   </div>
@@ -18,18 +16,17 @@ import { SortArrowDirection } from '../../typings/table.types';
 
 const props = defineProps<{
   isActive: boolean;
-  type: SortArrowDirection,
-}>()
+  type: SortArrowDirection;
+}>();
 
 const arrowDirectionClass = computed(() => {
-  const arrowDirectionClass: {[key in SortArrowDirection]: string} = {
+  const arrowDirectionClass: { [key in SortArrowDirection]: string } = {
     [SortArrowDirection.UP]: 'arrowUp',
     [SortArrowDirection.DOWN]: 'arrowDown',
   };
 
   return arrowDirectionClass[props.type];
 });
-
 </script>
 
 <style lang="scss" module="style">
@@ -64,11 +61,11 @@ $icon-size: 4px;
 
 .arrowUp {
   transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg); 
+  -webkit-transform: rotate(-135deg);
 }
 
 .arrowDown {
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg); 
+  -webkit-transform: rotate(45deg);
 }
 </style>
