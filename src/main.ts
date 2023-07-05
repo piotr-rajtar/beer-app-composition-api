@@ -1,6 +1,8 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createI18n } from 'vue-i18n';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import './assets/normalize.css';
 import { Language } from './typings/language.types';
@@ -9,6 +11,8 @@ import pl from './translations/pl.json';
 
 import App from './App.vue';
 import router from './router';
+
+library.add(faXmark);
 
 const i18n = createI18n({
   legacy: false,

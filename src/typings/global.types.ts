@@ -1,3 +1,8 @@
+export enum AlertType {
+  ERROR,
+  WARNING,
+}
+
 export enum ButtonType {
   DEFAULT,
   PAGINATION,
