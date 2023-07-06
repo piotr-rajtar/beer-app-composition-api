@@ -1,4 +1,8 @@
 {
+  "ALERT": {
+    "ERROR": "Błąd",
+    "FETCH_ERROR": "Wystąpił problem w trakcie pobierania danych."
+  },
   "GENERAL": {
     "APP_HEADER": "Przeglądarka katalogu piw",
     "NO_DATA": "Brak danych",

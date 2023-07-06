@@ -44,7 +44,9 @@ const onCloseClick = () => emit('close');
 .alert {
   display: flex;
   align-items: center;
-  gap: 60px;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
 
   padding: 0.75rem 1.25rem;
   border: 1px solid;

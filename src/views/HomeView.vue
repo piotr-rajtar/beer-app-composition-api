@@ -1,10 +1,11 @@
 <template>
   <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
   <div :class="style.sectionContainer">
-    <BeerAppButton @click="mainBeerButtonClickHandler">{{
-      beerButtonLabel
-    }}</BeerAppButton>
+    <BeerAppButton @click="mainBeerButtonClickHandler">
+      {{ beerButtonLabel }}
+    </BeerAppButton>
   </div>
+  <FetchErrorAlert />
   <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
     <BeerTable
@@ -50,6 +51,7 @@ import { debounce } from 'lodash';
 
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
+import FetchErrorAlert from '../components/UI/FetchErrorAlert.vue';
 import BeerTable from '../components/table/BeerTable.vue';
 import InfiniteScroll from '../components/table/InfiniteScroll.vue';
 import ItemsPerPageSelect from '../components/table/ItemsPerPageSelect.vue';

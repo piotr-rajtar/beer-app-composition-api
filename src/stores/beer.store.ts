@@ -23,6 +23,7 @@ export const useBeerStore = defineStore('beer', () => {
   const beers: Ref<Beer[]> = ref([]);
   const cachedBeers: Ref<{ [key: string]: Beer[] }> = ref({});
 
+  const isFetchError = ref(false);
   const itemsPerPage = ref(DEFAULT_ITEMS_PER_PAGE);
   const pageNumber = ref(1);
 
@@ -105,8 +106,10 @@ export const useBeerStore = defineStore('beer', () => {
     try {
       const res = await axios.get(url);
       return res.data;
-    } catch (e) {
-      throw getErrorMessage(e);
+    } catch (error) {
+      isFetchError.value = true;
+      areDataLoading.value = false;
+      throw getErrorMessage(error);
     }
   };
 
@@ -214,6 +217,7 @@ export const useBeerStore = defineStore('beer', () => {
     areDataLoading,
     areAnyBeersFetched,
     clearBeersState,
+    isFetchError,
     isNextPageAvailable,
     itemsPerPage,
     loadInitialBeerData,

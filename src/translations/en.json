@@ -1,4 +1,8 @@
 {
+  "ALERT": {
+    "ERROR": "Error!",
+    "FETCH_ERROR": "A problem has been occured while fetching data."
+  },
   "GENERAL": {
     "APP_HEADER": "Beer catalogue browser",
     "NO_DATA": "No data",
@@ -16,7 +20,7 @@
   },
   "TABLE_GENERAL": {
     "CAPTION": "A summary of PUNK API beers",
-    "ROWS_NUMBER": "Rows number"
+    "ROWS_NUMBER": "Rows quantity"
   },
   "TABLE_HEADER": {
     "ID": "ID",
