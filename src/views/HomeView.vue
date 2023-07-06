@@ -1,27 +1,36 @@
 <template>
   <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
+
   <div :class="style.sectionContainer">
     <BeerAppButton @click="mainBeerButtonClickHandler">
       {{ beerButtonLabel }}
     </BeerAppButton>
   </div>
-  <FetchErrorAlert />
+
+  <div :class="style.alertContainer">
+    <FetchErrorAlert />
+  </div>
+
   <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
     <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+
     <BeerTable
       :beers="beerTableDataSource"
       :sort-by="sortBy"
       @sort="onSort($event)"
     />
+
     <LoadMore
       v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
       @load-more="onLoadMore"
     />
+
     <InfiniteScroll
       v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
       @load-more="onLoadMore"
       @make-initial-fetches="makeInfiniteScrollInitialFetches"
     />
+
     <div
       v-if="activeTableNavigator === TableNavigator.PAGINATION"
       :class="style.itemsPerPageContainer"
@@ -34,9 +43,11 @@
       @prev-click="onPrevClick"
     />
   </div>
+
   <div v-if="areDataLoading" :class="style.sectionContainer">
     <BeerAppLoader />
   </div>
+
   <div v-if="isNoDataVisible" :class="style.sectionContainer">
     <NoData />
   </div>
@@ -185,6 +196,10 @@ const isNoDataVisible = computed(
 
   margin-bottom: 10 * spacings.$spacing-unit;
   padding: 0 8 * spacings.$spacing-unit;
+}
+
+.alertContainer {
+  margin-bottom: 10 * spacings.$spacing-unit;
 }
 
 .itemsPerPageContainer {

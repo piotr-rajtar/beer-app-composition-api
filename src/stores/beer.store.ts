@@ -107,6 +107,7 @@ export const useBeerStore = defineStore('beer', () => {
       const res = await axios.get(url);
       return res.data;
     } catch (error) {
+      window.scrollTo(0, 0);
       isFetchError.value = true;
       areDataLoading.value = false;
       throw getErrorMessage(error);
