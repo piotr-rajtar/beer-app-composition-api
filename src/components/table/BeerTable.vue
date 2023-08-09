@@ -1,7 +1,9 @@
 <template>
   <table :id="BEER_TABLE_ID" :class="style.table">
     <caption :id="BEER_TABLE_CAPTION_ID" :class="style.caption">
-      {{ t('TABLE_GENERAL.CAPTION') }}
+      {{
+        t('TABLE_GENERAL.CAPTION')
+      }}
     </caption>
     <thead :class="style.tableHeader">
       <tr>
@@ -94,7 +96,6 @@ const onSortClick = (
   table-layout: fixed;
   width: 100%;
 
-  margin-top: 10 * spacings.$spacing-unit;
   border-collapse: collapse;
   border: spacings.$table-border solid colors.$yellow-dark;
 }

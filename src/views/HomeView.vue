@@ -7,8 +7,8 @@
     </BeerAppButton>
   </div>
 
-  <div :class="style.alertContainer">
-    <FetchErrorAlert />
+  <div v-if="isFetchErrorAlertVisible" :class="style.errorAlertContainer">
+    <FetchErrorAlert @close="onFetchErrorAlertClose" />
   </div>
 
   <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
@@ -85,6 +85,7 @@ const {
   areAnyBeersFetched,
   areDataLoading,
   itemsPerPage,
+  isFetchError,
   pageNumber,
   sortBy,
   sortDirection,
@@ -112,14 +113,22 @@ const beerButtonLabel = computed(() => {
 });
 
 const onLoadInitialData = async (): Promise<void> => {
-  await loadInitialBeerData();
-  wasBeerButtonEverClicked.value = true;
+  try {
+    await loadInitialBeerData();
+    wasBeerButtonEverClicked.value = true;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const onItemsNumberChange = async (newItemsNumber: number) => {
-  setTableInitialState();
-  itemsPerPage.value = newItemsNumber;
-  await loadInitialBeerData();
+  try {
+    setTableInitialState();
+    itemsPerPage.value = newItemsNumber;
+    await loadInitialBeerData();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const onLoadMore = async (): Promise<void> => {
@@ -177,6 +186,22 @@ const onSort = (sortOption: SortOption) => {
 const isNoDataVisible = computed(
   () => wasBeerButtonEverClicked.value && !areAnyBeersFetched.value
 );
+
+const isFetchErrorAlertOpen = ref(false);
+const isFetchErrorAlertVisible = computed(
+  () => isFetchError.value && isFetchErrorAlertOpen.value
+);
+
+const onFetchErrorAlertClose = () => {
+  isFetchErrorAlertOpen.value = false;
+  isFetchError.value = false;
+};
+
+watch(isFetchError, (newValue) => {
+  if (newValue) {
+    isFetchErrorAlertOpen.value = true;
+  }
+});
 </script>
 
 <style lang="scss" module="style">
@@ -198,7 +223,7 @@ const isNoDataVisible = computed(
   padding: 0 8 * spacings.$spacing-unit;
 }
 
-.alertContainer {
+.errorAlertContainer {
   margin-bottom: 10 * spacings.$spacing-unit;
 }
 
