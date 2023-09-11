@@ -1,0 +1,1 @@
+export const INITIAL_QUERY_PARAMS_QUANTITY = 2;

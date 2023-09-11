@@ -1,7 +1,9 @@
 {
   "ALERT": {
     "ERROR": "Error!",
-    "FETCH_ERROR": "A problem has been occured while fetching data."
+    "FETCH_ERROR": "A problem has been occured while fetching data.",
+    "SORTING_WARNING": "Due to the API limitations, until all beer data are not fetched yet, data sorting may not works correctly.",
+    "WARNING": "Warning!"
   },
   "GENERAL": {
     "APP_HEADER": "Beer catalogue browser",

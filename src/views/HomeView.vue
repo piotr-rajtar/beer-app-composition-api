@@ -7,12 +7,18 @@
     </BeerAppButton>
   </div>
 
-  <div v-if="isFetchErrorAlertVisible" :class="style.errorAlertContainer">
+  <div v-if="isFetchErrorAlertVisible" :class="style.bottomMargin">
     <FetchErrorAlert @close="onFetchErrorAlertClose" />
   </div>
 
   <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
-    <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+    <div v-if="isSortWarningAlertVisible" :class="style.bottomMargin">
+      <SortWarningAlert @close="onSortWarningAlertClose" />
+    </div>
+
+    <div :class="style.bottomMargin">
+      <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+    </div>
 
     <BeerTable
       :beers="beerTableDataSource"
@@ -55,7 +61,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
-import type { Ref } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { debounce } from 'lodash';
@@ -63,6 +69,7 @@ import { debounce } from 'lodash';
 import BeerAppButton from '../components/UI/BeerAppButton.vue';
 import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
 import FetchErrorAlert from '../components/UI/FetchErrorAlert.vue';
+import SortWarningAlert from '../components/UI/SortWarningAlert.vue';
 import BeerTable from '../components/table/BeerTable.vue';
 import InfiniteScroll from '../components/table/InfiniteScroll.vue';
 import ItemsPerPageSelect from '../components/table/ItemsPerPageSelect.vue';
@@ -84,6 +91,7 @@ const { t } = useI18n();
 const {
   areAnyBeersFetched,
   areDataLoading,
+  areAllDataFetched,
   itemsPerPage,
   isFetchError,
   pageNumber,
@@ -202,6 +210,22 @@ watch(isFetchError, (newValue) => {
     isFetchErrorAlertOpen.value = true;
   }
 });
+
+const isSortWarningAlertOpen = ref(true);
+const isSortWarningAlertVisible: ComputedRef<boolean> = computed(() => {
+  return !areAllDataFetched.value && isSortWarningAlertOpen.value;
+});
+
+const onSortWarningAlertClose = () => {
+  isSortWarningAlertOpen.value = false;
+};
+
+watch(pageNumber, () => {
+  if (areAllDataFetched.value) {
+    return;
+  }
+  isSortWarningAlertOpen.value = true;
+});
 </script>
 
 <style lang="scss" module="style">
@@ -223,7 +247,7 @@ watch(isFetchError, (newValue) => {
   padding: 0 8 * spacings.$spacing-unit;
 }
 
-.errorAlertContainer {
+.bottomMargin {
   margin-bottom: 10 * spacings.$spacing-unit;
 }
 

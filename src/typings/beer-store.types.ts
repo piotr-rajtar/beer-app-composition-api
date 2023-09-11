@@ -67,3 +67,5 @@ export interface SimplifiedBeer {
   ebc: number | null;
   ph: number | null;
 }
+
+export type CachedBeerRequest = { [key: string]: Beer[] };

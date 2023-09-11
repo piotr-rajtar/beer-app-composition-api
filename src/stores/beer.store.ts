@@ -8,12 +8,18 @@ import {
   DEFAULT_ITEMS_PER_PAGE,
   SIMPLIFIED_BEER_KEYS,
 } from '../const/beer-store.const';
+import { INITIAL_QUERY_PARAMS_QUANTITY } from '../const/global.const';
 import type { Filters, QueryParams } from '../typings/global.types';
-import type { Beer, SimplifiedBeer } from '../typings/beer-store.types';
+import type {
+  Beer,
+  CachedBeerRequest,
+  SimplifiedBeer,
+} from '../typings/beer-store.types';
 import { SortDirection } from '../typings/table.types';
 import type { SortBy, SortOption } from '../typings/table.types';
 import {
   compareSimplifiedBeers,
+  decryptQueryString,
   getErrorMessage,
   getQueryString,
   getUrlAddress,
@@ -21,7 +27,7 @@ import {
 
 export const useBeerStore = defineStore('beer', () => {
   const beers: Ref<Beer[]> = ref([]);
-  const cachedBeers: Ref<{ [key: string]: Beer[] }> = ref({});
+  const cachedBeerRequests: Ref<CachedBeerRequest> = ref({});
 
   const isFetchError = ref(false);
   const itemsPerPage = ref(DEFAULT_ITEMS_PER_PAGE);
@@ -33,6 +39,20 @@ export const useBeerStore = defineStore('beer', () => {
 
   const sortBy: Ref<SortBy | null> = ref(null);
   const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
+
+  const areAllDataFetched = computed(() => {
+    return !!Object.entries(cachedBeerRequests.value).find(
+      (cachedBeerRequest) => {
+        const [queryString, cachedBeers] = cachedBeerRequest;
+
+        const quantityOfQueryParams = decryptQueryString(queryString).length;
+        const isRequestWithoutFilters =
+          quantityOfQueryParams === INITIAL_QUERY_PARAMS_QUANTITY;
+
+        return isRequestWithoutFilters && cachedBeers.length === 0;
+      }
+    );
+  });
 
   const areAnyBeersFetched = computed(() => !!beers.value.length);
 
@@ -98,9 +118,7 @@ export const useBeerStore = defineStore('beer', () => {
     beers.value = [];
   };
 
-  const fetchBeerData = async (
-    queryParams: QueryParams
-  ): Promise<Beer[] | Error> => {
+  const fetchBeerData = async (queryParams: QueryParams): Promise<Beer[]> => {
     const url: string = getUrlAddress(API_ADDRESS, queryParams);
 
     try {
@@ -122,17 +140,20 @@ export const useBeerStore = defineStore('beer', () => {
       page: pageNumber.value + 1,
     };
     const queryKey: string = getQueryString(nextPageQueryParams);
-    const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
+    const cachedPage: Beer[] | undefined = toRaw(
+      cachedBeerRequests.value[queryKey]
+    );
 
     if (cachedPage) {
       isNextPageAvailable.value = true;
       return;
     }
 
-    const result: Beer[] | Error = await fetchBeerData(nextPageQueryParams);
+    const result: Beer[] = await fetchBeerData(nextPageQueryParams);
 
-    if (Array.isArray(result) && result.length) {
-      cachedBeers.value[queryKey] = result;
+    cachedBeerRequests.value[queryKey] = result;
+
+    if (result.length) {
       isNextPageAvailable.value = true;
       return;
     }
@@ -146,7 +167,9 @@ export const useBeerStore = defineStore('beer', () => {
       per_page: itemsPerPage.value,
     };
     const queryKey: string = getQueryString(queryParams);
-    const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
+    const cachedPage: Beer[] | undefined = toRaw(
+      cachedBeerRequests.value[queryKey]
+    );
 
     areDataLoading.value = true;
 
@@ -158,10 +181,11 @@ export const useBeerStore = defineStore('beer', () => {
       return;
     }
 
-    const result: Beer[] | Error = await fetchBeerData(queryParams);
+    const result: Beer[] = await fetchBeerData(queryParams);
 
-    if (Array.isArray(result) && result.length) {
-      cachedBeers.value[queryKey] = result;
+    cachedBeerRequests.value[queryKey] = result;
+
+    if (result.length) {
       beers.value = result;
     }
 
@@ -175,13 +199,15 @@ export const useBeerStore = defineStore('beer', () => {
       ...filters,
     };
     const queryKey: string = getQueryString(queryParams);
-    const cachedPage: Beer[] | undefined = toRaw(cachedBeers.value[queryKey]);
+    const cachedPage: Beer[] | undefined = toRaw(
+      cachedBeerRequests.value[queryKey]
+    );
 
     areDataLoading.value = true;
 
     await checkIfNextPageIsAvailable(queryParams);
 
-    //Duplicates appears when trying to pagined sorted data
+    //Duplicates appears when trying to pagined sorted data when not all data fetched
     if (cachedPage) {
       beers.value = [
         ...beers.value,
@@ -191,10 +217,11 @@ export const useBeerStore = defineStore('beer', () => {
       return;
     }
 
-    const result: Beer[] | Error = await fetchBeerData(queryParams);
+    const result: Beer[] = await fetchBeerData(queryParams);
 
-    if (Array.isArray(result) && result.length) {
-      cachedBeers.value[queryKey] = result;
+    cachedBeerRequests.value[queryKey] = result;
+
+    if (result.length) {
       beers.value = [...beers.value, ...removeDuplicates(result)];
     }
 
@@ -216,6 +243,7 @@ export const useBeerStore = defineStore('beer', () => {
 
   return {
     areDataLoading,
+    areAllDataFetched,
     areAnyBeersFetched,
     clearBeersState,
     isFetchError,

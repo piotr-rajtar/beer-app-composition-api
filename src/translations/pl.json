@@ -1,7 +1,9 @@
 {
   "ALERT": {
-    "ERROR": "Błąd",
-    "FETCH_ERROR": "Wystąpił problem w trakcie pobierania danych."
+    "ERROR": "Błąd!",
+    "FETCH_ERROR": "Wystąpił problem w trakcie pobierania danych.",
+    "SORTING_WARNING": "Ze względu na ograniczenia API, do momentu, aż wszystkie dane piw nie zostaną pobrane, sortowanie może nie działać poprawnie.",
+    "WARNING": "Uwaga!"
   },
   "GENERAL": {
     "APP_HEADER": "Przeglądarka katalogu piw",
