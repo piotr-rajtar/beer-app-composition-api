@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 
-import type { Language } from '../../typings/language.types';
+import type { Language } from '../../typings';
 
 import LanguageSwitch from '../UI/LanguageSwitch.vue';
 

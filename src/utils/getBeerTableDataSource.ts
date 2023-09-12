@@ -1,6 +1,6 @@
 import { useBeerStore } from '../stores/beer.store';
-import { SortDirection, TableNavigator } from '../typings/table.types';
-import type { SimplifiedBeer } from '../typings/beer-store.types';
+import { SortDirection, TableNavigator } from '../typings';
+import type { SimplifiedBeer } from '../typings';
 
 enum PAGINATION_STATE {
   NO_PAGINATION = 10,

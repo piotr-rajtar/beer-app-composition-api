@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { AlertType } from '../../typings/global.types';
+import type { AlertType } from '../../typings';
 
 import { BeerAppAlert } from './';
 

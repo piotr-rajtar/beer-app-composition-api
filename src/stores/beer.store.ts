@@ -9,14 +9,16 @@ import {
   SIMPLIFIED_BEER_KEYS,
 } from '../const/beer-store.const';
 import { INITIAL_QUERY_PARAMS_QUANTITY } from '../const/global.const';
-import type { Filters, QueryParams } from '../typings/global.types';
+import { SortDirection } from '../typings';
 import type {
   Beer,
   CachedBeerRequest,
+  Filters,
+  QueryParams,
   SimplifiedBeer,
-} from '../typings/beer-store.types';
-import { SortDirection } from '../typings/table.types';
-import type { SortBy, SortOption } from '../typings/table.types';
+  SortBy,
+  SortOption,
+} from '../typings';
 import {
   compareSimplifiedBeers,
   decryptQueryString,

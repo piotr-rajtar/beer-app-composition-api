@@ -15,7 +15,7 @@
 import { computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import { AlertType } from '../../typings/global.types';
+import { AlertType } from '../../typings';
 
 const emit = defineEmits<{
   (event: 'close'): void;

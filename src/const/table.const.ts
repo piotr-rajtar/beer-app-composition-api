@@ -1,6 +1,5 @@
-import type { SelectOption } from '../typings/global.types';
-import type { NavigationType, TableHeader } from '../typings/table.types';
-import { TableHeaderKey, TableNavigator } from '../typings/table.types';
+import { TableHeaderKey, TableNavigator } from '../typings';
+import type { NavigationType, SelectOption, TableHeader } from '../typings';
 
 export const NAVIGATION_TYPES: NavigationType[] = [
   {

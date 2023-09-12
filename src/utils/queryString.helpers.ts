@@ -1,4 +1,4 @@
-import type { QueryParams } from '../typings/global.types';
+import type { QueryParams } from '../typings';
 
 export const getQueryString = (queryParams: QueryParams): string =>
   (Object.keys(queryParams) as Array<keyof QueryParams>)

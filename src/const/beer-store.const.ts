@@ -1,4 +1,4 @@
-import type { SimplifiedBeer } from '../typings/beer-store.types';
+import type { SimplifiedBeer } from '../typings';
 
 export const API_ADDRESS = 'https://api.punkapi.com/v2/beers';
 

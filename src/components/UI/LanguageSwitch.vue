@@ -11,8 +11,7 @@
 
 <script lang="ts" setup>
 import { LANGUAGE_OPTIONS } from '../../const/language.const';
-import { SelectOrientation } from '../../typings/global.types';
-import { Language } from '../../typings/language.types';
+import { Language, SelectOrientation } from '../../typings';
 
 import { BeerAppSelect } from './';
 

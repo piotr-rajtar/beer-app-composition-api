@@ -27,8 +27,8 @@ import { computed, ref, useCssModule } from 'vue';
 import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { SelectOrientation } from '../../typings/global.types';
-import type { SelectOption } from '../../typings/global.types';
+import { SelectOrientation } from '../../typings';
+import type { SelectOption } from '../../typings';
 
 const props = defineProps<{
   id: string;

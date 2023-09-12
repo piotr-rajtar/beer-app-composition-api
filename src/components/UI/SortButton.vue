@@ -17,8 +17,8 @@
 import { computed, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 
-import { SortArrowDirection, SortDirection } from '../../typings/table.types';
-import type { SortBy, TableHeaderKey } from '../../typings/table.types';
+import { SortArrowDirection, SortDirection } from '../../typings';
+import type { SortBy, TableHeaderKey } from '../../typings';
 
 import { SortArrowIcon } from './';
 

@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { PaginationArrowDirection } from '../../typings/global.types';
+import { PaginationArrowDirection } from '../../typings';
 
 const props = defineProps<{
   type: PaginationArrowDirection;

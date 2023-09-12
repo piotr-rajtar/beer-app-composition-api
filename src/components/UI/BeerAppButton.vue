@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { ButtonType } from '../../typings/global.types';
+import { ButtonType } from '../../typings';
 
 const props = withDefaults(
   defineProps<{

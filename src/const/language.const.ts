@@ -1,5 +1,5 @@
-import { Language } from '../typings/language.types';
-import type { SelectOption } from '../typings/global.types';
+import { Language } from '../typings';
+import type { SelectOption } from '../typings';
 
 export const LANGUAGE_OPTIONS: SelectOption[] = [
   {

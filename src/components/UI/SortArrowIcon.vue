@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { SortArrowDirection } from '../../typings/table.types';
+import { SortArrowDirection } from '../../typings';
 
 const props = defineProps<{
   isActive: boolean;

@@ -28,7 +28,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { NAVIGATION_TYPES } from '../../const/table.const';
-import { TableNavigator } from '../../typings/table.types';
+import { TableNavigator } from '../../typings';
 
 const emit = defineEmits<{
   (event: 'navigation-type-change', tableNavigator: TableNavigator): void;
