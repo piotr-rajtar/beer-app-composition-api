@@ -1,4 +1,4 @@
-import { useBeerStore } from '../stores/beer.store';
+import { useBeerStore } from '../stores';
 import { SortDirection, TableNavigator } from '../typings';
 import type { SimplifiedBeer } from '../typings';
 

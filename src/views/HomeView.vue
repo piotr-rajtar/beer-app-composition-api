@@ -81,7 +81,7 @@ import {
   TableNavigation,
   TablePagination,
 } from '../components/table';
-import { useBeerStore } from '../stores/beer.store';
+import { useBeerStore } from '../stores';
 import { TableNavigator } from '../typings';
 import type { Filters, SortOption } from '../typings';
 

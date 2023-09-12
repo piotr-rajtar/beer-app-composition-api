@@ -12,7 +12,7 @@ import { storeToRefs } from 'pinia';
 import { throttle } from 'lodash';
 
 import { BEER_TABLE_CAPTION_ID, BEER_TABLE_ID } from '../../const';
-import { useBeerStore } from '../../stores/beer.store';
+import { useBeerStore } from '../../stores';
 
 import { BeerAppButton } from '../UI';
 

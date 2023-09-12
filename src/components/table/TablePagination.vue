@@ -25,7 +25,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { debounce } from 'lodash';
 
-import { useBeerStore } from '../../stores/beer.store';
+import { useBeerStore } from '../../stores';
 import { ButtonType, PaginationArrowDirection } from '../../typings';
 
 import { BeerAppButton, PaginationArrowIcon } from '../UI';

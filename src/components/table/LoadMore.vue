@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { debounce } from 'lodash';
 
-import { useBeerStore } from '../../stores/beer.store';
+import { useBeerStore } from '../../stores';
 
 import { BeerAppButton } from '../UI';
 
