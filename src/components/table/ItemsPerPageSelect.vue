@@ -14,7 +14,7 @@ import { DEFAULT_ITEMS_PER_PAGE } from '../../const/beer-store.const';
 import { ITEMS_PER_PAGE_OPTIONS } from '../../const/table.const';
 import { SelectOrientation } from '../../typings/global.types';
 
-import BeerAppSelect from '../UI/BeerAppSelect.vue';
+import { BeerAppSelect } from '../UI';
 
 const emit = defineEmits<{
   (event: 'items-number-change', itemsNumber: number): void;

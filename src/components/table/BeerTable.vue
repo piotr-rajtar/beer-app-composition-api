@@ -57,7 +57,7 @@ import type { SimplifiedBeer } from '../../typings/beer-store.types';
 import { SortDirection, TableHeaderKey } from '../../typings/table.types';
 import type { SortBy, SortOption } from '../../typings/table.types';
 
-import SortButton from '../UI/SortButton.vue';
+import { SortButton } from '../UI';
 
 const emit = defineEmits<{
   (event: 'sort', sortOption: SortOption): void;

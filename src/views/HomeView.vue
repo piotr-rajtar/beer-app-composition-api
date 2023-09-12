@@ -66,17 +66,21 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { debounce } from 'lodash';
 
-import BeerAppButton from '../components/UI/BeerAppButton.vue';
-import BeerAppLoader from '../components/UI/BeerAppLoader.vue';
-import FetchErrorAlert from '../components/UI/FetchErrorAlert.vue';
-import SortWarningAlert from '../components/UI/SortWarningAlert.vue';
-import BeerTable from '../components/table/BeerTable.vue';
-import InfiniteScroll from '../components/table/InfiniteScroll.vue';
-import ItemsPerPageSelect from '../components/table/ItemsPerPageSelect.vue';
-import LoadMore from '../components/table/LoadMore.vue';
-import NoData from '../components/UI/NoData.vue';
-import TableNavigation from '../components/table/TableNavigation.vue';
-import TablePagination from '../components/table/TablePagination.vue';
+import {
+  BeerAppButton,
+  BeerAppLoader,
+  FetchErrorAlert,
+  NoData,
+  SortWarningAlert,
+} from '../components/UI';
+import {
+  BeerTable,
+  InfiniteScroll,
+  ItemsPerPageSelect,
+  LoadMore,
+  TableNavigation,
+  TablePagination,
+} from '../components/table';
 
 import { useBeerStore } from '../stores/beer.store';
 

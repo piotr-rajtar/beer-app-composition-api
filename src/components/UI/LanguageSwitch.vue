@@ -14,7 +14,7 @@ import { LANGUAGE_OPTIONS } from '../../const/language.const';
 import { SelectOrientation } from '../../typings/global.types';
 import { Language } from '../../typings/language.types';
 
-import BeerAppSelect from './BeerAppSelect.vue';
+import { BeerAppSelect } from './';
 
 const emit = defineEmits<{
   (event: 'language-switch', activeLanguage: Language): void;

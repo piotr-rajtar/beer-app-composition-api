@@ -11,7 +11,7 @@ import { debounce } from 'lodash';
 
 import { useBeerStore } from '../../stores/beer.store';
 
-import BeerAppButton from '../UI/BeerAppButton.vue';
+import { BeerAppButton } from '../UI';
 
 const emit = defineEmits<{
   (event: 'load-more'): void;

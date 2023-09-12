@@ -31,8 +31,7 @@ import {
   PaginationArrowDirection,
 } from '../../typings/global.types';
 
-import BeerAppButton from '../UI/BeerAppButton.vue';
-import PaginationArrowIcon from '../UI/PaginationArrowIcon.vue';
+import { BeerAppButton, PaginationArrowIcon } from '../UI';
 
 const emit = defineEmits<{
   (event: 'next-click'): void;

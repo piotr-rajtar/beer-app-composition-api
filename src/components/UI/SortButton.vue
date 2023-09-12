@@ -20,7 +20,7 @@ import type { Ref } from 'vue';
 import { SortArrowDirection, SortDirection } from '../../typings/table.types';
 import type { SortBy, TableHeaderKey } from '../../typings/table.types';
 
-import SortArrowIcon from './SortArrowIcon.vue';
+import { SortArrowIcon } from './';
 
 const emit = defineEmits<{
   (event: 'sort', sortDirection: SortDirection): void;

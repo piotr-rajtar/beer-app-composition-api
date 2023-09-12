@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 
 import { AlertType } from '../../typings/global.types';
 
-import BeerAppAlert from './BeerAppAlert.vue';
+import { BeerAppAlert } from './';
 
 const emit = defineEmits<{
   (event: 'close'): void;

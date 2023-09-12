@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import type { AlertType } from '../../typings/global.types';
 
-import BeerAppAlert from './BeerAppAlert.vue';
+import { BeerAppAlert } from './';
 
 defineProps<{
   type: AlertType;
