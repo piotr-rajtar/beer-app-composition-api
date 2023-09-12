@@ -30,11 +30,9 @@ import { useI18n } from 'vue-i18n';
 import { NAVIGATION_TYPES } from '../../const/table.const';
 import { TableNavigator } from '../../typings/table.types';
 
-interface NavigationTypeEmits {
+const emit = defineEmits<{
   (event: 'navigation-type-change', tableNavigator: TableNavigator): void;
-}
-
-const emit = defineEmits<NavigationTypeEmits>();
+}>();
 
 const { t } = useI18n();
 

@@ -38,11 +38,9 @@ const props = defineProps<{
   orientation: SelectOrientation;
 }>();
 
-interface SelectEmits {
+const emit = defineEmits<{
   (event: 'select', activeItem: unknown): void;
-}
-
-const emit = defineEmits<SelectEmits>();
+}>();
 
 const style = useCssModule('style');
 const { t } = useI18n();

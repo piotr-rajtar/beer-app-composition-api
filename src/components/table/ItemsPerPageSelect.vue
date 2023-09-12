@@ -16,11 +16,9 @@ import { SelectOrientation } from '../../typings/global.types';
 
 import BeerAppSelect from '../UI/BeerAppSelect.vue';
 
-interface Emits {
+const emit = defineEmits<{
   (event: 'items-number-change', itemsNumber: number): void;
-}
-
-const emit = defineEmits<Emits>();
+}>();
 
 const SELECT_ID = 'itemsPerPageSelect';
 const SELECT_LABEL = 'TABLE_GENERAL.ROWS_NUMBER';

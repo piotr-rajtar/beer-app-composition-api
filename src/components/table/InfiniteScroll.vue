@@ -16,12 +16,10 @@ import { useBeerStore } from '../../stores/beer.store';
 
 import BeerAppButton from '../UI/BeerAppButton.vue';
 
-interface InfiniteScrollEmits {
+const emit = defineEmits<{
   (event: 'load-more'): void;
   (event: 'make-initial-fetches', quantity: number): void;
-}
-
-const emit = defineEmits<InfiniteScrollEmits>();
+}>();
 
 const { t } = useI18n();
 

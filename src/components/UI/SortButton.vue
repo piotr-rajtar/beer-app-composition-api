@@ -22,11 +22,9 @@ import type { SortBy, TableHeaderKey } from '../../typings/table.types';
 
 import SortArrowIcon from './SortArrowIcon.vue';
 
-interface SortButtonEmits {
+const emit = defineEmits<{
   (event: 'sort', sortDirection: SortDirection): void;
-}
-
-const emit = defineEmits<SortButtonEmits>();
+}>();
 
 const props = defineProps<{
   headerKey: TableHeaderKey;

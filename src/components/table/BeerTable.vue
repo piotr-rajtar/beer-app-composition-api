@@ -59,11 +59,9 @@ import type { SortBy, SortOption } from '../../typings/table.types';
 
 import SortButton from '../UI/SortButton.vue';
 
-interface SortButtonEmits {
+const emit = defineEmits<{
   (event: 'sort', sortOption: SortOption): void;
-}
-
-const emit = defineEmits<SortButtonEmits>();
+}>();
 
 defineProps<{
   beers: SimplifiedBeer[];

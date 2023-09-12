@@ -34,12 +34,10 @@ import {
 import BeerAppButton from '../UI/BeerAppButton.vue';
 import PaginationArrowIcon from '../UI/PaginationArrowIcon.vue';
 
-interface PaginationEmits {
+const emit = defineEmits<{
   (event: 'next-click'): void;
   (event: 'prev-click'): void;
-}
-
-const emit = defineEmits<PaginationEmits>();
+}>();
 
 const { isNextPageAvailable, pageNumber } = storeToRefs(useBeerStore());
 
