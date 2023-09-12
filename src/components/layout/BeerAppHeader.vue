@@ -13,7 +13,7 @@ import { useI18n } from 'vue-i18n';
 
 import type { Language } from '../../typings';
 
-import LanguageSwitch from '../UI/LanguageSwitch.vue';
+import { LanguageSwitch } from '../UI';
 
 const { locale, t } = useI18n();
 
