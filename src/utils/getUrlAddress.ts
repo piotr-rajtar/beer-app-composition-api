@@ -1,5 +1,6 @@
 import type { QueryParams } from '../typings';
-import { getQueryString } from './queryString.helpers';
+
+import { getQueryString } from './';
 
 export const getUrlAddress = (
   apiAddress: string,

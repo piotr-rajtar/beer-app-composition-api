@@ -1,7 +1,7 @@
 import { SortDirection, TableHeaderKey } from '../typings';
 import type { SimplifiedBeer, SortBy, SortOption } from '../typings';
 
-import { getDateFromString } from './getDateFromString';
+import { getDateFromString } from './';
 
 export const compareSimplifiedBeers = (sortOptions: SortOption) => {
   return (firstBeer: SimplifiedBeer, secondBeer: SimplifiedBeer): number => {

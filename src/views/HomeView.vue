@@ -84,7 +84,6 @@ import {
 import { useBeerStore } from '../stores';
 import { TableNavigator } from '../typings';
 import type { Filters, SortOption } from '../typings';
-
 import { getBeerTableDataSource } from '../utils';
 
 const { t } = useI18n();
