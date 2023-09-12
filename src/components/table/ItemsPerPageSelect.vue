@@ -13,7 +13,7 @@
 import { DEFAULT_ITEMS_PER_PAGE, ITEMS_PER_PAGE_OPTIONS } from '../../const';
 import { SelectOrientation } from '../../typings';
 
-import { BeerAppSelect } from '../UI';
+import { BeerAppSelect } from '../';
 
 const emit = defineEmits<{
   (event: 'items-number-change', itemsNumber: number): void;

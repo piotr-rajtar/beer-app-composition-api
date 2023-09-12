@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 
-import { BeerAppHeader } from './components/layout';
+import { BeerAppHeader } from './components';
 </script>
 
 <style lang="scss" module="style">

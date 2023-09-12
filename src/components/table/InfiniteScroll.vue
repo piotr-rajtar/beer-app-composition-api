@@ -14,7 +14,7 @@ import { throttle } from 'lodash';
 import { BEER_TABLE_CAPTION_ID, BEER_TABLE_ID } from '../../const';
 import { useBeerStore } from '../../stores';
 
-import { BeerAppButton } from '../UI';
+import { BeerAppButton } from '../';
 
 const emit = defineEmits<{
   (event: 'load-more'): void;

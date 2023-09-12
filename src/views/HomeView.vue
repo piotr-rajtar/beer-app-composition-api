@@ -69,18 +69,16 @@ import { debounce } from 'lodash';
 import {
   BeerAppButton,
   BeerAppLoader,
-  FetchErrorAlert,
-  NoData,
-  SortWarningAlert,
-} from '../components/UI';
-import {
   BeerTable,
+  FetchErrorAlert,
   InfiniteScroll,
   ItemsPerPageSelect,
   LoadMore,
+  NoData,
+  SortWarningAlert,
   TableNavigation,
   TablePagination,
-} from '../components/table';
+} from '../components';
 import { useBeerStore } from '../stores';
 import { TableNavigator } from '../typings';
 import type { Filters, SortOption } from '../typings';

@@ -56,7 +56,7 @@ import {
 import { SortDirection, TableHeaderKey } from '../../typings';
 import type { SimplifiedBeer, SortBy, SortOption } from '../../typings';
 
-import { SortButton } from '../UI';
+import { SortButton } from '../';
 
 const emit = defineEmits<{
   (event: 'sort', sortOption: SortOption): void;
