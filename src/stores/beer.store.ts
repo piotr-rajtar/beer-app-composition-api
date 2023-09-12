@@ -6,9 +6,9 @@ import axios from 'axios';
 import {
   API_ADDRESS,
   DEFAULT_ITEMS_PER_PAGE,
+  INITIAL_QUERY_PARAMS_QUANTITY,
   SIMPLIFIED_BEER_KEYS,
-} from '../const/beer-store.const';
-import { INITIAL_QUERY_PARAMS_QUANTITY } from '../const/global.const';
+} from '../const';
 import { SortDirection } from '../typings';
 import type {
   Beer,

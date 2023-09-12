@@ -52,7 +52,7 @@ import {
   BEER_TABLE_CAPTION_ID,
   BEER_TABLE_ID,
   TABLE_HEADERS,
-} from '../../const/table.const';
+} from '../../const';
 import { SortDirection, TableHeaderKey } from '../../typings';
 import type { SimplifiedBeer, SortBy, SortOption } from '../../typings';
 

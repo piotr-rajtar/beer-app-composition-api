@@ -10,8 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { DEFAULT_ITEMS_PER_PAGE } from '../../const/beer-store.const';
-import { ITEMS_PER_PAGE_OPTIONS } from '../../const/table.const';
+import { DEFAULT_ITEMS_PER_PAGE, ITEMS_PER_PAGE_OPTIONS } from '../../const';
 import { SelectOrientation } from '../../typings';
 
 import { BeerAppSelect } from '../UI';

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { LANGUAGE_OPTIONS } from '../../const/language.const';
+import { LANGUAGE_OPTIONS } from '../../const';
 import { Language, SelectOrientation } from '../../typings';
 
 import { BeerAppSelect } from './';

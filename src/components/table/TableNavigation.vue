@@ -27,7 +27,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { NAVIGATION_TYPES } from '../../const/table.const';
+import { NAVIGATION_TYPES } from '../../const';
 import { TableNavigator } from '../../typings';
 
 const emit = defineEmits<{

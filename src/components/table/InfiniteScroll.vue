@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { throttle } from 'lodash';
 
-import { BEER_TABLE_CAPTION_ID, BEER_TABLE_ID } from '../../const/table.const';
+import { BEER_TABLE_CAPTION_ID, BEER_TABLE_ID } from '../../const';
 import { useBeerStore } from '../../stores/beer.store';
 
 import { BeerAppButton } from '../UI';
