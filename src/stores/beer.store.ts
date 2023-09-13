@@ -1,22 +1,19 @@
 import { ref, computed, toRaw } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 import axios from 'axios';
 
 import {
   API_ADDRESS,
-  DEFAULT_ITEMS_PER_PAGE,
   INITIAL_QUERY_PARAMS_QUANTITY,
   SIMPLIFIED_BEER_KEYS,
 } from '../const';
-import { SortDirection } from '../typings';
 import type {
   Beer,
   CachedBeerRequest,
   Filters,
   QueryParams,
   SimplifiedBeer,
-  SortBy,
   SortOption,
 } from '../typings';
 import {
@@ -27,20 +24,21 @@ import {
   getUrlAddress,
 } from '../utils';
 
+import { useTableStore } from './';
+
 export const useBeerStore = defineStore('beer', () => {
+  const { itemsPerPage, pageNumber, sortBy, sortDirection } = storeToRefs(
+    useTableStore()
+  );
+
   const beers: Ref<Beer[]> = ref([]);
   const cachedBeerRequests: Ref<CachedBeerRequest> = ref({});
 
   const isFetchError = ref(false);
-  const itemsPerPage = ref(DEFAULT_ITEMS_PER_PAGE);
-  const pageNumber = ref(1);
 
   const areDataLoading = ref(false);
 
   const isNextPageAvailable = ref(true);
-
-  const sortBy: Ref<SortBy | null> = ref(null);
-  const sortDirection: Ref<SortDirection> = ref(SortDirection.NONE);
 
   const areAllDataFetched = computed(() => {
     return !!Object.entries(cachedBeerRequests.value).find(
@@ -236,13 +234,6 @@ export const useBeerStore = defineStore('beer', () => {
         !beers.value.some((beerInState) => beerInState.id === beerInPayload.id)
     );
 
-  const setTableInitialState = (): void => {
-    sortBy.value = null;
-    sortDirection.value = SortDirection.NONE;
-    pageNumber.value = 1;
-    itemsPerPage.value = DEFAULT_ITEMS_PER_PAGE;
-  };
-
   return {
     areDataLoading,
     areAllDataFetched,
@@ -250,15 +241,10 @@ export const useBeerStore = defineStore('beer', () => {
     clearBeersState,
     isFetchError,
     isNextPageAvailable,
-    itemsPerPage,
     loadInitialBeerData,
     loadMoreBeerData,
-    pageNumber,
-    setTableInitialState,
     simplifiedBeersDataWithNoPagination,
     simplifiedBeersDataWithPagination,
-    sortBy,
-    sortDirection,
     sortedSimplifiedBeersDataWithNoPagination,
     sortedSimplifiedBeersDataWithPagination,
   };

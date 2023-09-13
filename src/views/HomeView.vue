@@ -79,29 +79,24 @@ import {
   TableNavigation,
   TablePagination,
 } from '../components';
-import { useBeerStore } from '../stores';
+import { useBeerStore, useTableStore } from '../stores';
 import { TableNavigator } from '../typings';
 import type { Filters, SortOption } from '../typings';
 import { getBeerTableDataSource } from '../utils';
 
 const { t } = useI18n();
 
-const {
-  areAnyBeersFetched,
-  areDataLoading,
-  areAllDataFetched,
-  itemsPerPage,
-  isFetchError,
-  pageNumber,
-  sortBy,
-  sortDirection,
-} = storeToRefs(useBeerStore());
-const {
-  clearBeersState,
-  loadInitialBeerData,
-  loadMoreBeerData,
-  setTableInitialState,
-} = useBeerStore();
+const { areAnyBeersFetched, areDataLoading, areAllDataFetched, isFetchError } =
+  storeToRefs(useBeerStore());
+
+const { clearBeersState, loadInitialBeerData, loadMoreBeerData } =
+  useBeerStore();
+
+const { itemsPerPage, pageNumber, sortBy, sortDirection } = storeToRefs(
+  useTableStore()
+);
+
+const { setTableInitialState } = useTableStore();
 
 const activeTableNavigator: Ref<TableNavigator> = ref(TableNavigator.LOAD_MORE);
 const filters: Ref<Filters> = ref({});

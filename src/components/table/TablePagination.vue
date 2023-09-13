@@ -25,7 +25,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { debounce } from 'lodash';
 
-import { useBeerStore } from '../../stores';
+import { useBeerStore, useTableStore } from '../../stores';
 import { ButtonType, PaginationArrowDirection } from '../../typings';
 
 import { BeerAppButton, PaginationArrowIcon } from '../';
@@ -35,7 +35,8 @@ const emit = defineEmits<{
   (event: 'prev-click'): void;
 }>();
 
-const { isNextPageAvailable, pageNumber } = storeToRefs(useBeerStore());
+const { isNextPageAvailable } = storeToRefs(useBeerStore());
+const { pageNumber } = storeToRefs(useTableStore());
 
 const onNextClick = (): void => {
   if (!isNextPageAvailable.value) {

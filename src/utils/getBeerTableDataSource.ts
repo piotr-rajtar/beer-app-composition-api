@@ -1,4 +1,4 @@
-import { useBeerStore } from '../stores';
+import { useBeerStore, useTableStore } from '../stores';
 import { SortDirection, TableNavigator } from '../typings';
 import type { SimplifiedBeer } from '../typings';
 
@@ -25,10 +25,11 @@ export const getBeerTableDataSource = (
   const {
     simplifiedBeersDataWithNoPagination,
     simplifiedBeersDataWithPagination,
-    sortDirection,
     sortedSimplifiedBeersDataWithNoPagination,
     sortedSimplifiedBeersDataWithPagination,
   } = useBeerStore();
+
+  const { sortDirection } = useTableStore();
 
   const storeDataSource: { [key in TABLE_STATES]: SimplifiedBeer[] } = {
     [TABLE_STATES.NO_SORT_NO_PAGINATION]: simplifiedBeersDataWithNoPagination,
