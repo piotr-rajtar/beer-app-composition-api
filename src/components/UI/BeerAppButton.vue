@@ -35,6 +35,7 @@ const buttonSizeClassName = computed(() => {
 <style lang="scss" module="style">
 @use '@/styles/colors.scss';
 @use '@/styles/fonts.scss';
+@use '@/styles/mixins.scss';
 @use '@/styles/spacings.scss';
 
 .button {
@@ -78,6 +79,10 @@ const buttonSizeClassName = computed(() => {
 .button__size-default {
   width: 200px;
   height: 60px;
+
+  @include mixins.mobile {
+    width: 100%;
+  }
 }
 
 .button__size-pagination {
