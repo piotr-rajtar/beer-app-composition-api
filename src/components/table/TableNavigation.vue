@@ -46,6 +46,7 @@ const onNavigationTypeChange = (): void => {
 <style lang="scss" module="style">
 @use '@/styles/colors.scss';
 @use '@/styles/fonts.scss';
+@use '@/styles/mixins.scss';
 @use '@/styles/spacings.scss';
 
 .container {
@@ -55,10 +56,20 @@ const onNavigationTypeChange = (): void => {
 
   border: spacings.$border-width solid colors.$yellow-dark;
   border-radius: spacings.$spacing-unit;
+
+  @include mixins.tablet {
+    flex-direction: column;
+    gap: 2 * spacings.$spacing-unit;
+    width: 100%;
+  }
 }
 
 .legend {
   font-size: fonts.$font-size-l;
+
+  @include mixins.tablet {
+    margin-bottom: spacings.$spacing-unit;
+  }
 }
 
 .singleRadioContainer {
