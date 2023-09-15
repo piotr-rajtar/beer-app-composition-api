@@ -3,11 +3,9 @@
     <p :class="style.paragraph">
       <slot />
     </p>
-    <FontAwesomeIcon
-      :class="style.icon"
-      :icon="['fas', 'xmark']"
-      @click="onCloseClick"
-    />
+    <div :class="style.iconContainer" @click="onCloseClick">
+      <FontAwesomeIcon :icon="['fas', 'xmark']" />
+    </div>
   </div>
 </template>
 
@@ -40,20 +38,22 @@ const onCloseClick = () => emit('close');
 <style lang="scss" module="style">
 @use '@/styles/colors.scss';
 @use '@/styles/fonts.scss';
+@use '@/styles/spacings.scss';
 
 .alert {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 800px;
-  margin: 0 auto;
 
-  padding: 0.75rem 1.25rem;
+  margin: 0 auto;
+  padding: 2 * spacings.$spacing-unit 4 * spacings.$spacing-unit;
   border: 1px solid;
-  border-radius: 0.25rem;
+  border-radius: spacings.$spacing-unit;
 
   font-size: fonts.$font-size-l;
-  line-height: 1.5;
+  line-height: 1.5em;
 }
 
 .alert__type-error {
@@ -68,10 +68,14 @@ const onCloseClick = () => emit('close');
 }
 
 .paragraph {
-  margin: 0;
+  margin: 0 6 * spacings.$spacing-unit 0 0;
 }
 
-.icon {
+.iconContainer {
+  position: absolute;
+  top: 2 * spacings.$spacing-unit;
+  right: 4 * spacings.$spacing-unit;
+
   cursor: pointer;
 }
 </style>
