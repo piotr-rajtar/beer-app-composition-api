@@ -24,6 +24,7 @@ const onLanguageSwitch = (activeLanguage: Language): void => {
 
 <style lang="scss" module="style">
 @use '@/styles/colors.scss';
+@use '@/styles/mixins.scss';
 @use '@/styles/fonts.scss';
 @use '@/styles/spacings.scss';
 
@@ -34,6 +35,11 @@ const onLanguageSwitch = (activeLanguage: Language): void => {
   grid-template-columns: 1fr auto 1fr;
 
   padding: 3 * spacings.$spacing-unit 10 * spacings.$spacing-unit;
+
+  @include mixins.mobile {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .header {
