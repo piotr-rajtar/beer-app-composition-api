@@ -1,3 +1,5 @@
+import type { TableHeaderKey } from './table.types';
+
 interface Fermentation {
   temp: Volume;
 }
@@ -59,13 +61,13 @@ export interface Beer {
 }
 
 export interface SimplifiedBeer {
-  id: number;
-  name: string;
-  first_brewed: string;
-  abv: number | null;
-  ibu: number | null;
-  ebc: number | null;
-  ph: number | null;
+  [TableHeaderKey.ID]: number;
+  [TableHeaderKey.NAME]: string;
+  [TableHeaderKey.FIRST_BREWED]: string;
+  [TableHeaderKey.ABV]: number | null;
+  [TableHeaderKey.IBU]: number | null;
+  [TableHeaderKey.EBC]: number | null;
+  [TableHeaderKey.PH]: number | null;
 }
 
 export type CachedBeerRequest = { [key: string]: Beer[] };
