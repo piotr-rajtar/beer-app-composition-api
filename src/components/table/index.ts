@@ -1,4 +1,5 @@
 import BeerTable from './BeerTable.vue';
+import BeerTableContainer from './BeerTableContainer.vue';
 import InfiniteScroll from './InfiniteScroll.vue';
 import ItemsPerPageSelect from './ItemsPerPageSelect.vue';
 import LoadMore from './LoadMore.vue';
@@ -8,6 +9,7 @@ import TablePagination from './TablePagination.vue';
 
 export {
   BeerTable,
+  BeerTableContainer,
   InfiniteScroll,
   ItemsPerPageSelect,
   LoadMore,
