@@ -57,7 +57,7 @@ const { t } = useI18n();
 .table {
   width: 100%;
 
-  margin-bottom: 10 * spacings.$spacing-unit;
+  margin-bottom: 4 * spacings.$spacing-unit;
 }
 
 .caption {

@@ -1,62 +1,66 @@
 <template>
-  <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
+  <main :class="style.mainContentPadding">
+    <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
 
-  <div :class="style.sectionContainer">
-    <BeerAppButton @click="mainBeerButtonClickHandler">
-      {{ beerButtonLabel }}
-    </BeerAppButton>
-  </div>
-
-  <div v-if="isFetchErrorAlertVisible" :class="style.bottomMargin">
-    <FetchErrorAlert @close="onFetchErrorAlertClose" />
-  </div>
-
-  <div v-if="areAnyBeersFetched" :class="style.sectionContainer">
-    <div v-if="isSortWarningAlertVisible" :class="style.bottomMargin">
-      <SortWarningAlert @close="onSortWarningAlertClose" />
+    <div :class="[style.sectionContainer, style.sectionMargin]">
+      <BeerAppButton @click="mainBeerButtonClickHandler">
+        {{ beerButtonLabel }}
+      </BeerAppButton>
     </div>
 
-    <div :class="style.bottomMargin">
-      <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+    <div v-if="isFetchErrorAlertVisible" :class="style.sectionMargin">
+      <FetchErrorAlert @close="onFetchErrorAlertClose" />
     </div>
 
-    <BeerTable
-      :beers="beerTableDataSource"
-      :sort-by="sortBy"
-      @sort="onSort($event)"
-    />
+    <div v-if="areAnyBeersFetched" :class="style.tableSectionContainer">
+      <div v-if="isSortWarningAlertVisible" :class="style.sectionMargin">
+        <SortWarningAlert @close="onSortWarningAlertClose" />
+      </div>
 
-    <LoadMore
-      v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
-      @load-more="onLoadMore"
-    />
+      <div :class="[style.tableNavigationContainer, style.sectionMargin]">
+        <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+      </div>
 
-    <InfiniteScroll
-      v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
-      @load-more="onLoadMore"
-      @make-initial-fetches="makeInfiniteScrollInitialFetches"
-    />
+      <div :class="style.tableContainer">
+        <BeerTableContainer
+          :beers="beerTableDataSource"
+          :sort-by="sortBy"
+          @sort="onSort($event)"
+        />
+      </div>
 
-    <div
-      v-if="activeTableNavigator === TableNavigator.PAGINATION"
-      :class="style.itemsPerPageContainer"
-    >
-      <ItemsPerPageSelect @items-number-change="onItemsNumberChange" />
+      <LoadMore
+        v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
+        @load-more="onLoadMore"
+      />
+
+      <InfiniteScroll
+        v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
+        @load-more="onLoadMore"
+        @make-initial-fetches="makeInfiniteScrollInitialFetches"
+      />
+
+      <div
+        v-if="activeTableNavigator === TableNavigator.PAGINATION"
+        :class="style.itemsPerPageContainer"
+      >
+        <ItemsPerPageSelect @items-number-change="onItemsNumberChange" />
+      </div>
+      <TablePagination
+        v-if="activeTableNavigator === TableNavigator.PAGINATION"
+        @next-click="onNextClick"
+        @prev-click="onPrevClick"
+      />
     </div>
-    <TablePagination
-      v-if="activeTableNavigator === TableNavigator.PAGINATION"
-      @next-click="onNextClick"
-      @prev-click="onPrevClick"
-    />
-  </div>
 
-  <div v-if="areDataLoading" :class="style.sectionContainer">
-    <BeerAppLoader />
-  </div>
+    <div v-if="areDataLoading" :class="style.sectionContainer">
+      <BeerAppLoader />
+    </div>
 
-  <div v-if="isNoDataVisible" :class="style.sectionContainer">
-    <NoData />
-  </div>
+    <div v-if="isNoDataVisible" :class="style.sectionContainer">
+      <NoData />
+    </div>
+  </main>
 </template>
 
 <script lang="ts" setup>
@@ -69,7 +73,7 @@ import { debounce } from 'lodash';
 import {
   BeerAppButton,
   BeerAppLoader,
-  BeerTable,
+  BeerTableContainer,
   FetchErrorAlert,
   InfiniteScroll,
   ItemsPerPageSelect,
@@ -222,7 +226,16 @@ watch(pageNumber, () => {
 </script>
 
 <style lang="scss" module="style">
+@use '@/styles/mixins.scss';
 @use '@/styles/spacings.scss';
+
+.mainContentPadding {
+  padding: 0 8 * spacings.$spacing-unit;
+
+  @include mixins.mobile {
+    padding: 0 4 * spacings.$spacing-unit;
+  }
+}
 
 .header {
   margin: 10 * spacings.$spacing-unit 0;
@@ -233,15 +246,33 @@ watch(pageNumber, () => {
 
 .sectionContainer {
   display: flex;
+  justify-content: center;
+}
+
+.tableSectionContainer {
+  display: flex;
   flex-direction: column;
   align-items: center;
 
   margin-bottom: 10 * spacings.$spacing-unit;
-  padding: 0 8 * spacings.$spacing-unit;
 }
 
-.bottomMargin {
+.tableNavigationContainer {
+  @include mixins.tablet {
+    width: 100%;
+  }
+}
+
+.tableContainer {
+  width: 100%;
+}
+
+.sectionMargin {
   margin-bottom: 10 * spacings.$spacing-unit;
+
+  @include mixins.tablet {
+    margin-bottom: 5 * spacings.$spacing-unit;
+  }
 }
 
 .itemsPerPageContainer {
@@ -252,5 +283,10 @@ watch(pageNumber, () => {
   width: 100%;
 
   margin-top: $offset-caption-padding;
+
+  @include mixins.tablet {
+    justify-content: center;
+    margin: 0 0 4 * spacings.$spacing-unit 0;
+  }
 }
 </style>
