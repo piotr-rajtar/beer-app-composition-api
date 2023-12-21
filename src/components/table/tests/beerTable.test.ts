@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 
-import BeerAppHeader from '../BeerAppHeader.vue';
+import BeerTable from '../BeerTable.vue';
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({ t: (key: string) => key }),
 }));
 
-describe('BeerAppHeader.vue', () => {
+describe('BeerTable.vue', () => {
   it('renders correctly', () => {
-    const wrapper = shallowMount(BeerAppHeader);
+    const wrapper = shallowMount(BeerTable);
     expect(wrapper).toBeTruthy();
   });
 });
