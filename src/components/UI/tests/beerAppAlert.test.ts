@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 
+import { AlertType } from '../../../typings';
+
 import BeerAppAlert from '../BeerAppAlert.vue';
-import { AlertType } from '@/typings';
 
 describe('BeerAppAlert.vue', () => {
   const wrapper = shallowMount(BeerAppAlert, {
