@@ -5,6 +5,7 @@
     :label="SELECT_LABEL"
     :options="ITEMS_PER_PAGE_OPTIONS"
     :orientation="SelectOrientation.HORIZONTAL"
+    test-id="itemsPerPageSelect"
     @select="onItemsNumberChange"
   />
 </template>
