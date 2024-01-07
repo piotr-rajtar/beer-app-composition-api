@@ -1,4 +1,3 @@
-import BeerAlert from './BeerAlert.vue';
 import BeerAppAlert from './BeerAppAlert.vue';
 import BeerAppButton from './BeerAppButton.vue';
 import BeerAppLoader from './BeerAppLoader.vue';
@@ -12,7 +11,6 @@ import SortButton from './SortButton.vue';
 import SortWarningAlert from './SortWarningAlert.vue';
 
 export {
-  BeerAlert,
   BeerAppAlert,
   BeerAppButton,
   BeerAppLoader,
