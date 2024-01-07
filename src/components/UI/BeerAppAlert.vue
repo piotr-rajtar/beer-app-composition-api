@@ -3,7 +3,7 @@
     <p :class="style.paragraph">
       <slot />
     </p>
-    <div :class="style.iconContainer" @click="onCloseClick">
+    <div :class="style.iconContainer" test-id="closeIcon" @click="onCloseClick">
       <FontAwesomeIcon :icon="['fas', 'xmark']" />
     </div>
   </div>
