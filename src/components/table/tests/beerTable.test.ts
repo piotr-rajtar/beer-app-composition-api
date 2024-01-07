@@ -9,7 +9,12 @@ vi.mock('vue-i18n', () => ({
 
 describe('BeerTable.vue', () => {
   it('renders correctly', () => {
-    const wrapper = shallowMount(BeerTable);
+    const wrapper = shallowMount(BeerTable, {
+      props: {
+        beers: [],
+        sortBy: null,
+      },
+    });
     expect(wrapper).toBeTruthy();
   });
 });

@@ -23,7 +23,12 @@ Object.defineProperty(window, 'matchMedia', {
 
 describe('BeerTableContainer.vue', () => {
   it('renders correctly', () => {
-    const wrapper = shallowMount(BeerTableContainer);
+    const wrapper = shallowMount(BeerTableContainer, {
+      props: {
+        beers: [],
+        sortBy: null,
+      },
+    });
     expect(wrapper).toBeTruthy();
   });
 });
