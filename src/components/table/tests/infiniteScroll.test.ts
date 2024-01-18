@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it, vi, type SpyInstance } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { SpyInstance } from 'vitest';
 import { VueWrapper, shallowMount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
