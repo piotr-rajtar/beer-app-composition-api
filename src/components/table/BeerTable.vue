@@ -20,6 +20,7 @@
                 v-if="header.key !== TableHeaderKey.MORE"
                 :header-key="header.key"
                 :sort-by="sortBy"
+                test-id="sortButton"
                 @sort="onSortClick($event, header.key)"
               />
             </div>
