@@ -2,8 +2,9 @@ import { beforeEach, describe, expect, it, vi, type SpyInstance } from 'vitest';
 import { VueWrapper, shallowMount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
+import { useBeerStore } from '../../../stores';
+
 import InfiniteScroll from '../InfiniteScroll.vue';
-import { useBeerStore } from '@/stores';
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({ t: (key: string) => key }),
