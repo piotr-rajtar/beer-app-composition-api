@@ -1,5 +1,9 @@
 <template>
-  <BeerAppButton :disabled="!isNextPageAvailable" @click="debouncedOnLoadMore">
+  <BeerAppButton
+    :disabled="!isNextPageAvailable"
+    test-id="beerAppButton"
+    @click="debouncedOnLoadMore"
+  >
     {{ t('TABLE_NAVIGATION.LOAD_MORE') }}
   </BeerAppButton>
 </template>
