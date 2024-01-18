@@ -13,6 +13,7 @@
         v-model="activeTableNavigator"
         :value="navigationType.value"
         :class="style.radioInput"
+        test-id="navigationTypeInput"
         type="radio"
         @change="onNavigationTypeChange"
       />
