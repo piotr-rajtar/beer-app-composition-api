@@ -3,10 +3,11 @@
     v-if="!isTabletScreen"
     :beers="beers"
     :sort-by="sortBy"
+    test-id="beerTable"
     @sort="onSort($event)"
   />
 
-  <MobileBeerTable v-else :beers="beers" />
+  <MobileBeerTable v-else :beers="beers" test-id="mobileBeerTable" />
 </template>
 
 <script lang="ts" setup>
