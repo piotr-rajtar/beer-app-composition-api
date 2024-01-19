@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { VueWrapper, shallowMount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
@@ -23,6 +23,12 @@ describe('LoadMore.vue', () => {
         ],
       },
     });
+
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('renders properly', () => {
@@ -30,8 +36,6 @@ describe('LoadMore.vue', () => {
   });
 
   it('emits loadMore event on button click when next page is available', async () => {
-    vi.useFakeTimers();
-
     const store = useBeerStore();
     store.isNextPageAvailable = true;
 
@@ -46,8 +50,6 @@ describe('LoadMore.vue', () => {
   });
 
   it('does not emit loadMore event on button click when next page is not available', async () => {
-    vi.useFakeTimers();
-
     const store = useBeerStore();
     store.isNextPageAvailable = false;
 

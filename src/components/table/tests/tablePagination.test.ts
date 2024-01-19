@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { VueWrapper, shallowMount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
@@ -19,6 +19,12 @@ describe('TablePagination.vue', () => {
         ],
       },
     });
+
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('renders properly', () => {
@@ -26,8 +32,6 @@ describe('TablePagination.vue', () => {
   });
 
   it('emits prev-click event on prev button click', async () => {
-    vi.useFakeTimers();
-
     const tableStore = useTableStore();
     tableStore.pageNumber = 2;
 
@@ -42,8 +46,6 @@ describe('TablePagination.vue', () => {
   });
 
   it('does not emit prev-click event on prev button click when page number is equal to 1', async () => {
-    vi.useFakeTimers();
-
     const tableStore = useTableStore();
     tableStore.pageNumber = 1;
 
@@ -58,8 +60,6 @@ describe('TablePagination.vue', () => {
   });
 
   it('emits next-click event on next button click when next page is available', async () => {
-    vi.useFakeTimers();
-
     const beerStore = useBeerStore();
     beerStore.isNextPageAvailable = true;
 
@@ -74,8 +74,6 @@ describe('TablePagination.vue', () => {
   });
 
   it('does not emit next-click event on next button click when next page is not available', async () => {
-    vi.useFakeTimers();
-
     const beerStore = useBeerStore();
     beerStore.isNextPageAvailable = false;
 
