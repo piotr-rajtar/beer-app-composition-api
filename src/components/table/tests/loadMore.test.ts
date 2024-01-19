@@ -40,7 +40,7 @@ describe('LoadMore.vue', () => {
     const beerAppButton = wrapper.find('[test-id="beerAppButton"]');
     beerAppButton.trigger('click');
 
-    vi.advanceTimersByTime(400);
+    vi.advanceTimersByTime(300);
 
     expect(wrapper.emitted()).toHaveProperty('load-more');
   });
@@ -56,7 +56,7 @@ describe('LoadMore.vue', () => {
     const beerAppButton = wrapper.find('[test-id="beerAppButton"]');
     beerAppButton.trigger('click');
 
-    vi.advanceTimersByTime(400);
+    vi.advanceTimersByTime(300);
 
     expect(wrapper.emitted()).not.toHaveProperty('load-more');
   });
