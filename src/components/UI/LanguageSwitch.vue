@@ -5,6 +5,7 @@
     :label="LANGUAGE_SELECT_LABEL"
     :options="LANGUAGE_OPTIONS"
     :orientation="SelectOrientation.VERTICAL"
+    test-id="beerAppSelect"
     @select="onLanguageSwitch"
   />
 </template>
