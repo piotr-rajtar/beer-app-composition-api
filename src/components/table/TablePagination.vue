@@ -3,6 +3,7 @@
     <BeerAppButton
       :disabled="isPrevButtonDisabled"
       :type="ButtonType.PAGINATION"
+      test-id="prevButton"
       @click="debouncedOnPrevClick"
     >
       <PaginationArrowIcon :type="PaginationArrowDirection.LEFT" />
@@ -13,6 +14,7 @@
     <BeerAppButton
       :disabled="!isNextPageAvailable"
       :type="ButtonType.PAGINATION"
+      test-id="nextButton"
       @click="debouncedOnNextClick"
     >
       <PaginationArrowIcon :type="PaginationArrowDirection.RIGHT" />
