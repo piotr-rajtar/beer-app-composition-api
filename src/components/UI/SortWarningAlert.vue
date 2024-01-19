@@ -1,5 +1,9 @@
 <template>
-  <BeerAppAlert :type="AlertType.WARNING" @close="onClose">
+  <BeerAppAlert
+    :type="AlertType.WARNING"
+    test-id="beerAppAlert"
+    @close="onClose"
+  >
     <strong>{{ t('ALERT.WARNING') }}</strong> {{ t('ALERT.SORTING_WARNING') }}
   </BeerAppAlert>
 </template>
