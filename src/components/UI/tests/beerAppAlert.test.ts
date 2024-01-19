@@ -10,6 +10,7 @@ describe('BeerAppAlert.vue', () => {
     props: {
       type: AlertType.ERROR,
     },
+    slots: { default: 'Content' },
   });
 
   it('renders correctly', () => {
@@ -21,5 +22,11 @@ describe('BeerAppAlert.vue', () => {
     closeIcon.trigger('click');
 
     expect(wrapper.emitted()).toHaveProperty('close');
+  });
+
+  it('displays slot content', () => {
+    const alertParagraph = wrapper.find('[test-id="alertParagraph"]');
+
+    expect(alertParagraph.text()).toBe('Content');
   });
 });
