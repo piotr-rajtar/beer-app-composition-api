@@ -1,16 +1,20 @@
-import { describe, expect, it } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { VueWrapper, shallowMount } from '@vue/test-utils';
 
 import { AlertType } from '../../../typings';
 
 import BeerAppAlert from '../BeerAppAlert.vue';
 
 describe('BeerAppAlert.vue', () => {
-  const wrapper = shallowMount(BeerAppAlert, {
-    props: {
-      type: AlertType.ERROR,
-    },
-    slots: { default: 'Content' },
+  let wrapper: VueWrapper;
+
+  beforeEach(() => {
+    wrapper = shallowMount(BeerAppAlert, {
+      props: {
+        type: AlertType.ERROR,
+      },
+      slots: { default: 'Content' },
+    });
   });
 
   it('renders correctly', () => {

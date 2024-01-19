@@ -1,10 +1,14 @@
-import { describe, expect, it } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { VueWrapper, shallowMount } from '@vue/test-utils';
 
 import LanguageSwitch from '../LanguageSwitch.vue';
 
 describe('LanguageSwitch.vue', () => {
-  const wrapper = shallowMount(LanguageSwitch);
+  let wrapper: VueWrapper;
+
+  beforeEach(() => {
+    wrapper = shallowMount(LanguageSwitch);
+  });
 
   it('renders correctly', () => {
     expect(wrapper).toBeTruthy();
