@@ -3,11 +3,13 @@
     <SortArrowIcon
       :is-active="isSortAscendingActive"
       :type="SortArrowDirection.UP"
+      test-id="upButton"
       @click="onSortClick(SortDirection.ASC)"
     />
     <SortArrowIcon
       :is-active="isSortDescendingActive"
       :type="SortArrowDirection.DOWN"
+      test-id="downButton"
       @click="onSortClick(SortDirection.DESC)"
     />
   </div>
