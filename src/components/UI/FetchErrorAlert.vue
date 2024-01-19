@@ -1,5 +1,5 @@
 <template>
-  <BeerAppAlert :type="AlertType.ERROR" @close="onClose">
+  <BeerAppAlert :type="AlertType.ERROR" test-id="beerAppAlert" @close="onClose">
     <strong>{{ t('ALERT.ERROR') }}</strong> {{ t('ALERT.FETCH_ERROR') }}
   </BeerAppAlert>
 </template>
