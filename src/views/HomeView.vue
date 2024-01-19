@@ -3,18 +3,27 @@
     <h2 :class="style.header">{{ t('GENERAL.APP_HEADER') }}</h2>
 
     <div :class="[style.sectionContainer, style.sectionMargin]">
-      <BeerAppButton @click="mainBeerButtonClickHandler">
+      <BeerAppButton
+        test-id="mainBeerButton"
+        @click="mainBeerButtonClickHandler"
+      >
         {{ beerButtonLabel }}
       </BeerAppButton>
     </div>
 
     <div v-if="isFetchErrorAlertVisible" :class="style.sectionMargin">
-      <FetchErrorAlert @close="onFetchErrorAlertClose" />
+      <FetchErrorAlert
+        test-id="fetchErrorAlert"
+        @close="onFetchErrorAlertClose"
+      />
     </div>
 
     <div v-if="areAnyBeersFetched" :class="style.tableSectionContainer">
       <div v-if="isSortWarningAlertVisible" :class="style.sectionMargin">
-        <SortWarningAlert @close="onSortWarningAlertClose" />
+        <SortWarningAlert
+          test-id="sortWarningAlert"
+          @close="onSortWarningAlertClose"
+        />
       </div>
 
       <div :class="[style.tableNavigationContainer, style.sectionMargin]">
@@ -31,33 +40,45 @@
 
       <LoadMore
         v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
+        test-id="loadMore"
         @load-more="onLoadMore"
       />
 
       <InfiniteScroll
         v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
+        test-id="infiniteScroll"
         @load-more="onLoadMore"
         @make-initial-fetches="makeInfiniteScrollInitialFetches"
       />
 
-      <div
-        v-if="activeTableNavigator === TableNavigator.PAGINATION"
-        :class="style.itemsPerPageContainer"
-      >
-        <ItemsPerPageSelect @items-number-change="onItemsNumberChange" />
-      </div>
-      <TablePagination
-        v-if="activeTableNavigator === TableNavigator.PAGINATION"
-        @next-click="onNextClick"
-        @prev-click="onPrevClick"
-      />
+      <template v-if="activeTableNavigator === TableNavigator.PAGINATION">
+        <div :class="style.itemsPerPageContainer">
+          <ItemsPerPageSelect
+            test-id="itemsPerPageSelect"
+            @items-number-change="onItemsNumberChange"
+          />
+        </div>
+        <TablePagination
+          test-id="tablePagination"
+          @next-click="onNextClick"
+          @prev-click="onPrevClick"
+        />
+      </template>
     </div>
 
-    <div v-if="areDataLoading" :class="style.sectionContainer">
+    <div
+      v-if="areDataLoading"
+      :class="style.sectionContainer"
+      test-id="beerAppLoader"
+    >
       <BeerAppLoader />
     </div>
 
-    <div v-if="isNoDataVisible" :class="style.sectionContainer">
+    <div
+      v-if="isNoDataVisible"
+      :class="style.sectionContainer"
+      test-id="noData"
+    >
       <NoData />
     </div>
   </main>
