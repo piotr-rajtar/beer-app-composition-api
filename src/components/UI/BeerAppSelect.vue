@@ -1,6 +1,6 @@
 <template>
   <div :class="[style.container, style[selectOrientationClass]]">
-    <label :class="style.label" :for="id">
+    <label :class="style.label" :for="id" test-id="selectLabel">
       {{ t(label) }}
     </label>
     <div :class="style.selectContainer">
@@ -8,6 +8,7 @@
         :id="id"
         v-model="activeItem"
         :class="style.select"
+        test-id="select"
         @change="onSelect"
       >
         <option
