@@ -1,4 +1,4 @@
-export enum SortArrowDirection {
+export enum ArrowDirection {
   UP,
   DOWN,
 }

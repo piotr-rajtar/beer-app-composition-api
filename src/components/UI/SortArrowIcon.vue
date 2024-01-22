@@ -12,17 +12,17 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { SortArrowDirection } from '../../typings';
+import { ArrowDirection } from '../../typings';
 
 const props = defineProps<{
   isActive: boolean;
-  type: SortArrowDirection;
+  type: ArrowDirection;
 }>();
 
 const arrowDirectionClass = computed(() => {
-  const arrowDirectionClass: { [key in SortArrowDirection]: string } = {
-    [SortArrowDirection.UP]: 'arrowUp',
-    [SortArrowDirection.DOWN]: 'arrowDown',
+  const arrowDirectionClass: { [key in ArrowDirection]: string } = {
+    [ArrowDirection.UP]: 'arrowUp',
+    [ArrowDirection.DOWN]: 'arrowDown',
   };
 
   return arrowDirectionClass[props.type];

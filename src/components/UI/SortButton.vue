@@ -2,13 +2,13 @@
   <div :class="style.container">
     <SortArrowIcon
       :is-active="isSortAscendingActive"
-      :type="SortArrowDirection.UP"
+      :type="ArrowDirection.UP"
       test-id="upButton"
       @click="onSortClick(SortDirection.ASC)"
     />
     <SortArrowIcon
       :is-active="isSortDescendingActive"
-      :type="SortArrowDirection.DOWN"
+      :type="ArrowDirection.DOWN"
       test-id="downButton"
       @click="onSortClick(SortDirection.DESC)"
     />
@@ -19,7 +19,7 @@
 import { computed, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
 
-import { SortArrowDirection, SortDirection } from '../../typings';
+import { ArrowDirection, SortDirection } from '../../typings';
 import type { SortBy, TableHeaderKey } from '../../typings';
 
 import { SortArrowIcon } from './';
