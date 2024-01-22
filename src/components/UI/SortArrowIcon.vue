@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+
 import { ArrowDirection } from '../../typings';
 
 const props = defineProps<{
