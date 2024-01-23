@@ -1,6 +1,6 @@
 <template>
   <div :class="style.iconContainer">
-    <i :class="[style.icon, style[arrowDirectionClass]]" />
+    <i :class="[style.icon, style[arrowDirectionClass]]"></i>
   </div>
 </template>
 

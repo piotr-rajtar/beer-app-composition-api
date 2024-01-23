@@ -1,7 +1,7 @@
 <template>
   <div :class="[style.alert, style[alertTypeClassName]]" role="alert">
     <p :class="style.paragraph" test-id="alertParagraph">
-      <slot />
+      <slot></slot>
     </p>
     <div :class="style.iconContainer" test-id="closeIcon" @click="onCloseClick">
       <FontAwesomeIcon :icon="['fas', 'xmark']" />

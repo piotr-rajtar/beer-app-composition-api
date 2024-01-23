@@ -6,7 +6,8 @@
         { [style.active]: isActive },
         style[arrowDirectionClass],
       ]"
-    />
+    >
+    </i>
   </div>
 </template>
 

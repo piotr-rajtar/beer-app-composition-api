@@ -3,7 +3,7 @@
     :class="[style.button, style[buttonSizeClassName]]"
     :disabled="disabled"
   >
-    <slot />
+    <slot></slot>
   </button>
 </template>
 

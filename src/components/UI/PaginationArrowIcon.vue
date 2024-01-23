@@ -1,5 +1,5 @@
 <template>
-  <i :class="[style.icon, style[arrowDirectionClass]]" />
+  <i :class="[style.icon, style[arrowDirectionClass]]"></i>
 </template>
 
 <script lang="ts" setup>
