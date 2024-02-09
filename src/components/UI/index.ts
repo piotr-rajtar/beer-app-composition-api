@@ -4,6 +4,7 @@ import BeerAppLoader from './BeerAppLoader.vue';
 import BeerAppSelect from './BeerAppSelect.vue';
 import FetchErrorAlert from './FetchErrorAlert.vue';
 import FilterArrowIcon from './FilterArrowIcon.vue';
+import FilterInfoAlert from './FilterInfoAlert.vue';
 import LanguageSwitch from './LanguageSwitch.vue';
 import NoData from './NoData.vue';
 import PaginationArrowIcon from './PaginationArrowIcon.vue';
@@ -18,6 +19,7 @@ export {
   BeerAppSelect,
   FetchErrorAlert,
   FilterArrowIcon,
+  FilterInfoAlert,
   LanguageSwitch,
   NoData,
   PaginationArrowIcon,

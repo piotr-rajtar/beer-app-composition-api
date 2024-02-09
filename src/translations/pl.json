@@ -2,6 +2,7 @@
   "ALERT": {
     "ERROR": "Błąd!",
     "FETCH_ERROR": "Wystąpił problem w trakcie pobierania danych.",
+    "FILTER_INFO": "Ze względu na ograniczenia API, nazwy potraw w polu 'Pasujące do' wprowadzaj w języku angielskim",
     "SORTING_WARNING": "Ze względu na ograniczenia API, do momentu, aż wszystkie dane piw nie zostaną pobrane, sortowanie może nie działać poprawnie.",
     "WARNING": "Uwaga!"
   },

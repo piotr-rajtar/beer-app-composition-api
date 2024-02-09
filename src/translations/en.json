@@ -2,7 +2,8 @@
   "ALERT": {
     "ERROR": "Error!",
     "FETCH_ERROR": "A problem has been occured while fetching data.",
-    "SORTING_WARNING": "Due to the API limitations, until all beer data are not fetched yet, data sorting may not works correctly.",
+    "FILTER_INFO": "Due to the API restrictions, enter the name of the food in the field 'Matching to' in English",
+    "SORTING_WARNING": "Due to the API restrictions, until all beer data are not fetched yet, data sorting may not works correctly.",
     "WARNING": "Warning!"
   },
   "GENERAL": {
