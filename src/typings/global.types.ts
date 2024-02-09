@@ -4,6 +4,11 @@ export enum AlertType {
   WARNING,
 }
 
+export enum ButtonColor {
+  DANGER,
+  DEFAULT,
+}
+
 export enum ButtonType {
   DEFAULT,
   PAGINATION,

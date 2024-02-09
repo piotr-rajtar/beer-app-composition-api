@@ -1,6 +1,10 @@
 <template>
   <button
-    :class="[style.button, style[buttonSizeClassName]]"
+    :class="[
+      style.button,
+      style[buttonColorClassName],
+      style[buttonSizeClassName],
+    ]"
     :disabled="disabled"
   >
     <slot></slot>
@@ -10,22 +14,33 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { ButtonType } from '../../typings';
+import { ButtonColor, ButtonType } from '../../typings';
 
 const props = withDefaults(
   defineProps<{
+    color?: ButtonColor;
     disabled?: boolean;
     type?: ButtonType;
   }>(),
   {
+    color: ButtonColor.DEFAULT,
     type: ButtonType.DEFAULT,
   }
 );
 
+const buttonColorClassName = computed(() => {
+  const buttonColorClassName: { [key in ButtonColor]: string } = {
+    [ButtonColor.DANGER]: 'button__color--danger',
+    [ButtonColor.DEFAULT]: 'button__color--default',
+  };
+
+  return buttonColorClassName[props.color];
+});
+
 const buttonSizeClassName = computed(() => {
   const buttonSizeClassName: { [key in ButtonType]: string } = {
-    [ButtonType.DEFAULT]: 'button__size-default',
-    [ButtonType.PAGINATION]: 'button__size-pagination',
+    [ButtonType.DEFAULT]: 'button__size--default',
+    [ButtonType.PAGINATION]: 'button__size--pagination',
   };
 
   return buttonSizeClassName[props.type];
@@ -39,8 +54,6 @@ const buttonSizeClassName = computed(() => {
 @use '@/styles/spacings.scss';
 
 .button {
-  background: radial-gradient(colors.$yellow-light-02, colors.$yellow-dark);
-
   border-radius: spacings.$spacing-unit;
   border: 0;
   outline: none;
@@ -76,7 +89,15 @@ const buttonSizeClassName = computed(() => {
   }
 }
 
-.button__size-default {
+.button__color--danger {
+  background: radial-gradient(colors.$red-light-01, colors.$red-light-02);
+}
+
+.button__color--default {
+  background: radial-gradient(colors.$yellow-light-02, colors.$yellow-dark);
+}
+
+.button__size--default {
   width: 200px;
   height: 60px;
 
@@ -85,7 +106,7 @@ const buttonSizeClassName = computed(() => {
   }
 }
 
-.button__size-pagination {
+.button__size--pagination {
   width: 60px;
   height: 60px;
 }
