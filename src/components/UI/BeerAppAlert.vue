@@ -26,6 +26,7 @@ const props = defineProps<{
 const alertTypeClassName = computed(() => {
   const alertTypeClassName: { [key in AlertType]: string } = {
     [AlertType.ERROR]: 'alert__type-error',
+    [AlertType.INFO]: 'alert__type-info',
     [AlertType.WARNING]: 'alert__type-warning',
   };
 
@@ -60,6 +61,12 @@ const onCloseClick = () => emit('close');
   background: colors.$alert-error-background;
   border-color: colors.$alert-error-border;
   color: colors.$alert-error-font-color;
+}
+
+.alert__type-info {
+  background: colors.$alert-info-background;
+  border-color: colors.$alert-info-border;
+  color: colors.$alert-info-font-color;
 }
 .alert__type-warning {
   background: colors.$alert-warning-background;
