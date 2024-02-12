@@ -6,9 +6,21 @@
     "SORTING_WARNING": "Ze względu na ograniczenia API, do momentu, aż wszystkie dane piw nie zostaną pobrane, sortowanie może nie działać poprawnie.",
     "WARNING": "Uwaga!"
   },
+  "FILTERS": {
+    "ABV": "ABV",
+    "CLEAR": "Wyczyść",
+    "EBC": "EBC",
+    "FILTER": "Filtruj",
+    "FROM": "OD",
+    "IBU": "IBU",
+    "MATCHING_TO": "PASUJĄCE DO",
+    "NAME": "NAZWA",
+    "TITLE": "Filtry",
+    "TO": "DO"
+  },
   "GENERAL": {
     "APP_HEADER": "Przeglądarka katalogu piw",
-    "NO_DATA": "Brak danych",
+    "NO_DATA": "Brak szukanych piw",
     "RESET_TABLE_BUTTON_LABEL": "Resetuj do stanu początkowego",
     "START_BROWSING_BUTTON_LABEL": "Zacznij przeglądanie"
   },

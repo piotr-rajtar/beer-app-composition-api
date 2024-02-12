@@ -6,9 +6,21 @@
     "SORTING_WARNING": "Due to the API restrictions, until all beer data are not fetched yet, data sorting may not works correctly.",
     "WARNING": "Warning!"
   },
+  "FILTERS": {
+    "ABV": "ABV",
+    "CLEAR": "Clear",
+    "EBC": "EBC",
+    "FILTER": "Filter",
+    "FROM": "FROM",
+    "IBU": "IBU",
+    "MATCHING_TO": "MATCHING TO",
+    "NAME": "NAME",
+    "TITLE": "Filters",
+    "TO": "TO"
+  },
   "GENERAL": {
     "APP_HEADER": "Beer catalogue browser",
-    "NO_DATA": "No data",
+    "NO_DATA": "No beers found",
     "RESET_TABLE_BUTTON_LABEL": "Reset to initial state",
     "START_BROWSING_BUTTON_LABEL": "Start browsing"
   },
