@@ -34,10 +34,8 @@ export const useBeerStore = defineStore('beer', () => {
   const beers: Ref<Beer[]> = ref([]);
   const cachedBeerRequests: Ref<CachedBeerRequest> = ref({});
 
-  const isFetchError = ref(false);
-
   const areDataLoading = ref(false);
-
+  const isFetchError = ref(false);
   const isNextPageAvailable = ref(true);
 
   const areAllDataFetched = computed(() => {
@@ -144,7 +142,7 @@ export const useBeerStore = defineStore('beer', () => {
       cachedBeerRequests.value[queryKey]
     );
 
-    if (cachedPage) {
+    if (cachedPage && cachedPage.length) {
       isNextPageAvailable.value = true;
       return;
     }
@@ -159,6 +157,44 @@ export const useBeerStore = defineStore('beer', () => {
     }
 
     isNextPageAvailable.value = false;
+  };
+
+  const areFiltersApply = ref(false);
+  const appliedFilters = ref<Filters>({});
+
+  const clearFilters = () => {
+    appliedFilters.value = {};
+    areFiltersApply.value = false;
+  };
+
+  const filterBeerData = async (filters: Filters): Promise<void> => {
+    const queryParams: QueryParams = {
+      page: pageNumber.value,
+      per_page: itemsPerPage.value,
+      ...filters,
+    };
+    const queryKey: string = getQueryString(queryParams);
+    const cachedPage: Beer[] | undefined = toRaw(
+      cachedBeerRequests.value[queryKey]
+    );
+
+    areDataLoading.value = true;
+
+    await checkIfNextPageIsAvailable(queryParams);
+
+    if (cachedPage) {
+      beers.value = [...structuredClone(cachedPage)];
+      areDataLoading.value = false;
+      return;
+    }
+
+    const result: Beer[] = await fetchBeerData(queryParams);
+
+    cachedBeerRequests.value[queryKey] = result;
+
+    beers.value = [...result];
+
+    areDataLoading.value = false;
   };
 
   const loadInitialBeerData = async (): Promise<void> => {
@@ -235,10 +271,14 @@ export const useBeerStore = defineStore('beer', () => {
     );
 
   return {
-    areDataLoading,
+    appliedFilters,
     areAllDataFetched,
     areAnyBeersFetched,
+    areDataLoading,
+    areFiltersApply,
     clearBeersState,
+    clearFilters,
+    filterBeerData,
     isFetchError,
     isNextPageAvailable,
     loadInitialBeerData,

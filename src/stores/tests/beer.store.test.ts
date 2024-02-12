@@ -73,4 +73,16 @@ describe('Beer Store', () => {
 
     await expect(beerStore.loadInitialBeerData()).rejects.toThrowError();
   });
+
+  it('clears filters', () => {
+    const beerStore = useBeerStore();
+
+    beerStore.areFiltersApply = true;
+    beerStore.appliedFilters = { food: 'apple_pie' };
+
+    beerStore.clearFilters();
+
+    expect(beerStore.areFiltersApply).toBe(false);
+    expect(beerStore.appliedFilters).toEqual({});
+  });
 });
