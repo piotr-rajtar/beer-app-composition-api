@@ -1,4 +1,5 @@
 export * from './compareSimplifiedBeers';
+export * from './parseFilterTextValue';
 export * from './getBeerTableDataSource';
 export * from './getDateFromString';
 export * from './getErrorMessage';
