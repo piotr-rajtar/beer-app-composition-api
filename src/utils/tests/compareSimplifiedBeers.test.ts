@@ -51,7 +51,7 @@ describe('compareSimplifiedBeer function', () => {
         sortDirection: SortDirection.DESC,
       })
     );
-    expect(testData[0].first_brewed).toBe('04/2008');
+    expect(testData[0].first_brewed).toBe('2018');
   });
 
   it('sorts beer data correctly with asc order by other category than name and first brewed date', () => {
@@ -61,7 +61,7 @@ describe('compareSimplifiedBeer function', () => {
         sortDirection: SortDirection.ASC,
       })
     );
-    expect(testData[0].ebc).toBe(15);
+    expect(testData[0].ebc).toBe(1);
   });
 
   it('sorts beer data correctly with desc order by other category than name and first brewed date', () => {

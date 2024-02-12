@@ -19,4 +19,13 @@ export const mockedBeersData: SimplifiedBeer[] = [
     ebc: 15,
     ph: 4.4,
   },
+  {
+    id: 3,
+    name: 'Test beer',
+    first_brewed: '2018',
+    abv: 1,
+    ibu: 1,
+    ebc: 1,
+    ph: 1,
+  },
 ];
