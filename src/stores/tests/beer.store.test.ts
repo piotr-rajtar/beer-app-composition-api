@@ -3,8 +3,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import axios from 'axios';
 
-import type { Filters } from '../../typings';
-
 import { useBeerStore } from '../beer.store';
 
 import { mockedBeerData } from './mockedBeerData';
@@ -59,9 +57,7 @@ describe('Beer Store', () => {
     const beerStore = useBeerStore();
     (axios.get as any).mockResolvedValue({ data: mockedBeerData });
 
-    const filters: Filters = {};
-
-    await beerStore.loadMoreBeerData(filters);
+    await beerStore.loadMoreBeerData();
 
     expect(beerStore.areAnyBeersFetched).toBe(true);
     expect(beerStore.simplifiedBeersDataWithNoPagination.length).toBe(2);

@@ -18,7 +18,7 @@
       />
     </div>
 
-    <div v-if="areAnyBeersFetched" :class="style.tableSectionContainer">
+    <template v-if="areAnyBeersFetched">
       <div v-if="isSortWarningAlertVisible" :class="style.sectionMargin">
         <SortWarningAlert
           test-id="sortWarningAlert"
@@ -28,6 +28,12 @@
 
       <div :class="[style.tableNavigationContainer, style.sectionMargin]">
         <TableNavigation @navigation-type-change="onNavigationTypeChange" />
+      </div>
+    </template>
+
+    <div v-if="wasBeerButtonEverClicked" :class="style.tableSectionContainer">
+      <div :class="[style.sectionMargin, style.filtersContainer]">
+        <FiltersContainer @clear="onClear" @filter="onFilter" />
       </div>
 
       <div :class="style.tableContainer">
@@ -39,19 +45,30 @@
       </div>
 
       <LoadMore
-        v-if="activeTableNavigator === TableNavigator.LOAD_MORE"
+        v-if="
+          areAnyBeersFetched &&
+          activeTableNavigator === TableNavigator.LOAD_MORE
+        "
         test-id="loadMore"
         @load-more="onLoadMore"
       />
 
       <InfiniteScroll
-        v-if="activeTableNavigator === TableNavigator.INFINITE_SCROLL"
+        v-if="
+          areAnyBeersFetched &&
+          activeTableNavigator === TableNavigator.INFINITE_SCROLL
+        "
         test-id="infiniteScroll"
         @load-more="onLoadMore"
         @make-initial-fetches="makeInfiniteScrollInitialFetches"
       />
 
-      <template v-if="activeTableNavigator === TableNavigator.PAGINATION">
+      <template
+        v-if="
+          areAnyBeersFetched &&
+          activeTableNavigator === TableNavigator.PAGINATION
+        "
+      >
         <div :class="style.itemsPerPageContainer">
           <ItemsPerPageSelect
             test-id="itemsPerPageSelect"
@@ -96,6 +113,7 @@ import {
   BeerAppLoader,
   BeerTableContainer,
   FetchErrorAlert,
+  FiltersContainer,
   InfiniteScroll,
   ItemsPerPageSelect,
   LoadMore,
@@ -106,16 +124,26 @@ import {
 } from '../components';
 import { useBeerStore, useTableStore } from '../stores';
 import { TableNavigator } from '../typings';
-import type { Filters, SortOption } from '../typings';
+import type { SortOption } from '../typings';
 import { getBeerTableDataSource } from '../utils';
 
 const { t } = useI18n();
 
-const { areAnyBeersFetched, areDataLoading, areAllDataFetched, isFetchError } =
-  storeToRefs(useBeerStore());
+const {
+  areAllDataFetched,
+  areAnyBeersFetched,
+  areDataLoading,
+  areFiltersApply,
+  isFetchError,
+} = storeToRefs(useBeerStore());
 
-const { clearBeersState, loadInitialBeerData, loadMoreBeerData } =
-  useBeerStore();
+const {
+  clearBeersState,
+  clearFilters,
+  filterBeerData,
+  loadInitialBeerData,
+  loadMoreBeerData,
+} = useBeerStore();
 
 const { itemsPerPage, pageNumber, sortBy, sortDirection } = storeToRefs(
   useTableStore()
@@ -124,7 +152,6 @@ const { itemsPerPage, pageNumber, sortBy, sortDirection } = storeToRefs(
 const { setTableInitialState } = useTableStore();
 
 const activeTableNavigator: Ref<TableNavigator> = ref(TableNavigator.LOAD_MORE);
-const filters: Ref<Filters> = ref({});
 
 const beerTableDataSource = computed(() => {
   return getBeerTableDataSource(activeTableNavigator.value);
@@ -151,7 +178,12 @@ const onItemsNumberChange = async (newItemsNumber: number) => {
   try {
     setTableInitialState();
     itemsPerPage.value = newItemsNumber;
-    await loadInitialBeerData();
+
+    if (areFiltersApply.value) {
+      await filterBeerData();
+    } else {
+      await loadInitialBeerData();
+    }
   } catch (error) {
     console.error(error);
   }
@@ -159,7 +191,7 @@ const onItemsNumberChange = async (newItemsNumber: number) => {
 
 const onLoadMore = async (): Promise<void> => {
   pageNumber.value++;
-  await loadMoreBeerData(filters.value);
+  await loadMoreBeerData();
 };
 
 const makeInfiniteScrollInitialFetches = async (
@@ -172,12 +204,12 @@ const makeInfiniteScrollInitialFetches = async (
 
 const onNextClick = async (): Promise<void> => {
   pageNumber.value++;
-  await loadMoreBeerData(filters.value);
+  await loadMoreBeerData();
 };
 
 const onPrevClick = async (): Promise<void> => {
   pageNumber.value--;
-  await loadMoreBeerData(filters.value);
+  await loadMoreBeerData();
 };
 
 const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
@@ -185,6 +217,8 @@ const debouncedOnLoadInitialData = debounce(onLoadInitialData, 300);
 const onTableReset = (): void => {
   setTableInitialState();
   clearBeersState();
+  clearFilters();
+  areFiltersApply.value = false;
   wasBeerButtonEverClicked.value = false;
 };
 
@@ -196,7 +230,13 @@ const mainBeerButtonClickHandler = computed(() => {
 
 const onNavigationTypeChange = async (navigationType: TableNavigator) => {
   setTableInitialState();
-  await loadInitialBeerData();
+
+  if (areFiltersApply.value) {
+    await filterBeerData();
+  } else {
+    await loadInitialBeerData();
+  }
+
   activeTableNavigator.value = navigationType;
 };
 
@@ -244,6 +284,16 @@ watch(pageNumber, () => {
   }
   isSortWarningAlertOpen.value = true;
 });
+
+const onClear = async (): Promise<void> => {
+  clearFilters();
+  setTableInitialState();
+  await loadInitialBeerData();
+};
+
+const onFilter = async (): Promise<void> => {
+  await filterBeerData();
+};
 </script>
 
 <style lang="scss" module="style">
@@ -279,6 +329,9 @@ watch(pageNumber, () => {
 }
 
 .tableNavigationContainer {
+  display: flex;
+  justify-content: center;
+
   @include mixins.tablet {
     width: 100%;
   }
@@ -309,5 +362,11 @@ watch(pageNumber, () => {
     justify-content: center;
     margin: 0 0 4 * spacings.$spacing-unit 0;
   }
+}
+
+.filtersContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>

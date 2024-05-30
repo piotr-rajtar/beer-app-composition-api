@@ -162,16 +162,22 @@ export const useBeerStore = defineStore('beer', () => {
   const areFiltersApply = ref(false);
   const appliedFilters = ref<Filters>({});
 
+  const appliedFiltersWithNoEmptyStrings = computed<Filters>(() => {
+    return Object.fromEntries(
+      Object.entries(appliedFilters.value).filter(([, value]) => !!value)
+    );
+  });
+
   const clearFilters = () => {
     appliedFilters.value = {};
     areFiltersApply.value = false;
   };
 
-  const filterBeerData = async (filters: Filters): Promise<void> => {
+  const filterBeerData = async (): Promise<void> => {
     const queryParams: QueryParams = {
       page: pageNumber.value,
       per_page: itemsPerPage.value,
-      ...filters,
+      ...appliedFiltersWithNoEmptyStrings.value,
     };
     const queryKey: string = getQueryString(queryParams);
     const cachedPage: Beer[] | undefined = toRaw(
@@ -228,11 +234,11 @@ export const useBeerStore = defineStore('beer', () => {
     areDataLoading.value = false;
   };
 
-  const loadMoreBeerData = async (filters: Filters): Promise<void> => {
+  const loadMoreBeerData = async (): Promise<void> => {
     const queryParams: QueryParams = {
       page: pageNumber.value,
       per_page: itemsPerPage.value,
-      ...filters,
+      ...appliedFiltersWithNoEmptyStrings.value,
     };
     const queryKey: string = getQueryString(queryParams);
     const cachedPage: Beer[] | undefined = toRaw(
